@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
+using System.Collections.Generic;
 
 namespace RetroWar
 {
@@ -13,13 +15,33 @@ namespace RetroWar
         SpriteBatch spriteBatch;
 
         Texture2D tankTexture;
+        Texture2D groundTexture;
         Vector2 tankPosition;
+        List<Vector2> groundPositions;
         float tankSpeed;
+
+        float imageScaleX = 1.0f;
+        float imageScaleY = 1.0f;
 
         public MainGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            Window.AllowUserResizing = true;
+            Window.ClientSizeChanged += OnResize;
+        }
+
+        private void OnResize(Object sender, EventArgs e)
+        {
+            Console.WriteLine("In the resize event");
+
+            graphics.PreferredBackBufferWidth = Window.ClientBounds.Width;
+            graphics.PreferredBackBufferHeight = Window.ClientBounds.Height;
+
+            graphics.ApplyChanges();
+
+            imageScaleX = (Window.ClientBounds.Width * 1.0f) / 256.0f;
+            imageScaleY = (Window.ClientBounds.Height * 1.0f) / 240.0f;
         }
 
         /// <summary>
@@ -31,9 +53,25 @@ namespace RetroWar
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            tankPosition = new Vector2(graphics.PreferredBackBufferWidth / 2, graphics.PreferredBackBufferHeight / 2);
+            graphics.PreferredBackBufferWidth = 256;
+            graphics.PreferredBackBufferHeight = 240;
+            graphics.ApplyChanges();
+
+
+            tankPosition = new Vector2(graphics.PreferredBackBufferWidth / 4, graphics.PreferredBackBufferHeight / 4);
             tankSpeed = 100f;
 
+            Console.WriteLine($"Width: {graphics.PreferredBackBufferWidth }, Height: {graphics.PreferredBackBufferHeight }");
+
+            groundPositions = new List<Vector2>
+            {
+                new Vector2(0,226),
+                new Vector2(16,226),
+                new Vector2(32,226),
+                new Vector2(48,226),
+                new Vector2(64,226),
+                new Vector2(80,194)
+            };
 
             base.Initialize();
         }
@@ -49,6 +87,7 @@ namespace RetroWar
 
             // TODO: use this.Content to load your game content here
             tankTexture = Content.Load<Texture2D>("Sprites/tankv1");
+            groundTexture = Content.Load<Texture2D>("Sprites/ground1");
         }
 
         /// <summary>
@@ -102,10 +141,16 @@ namespace RetroWar
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.Clear(new Color(164, 228, 252));
 
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Immediate, samplerState: SamplerState.PointClamp, transformMatrix: Matrix.CreateScale(imageScaleX, imageScaleY, 1.0f));
+
+            foreach (var position in groundPositions)
+            {
+                spriteBatch.Draw(groundTexture, position, Color.White);
+            }
+
             spriteBatch.Draw(tankTexture, tankPosition, Color.White);
             spriteBatch.End();
 
