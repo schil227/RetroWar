@@ -1,0 +1,66 @@
+﻿[
+  {
+    "ActionDataId": "tankv1",
+    "ActionData": [
+      {
+        "Action": "Idle",
+        "TotalSequences": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/tankv1",
+                "RelativeX": 0,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "ActionDataId": "ground1",
+    "ActionData": [
+      {
+        "Action": "Idle",
+        "TotalSequences": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/ground1",
+                "RelativeX": 0,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]

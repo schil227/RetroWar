@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using RetroWar.Services.Implementations.Helpers;
+using RetroWar.Services.Implementations.Loaders;
+using RetroWar.Services.Interfaces.Helpers;
+using RetroWar.Services.Interfaces.Loaders;
 
 namespace RetroWar
 {
@@ -12,6 +11,9 @@ namespace RetroWar
         public static void AddServices(this IServiceCollection services)
         {
             services.AddSingleton<MainGame>();
+            services.AddSingleton<IStreamHelper, StreamHelper>();
+            services.AddSingleton<IActionDataLoader, ActionDataLoader>();
+            services.AddSingleton<ISpriteLoader, SpriteLoader>();
         }
     }
 }

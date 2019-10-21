@@ -1,0 +1,72 @@
+﻿[
+  {
+    "SpriteId": "tank",
+    "Sprite": {
+      "X": 127,
+      "Y": 120,
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "tankv1"
+    }
+  },
+  {
+    "SpriteId": "ground1",
+    "Sprite": {
+      "X": 0,
+      "Y": 226,
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1"
+    }
+  },
+  {
+    "SpriteId": "ground2",
+    "Sprite": {
+      "X": 16,
+      "Y": 226,
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1"
+    }
+  },
+  {
+    "SpriteId": "ground3",
+    "Sprite": {
+      "X": 32,
+      "Y": 226,
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1"
+    }
+  },
+  {
+    "SpriteId": "ground4",
+    "Sprite": {
+      "X": 48,
+      "Y": 226,
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1"
+    }
+  },
+  {
+    "SpriteId": "ground5",
+    "Sprite": {
+      "X": 64,
+      "Y": 226,
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1"
+    }
+  },
+  {
+    "SpriteId": "ground6",
+    "Sprite": {
+      "X": 80,
+      "Y": 194,
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1"
+    }
+  }
+]
