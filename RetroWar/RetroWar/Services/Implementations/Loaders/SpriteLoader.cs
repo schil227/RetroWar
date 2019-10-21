@@ -9,16 +9,16 @@ namespace RetroWar.Services.Implementations.Loaders
 {
     internal class SpriteLoader : ISpriteLoader
     {
-        private readonly IStreamHelper streamHelper;
+        private readonly IStreamReader streamReader;
 
-        public SpriteLoader(IStreamHelper streamHelper)
+        public SpriteLoader(IStreamReader streamReader)
         {
-            this.streamHelper = streamHelper;
+            this.streamReader = streamReader;
         }
 
         public SpriteDatabaseItem[] LoadSprites(string SpriteFileName)
         {
-            var spriteLoaderJson = streamHelper.ReadFile(SpriteFileName);
+            var spriteLoaderJson = streamReader.ReadFile(SpriteFileName);
 
             var actionData = JsonConvert.DeserializeObject<SpriteDatabaseItem[]>(spriteLoaderJson);
 
@@ -26,7 +26,7 @@ namespace RetroWar.Services.Implementations.Loaders
 
             if (duplicateIds?.Count() > 0)
             {
-                throw new SpriteLoaderException($"Duplicate IDs found when loading Sprites. Ids: {string.Join(",", duplicateIds)}");
+                throw new SpriteLoaderException($"Duplicate IDs found when loading Sprites. Ids: {string.Join(",", duplicateIds.Distinct())}");
             }
 
             return actionData;

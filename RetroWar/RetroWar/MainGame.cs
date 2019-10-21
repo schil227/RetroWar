@@ -1,8 +1,14 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RetroWar.Models.Repositories;
+using RetroWar.Models.Repositories.Sprites;
+using RetroWar.Models.Repositories.Textures;
+using RetroWar.Models.Sprites;
+using RetroWar.Services.Interfaces.Loaders;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RetroWar
 {
@@ -14,17 +20,36 @@ namespace RetroWar
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        Texture2D tankTexture;
-        Texture2D groundTexture;
-        Vector2 tankPosition;
-        List<Vector2> groundPositions;
+        private readonly ISpriteLoader spriteLoader;
+        private readonly IActionDataLoader actionDataLoader;
+        private readonly ITextureLoader textureLoader;
+
+        SpriteDatabase spriteDatabase;
+        ActionDataDatabase actionDataDatabase;
+        TextureDatabase textureDatabase;
+
+        Sprite playerSprite;
+        List<Sprite> groundSprites;
+
+        //Texture2D tankTexture;
+        //Texture2D groundTexture;
+        //Vector2 tankPosition;
+        //List<Vector2> groundPositions;
         float tankSpeed;
 
         float imageScaleX = 1.0f;
         float imageScaleY = 1.0f;
 
-        public MainGame()
+        public MainGame(
+            ISpriteLoader spriteLoader,
+            IActionDataLoader actionDataLoader,
+            ITextureLoader textureLoader
+            )
         {
+            this.spriteLoader = spriteLoader;
+            this.actionDataLoader = actionDataLoader;
+            this.textureLoader = textureLoader;
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             Window.AllowUserResizing = true;
@@ -58,20 +83,41 @@ namespace RetroWar
             graphics.ApplyChanges();
 
 
-            tankPosition = new Vector2(graphics.PreferredBackBufferWidth / 4, graphics.PreferredBackBufferHeight / 4);
+            //tankPosition = new Vector2(graphics.PreferredBackBufferWidth / 4, graphics.PreferredBackBufferHeight / 4);
             tankSpeed = 100f;
 
             Console.WriteLine($"Width: {graphics.PreferredBackBufferWidth }, Height: {graphics.PreferredBackBufferHeight }");
 
-            groundPositions = new List<Vector2>
+            //groundPositions = new List<Vector2>
+            //{
+            //    new Vector2(0,226),
+            //    new Vector2(16,226),
+            //    new Vector2(32,226),
+            //    new Vector2(48,226),
+            //    new Vector2(64,226),
+            //    new Vector2(80,194)
+            //};
+
+            spriteDatabase = new SpriteDatabase();
+            actionDataDatabase = new ActionDataDatabase();
+            textureDatabase = new TextureDatabase();
+
+            spriteDatabase.SpriteDatabaseItems = spriteLoader.LoadSprites("./Content/LoadingScripts/SpriteLoaderScript.json");
+            actionDataDatabase.ActionDataDatabaseItems = actionDataLoader.LoadActionData("./Content/LoadingScripts/ActionDataLoadingScript.json");
+            textureDatabase.TextureDatabaseItems = textureLoader.LoadTextures("./Content/LoadingScripts/TextureLoadingScript.json", Content);
+
+            foreach (var spriteData in spriteDatabase.SpriteDatabaseItems)
             {
-                new Vector2(0,226),
-                new Vector2(16,226),
-                new Vector2(32,226),
-                new Vector2(48,226),
-                new Vector2(64,226),
-                new Vector2(80,194)
-            };
+                spriteData.Sprite.ActionDataSet = actionDataDatabase.ActionDataDatabaseItems.First(a => string.Equals(spriteData.Sprite.ActionDataSetId, a.ActionDataId)).ActionData;
+            }
+
+            playerSprite = spriteDatabase.SpriteDatabaseItems.First(i => string.Equals(i.SpriteId, "tank")).Sprite;
+            groundSprites = spriteDatabase.SpriteDatabaseItems.Where(i => i.SpriteId.Contains("ground"))?.Select(s => s.Sprite).ToList();
+
+            if (groundSprites.Count == 0)
+            {
+                throw new Exception("No ground sprites found.");
+            }
 
             base.Initialize();
         }
@@ -86,8 +132,8 @@ namespace RetroWar
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             // TODO: use this.Content to load your game content here
-            tankTexture = Content.Load<Texture2D>("Sprites/tankv1");
-            groundTexture = Content.Load<Texture2D>("Sprites/ground1");
+            //tankTexture = Content.Load<Texture2D>("Sprites/tankv1");
+            //groundTexture = Content.Load<Texture2D>("Sprites/ground1");
         }
 
         /// <summary>
@@ -114,22 +160,22 @@ namespace RetroWar
 
             if (keyState.IsKeyDown(Keys.W))
             {
-                tankPosition.Y -= tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.Y -= tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             if (keyState.IsKeyDown(Keys.S))
             {
-                tankPosition.Y += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.Y += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             if (keyState.IsKeyDown(Keys.A))
             {
-                tankPosition.X -= tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.X -= tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             if (keyState.IsKeyDown(Keys.D))
             {
-                tankPosition.X += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.X += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             base.Update(gameTime);
@@ -146,12 +192,34 @@ namespace RetroWar
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate, samplerState: SamplerState.PointClamp, transformMatrix: Matrix.CreateScale(imageScaleX, imageScaleY, 1.0f));
 
-            foreach (var position in groundPositions)
+            //foreach (var position in groundPositions)
+            //{
+            //    spriteBatch.Draw(groundTexture, position, Color.White);
+            //}
+
+            //spriteBatch.Draw(tankTexture, tankPosition, Color.White);
+
+            foreach (var ground in groundSprites)
             {
-                spriteBatch.Draw(groundTexture, position, Color.White);
+                var textures = ground.ActionDataSet.First(a => a.Action == ground.CurrentAction)
+                    .ActionTextureSet.ElementAt(ground.CurrentSequence).TextureData;
+
+                foreach (var texture in textures)
+                {
+                    var position = new Vector2(ground.X + 16 * texture.RelativeX, ground.Y + 16 * texture.RelativeY);
+                    spriteBatch.Draw(textureDatabase.TextureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture, position, Color.White);
+                }
             }
 
-            spriteBatch.Draw(tankTexture, tankPosition, Color.White);
+            var playerTextures = playerSprite.ActionDataSet.First(a => a.Action == playerSprite.CurrentAction)
+                            .ActionTextureSet.ElementAt(playerSprite.CurrentSequence).TextureData;
+
+            foreach (var texture in playerTextures)
+            {
+                var position = new Vector2(playerSprite.X + 16 * texture.RelativeX, playerSprite.Y + 16 * texture.RelativeY);
+                spriteBatch.Draw(textureDatabase.TextureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture, position, Color.White);
+            }
+
             spriteBatch.End();
 
             base.Draw(gameTime);

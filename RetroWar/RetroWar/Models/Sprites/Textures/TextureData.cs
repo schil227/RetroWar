@@ -1,9 +1,14 @@
-﻿namespace RetroWar.Models.Sprites.Textures
+﻿using Newtonsoft.Json;
+
+namespace RetroWar.Models.Sprites.Textures
 {
     public class TextureData
     {
-        readonly public string TextureId;
-        readonly public int RelativeX;
-        readonly public int RelativeY;
+        [JsonProperty]
+        public string TextureId { get; private set; }
+        [JsonProperty]
+        public int RelativeX { get; private set; }
+        [JsonProperty]
+        public int RelativeY { get; private set; }
     }
 }

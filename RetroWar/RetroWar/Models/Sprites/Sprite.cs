@@ -4,11 +4,11 @@ namespace RetroWar.Models.Sprites
 {
     public class Sprite
     {
-        public int X;
-        public int Y;
+        public float X;
+        public float Y;
         public int CurrentSequence;
         public Action CurrentAction;
-        public int ActionDataSetId;
+        public string ActionDataSetId;
         public IEnumerable<ActionData> ActionDataSet;
     }
 }

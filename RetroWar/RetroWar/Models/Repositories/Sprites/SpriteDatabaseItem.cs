@@ -4,7 +4,7 @@ namespace RetroWar.Models.Repositories.Sprites
 {
     public class SpriteDatabaseItem
     {
-        public readonly string SpriteId;
+        public string SpriteId;
         public Sprite Sprite;
     }
 }

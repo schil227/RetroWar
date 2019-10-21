@@ -11,9 +11,10 @@ namespace RetroWar
         public static void AddServices(this IServiceCollection services)
         {
             services.AddSingleton<MainGame>();
-            services.AddSingleton<IStreamHelper, StreamHelper>();
+            services.AddSingleton<IStreamReader, StreamReader>();
             services.AddSingleton<IActionDataLoader, ActionDataLoader>();
             services.AddSingleton<ISpriteLoader, SpriteLoader>();
+            services.AddSingleton<ITextureLoader, TextureLoader>();
         }
     }
 }

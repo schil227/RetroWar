@@ -1,6 +1,6 @@
 ﻿namespace RetroWar.Services.Interfaces.Helpers
 {
-    public interface IStreamHelper
+    public interface IStreamReader
     {
         string ReadFile(string fileName);
     }

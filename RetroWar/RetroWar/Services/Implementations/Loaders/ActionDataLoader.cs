@@ -9,16 +9,16 @@ namespace RetroWar.Services.Implementations.Loaders
 {
     internal class ActionDataLoader : IActionDataLoader
     {
-        private readonly IStreamHelper streamHelper;
+        private readonly IStreamReader streamReader;
 
-        public ActionDataLoader(IStreamHelper streamHelper)
+        public ActionDataLoader(IStreamReader streamReader)
         {
-            this.streamHelper = streamHelper;
+            this.streamReader = streamReader;
         }
 
         public ActionDataDatabaseItem[] LoadActionData(string actionDataJsonFileName)
         {
-            var actionDataJson = streamHelper.ReadFile(actionDataJsonFileName);
+            var actionDataJson = streamReader.ReadFile(actionDataJsonFileName);
 
             var actionData = JsonConvert.DeserializeObject<ActionDataDatabaseItem[]>(actionDataJson);
 
@@ -26,7 +26,7 @@ namespace RetroWar.Services.Implementations.Loaders
 
             if (duplicateIds?.Count() > 0)
             {
-                throw new ActionDataLoaderException($"Duplicate IDs found when loading AcitonData. Ids: {string.Join(",", duplicateIds)}");
+                throw new ActionDataLoaderException($"Duplicate IDs found when loading AcitonData. Ids: {string.Join(",", duplicateIds.Distinct())}");
             }
 
             return actionData;

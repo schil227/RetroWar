@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace RetroWar.Models.Sprites.HitBoxes
 {
     public class HitBoxCollection
     {
-        readonly public IEnumerable<HitBox> HitBoxes;
+        [JsonProperty]
+        public IEnumerable<HitBox> HitBoxes { get; private set; }
     }
 }

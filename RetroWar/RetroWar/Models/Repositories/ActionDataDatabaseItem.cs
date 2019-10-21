@@ -5,7 +5,7 @@ namespace RetroWar.Models.Repositories
 {
     public class ActionDataDatabaseItem
     {
-        readonly public string ActionDataId;
-        readonly public IEnumerable<ActionData> ActionData;
+        public string ActionDataId;
+        public IEnumerable<ActionData> ActionData;
     }
 }
