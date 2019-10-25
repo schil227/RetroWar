@@ -5,6 +5,8 @@ using RetroWar.Models.Repositories;
 using RetroWar.Models.Repositories.Sprites;
 using RetroWar.Models.Repositories.Textures;
 using RetroWar.Models.Sprites;
+using RetroWar.Services.Interfaces.Collision;
+using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
 using System;
 using System.Collections.Generic;
@@ -23,6 +25,8 @@ namespace RetroWar
         private readonly ISpriteLoader spriteLoader;
         private readonly IActionDataLoader actionDataLoader;
         private readonly ITextureLoader textureLoader;
+        private readonly ISpriteHelper spriteHelper;
+        private readonly ICollisionService collisionService;
 
         SpriteDatabase spriteDatabase;
         ActionDataDatabase actionDataDatabase;
@@ -43,12 +47,16 @@ namespace RetroWar
         public MainGame(
             ISpriteLoader spriteLoader,
             IActionDataLoader actionDataLoader,
-            ITextureLoader textureLoader
+            ITextureLoader textureLoader,
+            ISpriteHelper spriteHelper,
+            ICollisionService collisionService
             )
         {
             this.spriteLoader = spriteLoader;
             this.actionDataLoader = actionDataLoader;
             this.textureLoader = textureLoader;
+            this.spriteHelper = spriteHelper;
+            this.collisionService = collisionService;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -178,6 +186,19 @@ namespace RetroWar
                 playerSprite.X += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
+            // Collision Handling
+
+            foreach (var ground in groundSprites)
+            {
+                // TODO: wrap all this up in one call to collision service
+                var collisions = collisionService.GetCollisions(playerSprite, ground);
+                if (collisions.Length > 0)
+                {
+                    Console.WriteLine($"Found {collisions.Length} collisions");
+                    collisionService.ResolveCollision(playerSprite, ground, collisions);
+                }
+            }
+
             base.Update(gameTime);
         }
 
@@ -201,8 +222,7 @@ namespace RetroWar
 
             foreach (var ground in groundSprites)
             {
-                var textures = ground.ActionDataSet.First(a => a.Action == ground.CurrentAction)
-                    .ActionTextureSet.ElementAt(ground.CurrentSequence).TextureData;
+                var textures = spriteHelper.GetCurrentTextureData(ground);
 
                 foreach (var texture in textures)
                 {
@@ -211,8 +231,7 @@ namespace RetroWar
                 }
             }
 
-            var playerTextures = playerSprite.ActionDataSet.First(a => a.Action == playerSprite.CurrentAction)
-                            .ActionTextureSet.ElementAt(playerSprite.CurrentSequence).TextureData;
+            var playerTextures = spriteHelper.GetCurrentTextureData(playerSprite);
 
             foreach (var texture in playerTextures)
             {
