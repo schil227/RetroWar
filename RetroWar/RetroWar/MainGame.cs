@@ -168,22 +168,22 @@ namespace RetroWar
 
             if (keyState.IsKeyDown(Keys.W))
             {
-                playerSprite.Y -= tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.deltaY -= tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             if (keyState.IsKeyDown(Keys.S))
             {
-                playerSprite.Y += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.deltaY += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             if (keyState.IsKeyDown(Keys.A))
             {
-                playerSprite.X -= tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.deltaX -= tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             if (keyState.IsKeyDown(Keys.D))
             {
-                playerSprite.X += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.deltaX += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
             }
 
             // Collision Handling
@@ -191,12 +191,29 @@ namespace RetroWar
             foreach (var ground in groundSprites)
             {
                 // TODO: wrap all this up in one call to collision service
-                var collisions = collisionService.GetCollisions(playerSprite, ground);
-                if (collisions.Length > 0)
+                playerSprite.Y += playerSprite.deltaY;
+                playerSprite.deltaY = 0;
+
+                playerSprite.X += playerSprite.deltaX;
+                playerSprite.deltaX = 0;
+
+
+                var yCollisions = collisionService.GetCollisions(playerSprite, ground);
+                if (yCollisions.Length > 0)
                 {
-                    Console.WriteLine($"Found {collisions.Length} collisions");
-                    collisionService.ResolveCollision(playerSprite, ground, collisions);
+                    Console.WriteLine($"Found {yCollisions.Length} collisions {gameTime.TotalGameTime}");
+                    collisionService.ResolveCollision(playerSprite, ground, yCollisions, false);
                 }
+
+                //playerSprite.X += playerSprite.deltaX;
+                //playerSprite.deltaX = 0;
+
+                //var xCollisions = collisionService.GetCollisions(playerSprite, ground);
+                //if (xCollisions.Length > 0)
+                //{
+                //    Console.WriteLine($"Found {xCollisions.Length} collisions");
+                //    collisionService.ResolveCollision(playerSprite, ground, xCollisions, true);
+                //}
             }
 
             base.Update(gameTime);
