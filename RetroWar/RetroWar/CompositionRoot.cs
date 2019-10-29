@@ -26,6 +26,7 @@ namespace RetroWar
             services.AddSingleton<IActionDataLoader, ActionDataLoader>();
             services.AddSingleton<ISpriteLoader, SpriteLoader>();
             services.AddSingleton<ITextureLoader, TextureLoader>();
+            services.AddSingleton<ITileLoader, TileLoader>();
 
             // Collision
             services.AddSingleton<ICollisionFinder, CollisionFinder>();

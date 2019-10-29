@@ -8,6 +8,7 @@ namespace RetroWar.Models.Sprites
         public float Y;
         public float deltaX;
         public float deltaY;
+        public string Name;
         public int CurrentSequence;
         public Action CurrentAction;
         public string ActionDataSetId;

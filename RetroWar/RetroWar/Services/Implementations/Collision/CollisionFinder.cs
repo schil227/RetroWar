@@ -33,10 +33,8 @@ namespace RetroWar.Services.Implementations.Collision
              * 
              * Bottom right corner of normal in base
              */
-            if (
-                nX <= bX && bX < nMaxX &&
-                nY <= bY && bY < nMaxY
-                )
+            if (nX <= bX && bX < nMaxX &&
+                nY <= bY && bY < nMaxY)
             {
                 collisionsFound.Add(
                     new CollisionResolution

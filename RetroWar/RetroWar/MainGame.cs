@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework.Input;
 using RetroWar.Models.Repositories;
 using RetroWar.Models.Repositories.Sprites;
 using RetroWar.Models.Repositories.Textures;
+using RetroWar.Models.Repositories.Tiles;
 using RetroWar.Models.Sprites;
+using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
@@ -26,20 +28,21 @@ namespace RetroWar
         private readonly IActionDataLoader actionDataLoader;
         private readonly ITextureLoader textureLoader;
         private readonly ISpriteHelper spriteHelper;
+        private readonly ITileLoader tileLoader;
         private readonly ICollisionService collisionService;
 
         SpriteDatabase spriteDatabase;
         ActionDataDatabase actionDataDatabase;
         TextureDatabase textureDatabase;
+        TileDatabase tileDatabase;
 
         Sprite playerSprite;
-        List<Sprite> groundSprites;
+        List<Tile> tiles;
 
-        //Texture2D tankTexture;
-        //Texture2D groundTexture;
-        //Vector2 tankPosition;
-        //List<Vector2> groundPositions;
         float tankSpeed;
+        float fallSum = 0;
+        float fallRate = 10;
+        bool isJumping = false;
 
         float imageScaleX = 1.0f;
         float imageScaleY = 1.0f;
@@ -48,6 +51,7 @@ namespace RetroWar
             ISpriteLoader spriteLoader,
             IActionDataLoader actionDataLoader,
             ITextureLoader textureLoader,
+            ITileLoader tileLoader,
             ISpriteHelper spriteHelper,
             ICollisionService collisionService
             )
@@ -55,6 +59,7 @@ namespace RetroWar
             this.spriteLoader = spriteLoader;
             this.actionDataLoader = actionDataLoader;
             this.textureLoader = textureLoader;
+            this.tileLoader = tileLoader;
             this.spriteHelper = spriteHelper;
             this.collisionService = collisionService;
 
@@ -73,8 +78,8 @@ namespace RetroWar
 
             graphics.ApplyChanges();
 
-            imageScaleX = (Window.ClientBounds.Width * 1.0f) / 256.0f;
-            imageScaleY = (Window.ClientBounds.Height * 1.0f) / 240.0f;
+            imageScaleX = (Window.ClientBounds.Width * 1.0f) / 256.0f * 2.4f;
+            imageScaleY = (Window.ClientBounds.Height * 1.0f) / 240.0f * 2.4f;
         }
 
         /// <summary>
@@ -109,8 +114,10 @@ namespace RetroWar
             spriteDatabase = new SpriteDatabase();
             actionDataDatabase = new ActionDataDatabase();
             textureDatabase = new TextureDatabase();
+            tileDatabase = new TileDatabase();
 
             spriteDatabase.SpriteDatabaseItems = spriteLoader.LoadSprites("./Content/LoadingScripts/SpriteLoaderScript.json");
+            tileDatabase.TileDatabaseItems = tileLoader.LoadTiles("./Content/LoadingScripts/TileLoaderScript.json");
             actionDataDatabase.ActionDataDatabaseItems = actionDataLoader.LoadActionData("./Content/LoadingScripts/ActionDataLoadingScript.json");
             textureDatabase.TextureDatabaseItems = textureLoader.LoadTextures("./Content/LoadingScripts/TextureLoadingScript.json", Content);
 
@@ -119,10 +126,15 @@ namespace RetroWar
                 spriteData.Sprite.ActionDataSet = actionDataDatabase.ActionDataDatabaseItems.First(a => string.Equals(spriteData.Sprite.ActionDataSetId, a.ActionDataId)).ActionData;
             }
 
-            playerSprite = spriteDatabase.SpriteDatabaseItems.First(i => string.Equals(i.SpriteId, "tank")).Sprite;
-            groundSprites = spriteDatabase.SpriteDatabaseItems.Where(i => i.SpriteId.Contains("ground"))?.Select(s => s.Sprite).ToList();
+            foreach (var tileData in tileDatabase.TileDatabaseItems)
+            {
+                tileData.Tile.ActionDataSet = actionDataDatabase.ActionDataDatabaseItems.First(a => string.Equals(tileData.Tile.ActionDataSetId, a.ActionDataId)).ActionData;
+            }
 
-            if (groundSprites.Count == 0)
+            playerSprite = spriteDatabase.SpriteDatabaseItems.First(i => string.Equals(i.SpriteId, "tank")).Sprite;
+            tiles = tileDatabase.TileDatabaseItems.Where(i => i.TileId.Contains("ground"))?.Select(s => s.Tile).ToList();
+
+            if (tiles.Count == 0)
             {
                 throw new Exception("No ground sprites found.");
             }
@@ -166,54 +178,66 @@ namespace RetroWar
             // TODO: Add your update logic here
             var keyState = Keyboard.GetState();
 
+            var deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             if (keyState.IsKeyDown(Keys.W))
             {
-                playerSprite.deltaY -= tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.deltaY -= tankSpeed * deltaT;
             }
 
-            if (keyState.IsKeyDown(Keys.S))
+            if (keyState.IsKeyDown(Keys.R))
             {
-                playerSprite.deltaY += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.X = 16;
+                playerSprite.Y = 140;
+                fallSum = 0;
             }
 
             if (keyState.IsKeyDown(Keys.A))
             {
-                playerSprite.deltaX -= tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.deltaX -= tankSpeed * deltaT;
             }
 
             if (keyState.IsKeyDown(Keys.D))
             {
-                playerSprite.deltaX += tankSpeed * (float)gameTime.ElapsedGameTime.TotalSeconds;
+                playerSprite.deltaX += tankSpeed * deltaT;
             }
 
-            // Collision Handling
+            if (keyState.IsKeyDown(Keys.J))
+            {
+                if (fallSum == 0 && isJumping == false)
+                {
+                    fallSum = -5;
+                    isJumping = true;
+                }
+            }
 
-            foreach (var ground in groundSprites)
+            fallSum += Math.Min(fallRate * deltaT, 10);
+            playerSprite.deltaY += fallSum;
+
+            // Collision Handling
+            playerSprite.Y += (int)playerSprite.deltaY;
+            playerSprite.deltaY = 0;
+
+            playerSprite.X += (int)playerSprite.deltaX;
+            playerSprite.deltaX = 0;
+
+            foreach (var ground in tiles)
             {
                 // TODO: wrap all this up in one call to collision service
-                playerSprite.Y += playerSprite.deltaY;
-                playerSprite.deltaY = 0;
-
-                playerSprite.X += playerSprite.deltaX;
-                playerSprite.deltaX = 0;
-
-
                 var yCollisions = collisionService.GetCollisions(playerSprite, ground);
                 if (yCollisions.Length > 0)
                 {
+                    var beforeY = playerSprite.Y;
                     Console.WriteLine($"Found {yCollisions.Length} collisions {gameTime.TotalGameTime}");
                     collisionService.ResolveCollision(playerSprite, ground, yCollisions, false);
+
+                    // resolution pushed sprite up, no longer falling
+                    if (playerSprite.Y < beforeY)
+                    {
+                        fallSum = 0;
+                        isJumping = false;
+                    }
                 }
-
-                //playerSprite.X += playerSprite.deltaX;
-                //playerSprite.deltaX = 0;
-
-                //var xCollisions = collisionService.GetCollisions(playerSprite, ground);
-                //if (xCollisions.Length > 0)
-                //{
-                //    Console.WriteLine($"Found {xCollisions.Length} collisions");
-                //    collisionService.ResolveCollision(playerSprite, ground, xCollisions, true);
-                //}
             }
 
             base.Update(gameTime);
@@ -237,7 +261,7 @@ namespace RetroWar
 
             //spriteBatch.Draw(tankTexture, tankPosition, Color.White);
 
-            foreach (var ground in groundSprites)
+            foreach (var ground in tiles)
             {
                 var textures = spriteHelper.GetCurrentTextureData(ground);
 

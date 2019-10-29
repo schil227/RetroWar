@@ -4,6 +4,6 @@ namespace RetroWar.Models.Repositories.Textures
 {
     public class TextureDatabase
     {
-        public IEnumerable<TextureDatabaseItem> TextureDatabaseItems;
+        public IEnumerable<TextureDatabaseItem> TextureDatabaseItems { get; set; }
     }
 }

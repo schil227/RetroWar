@@ -1,0 +1,137 @@
+﻿[
+  {
+    "TileId": "ground1",
+    "Tile": {
+      "X": 0,
+      "Y": 226,
+      "Name": "Ground #1",
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": false,
+      "HasTileToRight": true
+    }
+  },
+  {
+    "TileId": "ground2",
+    "Tile": {
+      "X": 16,
+      "Y": 226,
+      "Name": "Ground #2",
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": true,
+      "HasTileToRight": true
+    }
+  },
+  {
+    "TileId": "ground3",
+    "Tile": {
+      "X": 32,
+      "Y": 226,
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "Name": "Ground #3",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": true,
+      "HasTileToRight": true
+    }
+  },
+  {
+    "TileId": "ground4",
+    "Tile": {
+      "X": 48,
+      "Y": 226,
+      "Name": "Ground #4",
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": true,
+      "HasTileToRight": true
+    }
+  },
+  {
+    "TileId": "ground5",
+    "Tile": {
+      "X": 64,
+      "Y": 226,
+      "Name": "Ground #5",
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": true,
+      "HasTileToRight": true
+    }
+  },
+  {
+    "TileId": "ground6",
+    "Tile": {
+      "X": 80,
+      "Y": 226,
+      "Name": "Ground #6",
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": true,
+      "HasTileToRight": true
+    }
+  },
+  {
+    "TileId": "ground7",
+    "Tile": {
+      "X": 96,
+      "Y": 226,
+      "Name": "Ground #7",
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": true,
+      "HasTileToRight": false
+    }
+  },
+  {
+    "TileId": "ground8",
+    "Tile": {
+      "X": 80,
+      "Y": 193,
+      "Name": "Ground #8",
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": false,
+      "HasTileToRight": false
+    }
+  },
+  {
+    "TileId": "ground9",
+    "Tile": {
+      "X": 64,
+      "Y": 160,
+      "Name": "Ground #8",
+      "CurrentSequence": 0,
+      "Action": "Idle",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": false,
+      "HasTileToRight": false
+    }
+  }
+]
