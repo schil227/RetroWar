@@ -33,8 +33,10 @@ namespace RetroWar.Services.Implementations.Collision
              * 
              * Bottom right corner of normal in base
              */
-            if (nX <= bX && bX < nMaxX &&
-                nY <= bY && bY < nMaxY)
+            if (bX <= nMaxX && nMaxX < bMaxX &&
+                bY <= nMaxY && nMaxY < bMaxY)
+            //if (nX <= bX && bX < nMaxX &&
+            //    nY <= bY && bY < nMaxY)
             {
                 collisionsFound.Add(
                     new CollisionResolution
@@ -52,8 +54,10 @@ namespace RetroWar.Services.Implementations.Collision
              * └────┘
              * Bottom left corner of normal in base
              */
-            if (nX <= bMaxX && bMaxX < nMaxX &&
-               nY <= bY && bY < nMaxY)
+            if (bX <= nX && nX < bMaxX &&
+               bY <= nMaxY && nMaxY < bMaxY)
+            //if (nX <= bMaxX && bMaxX < nMaxX &&
+            //   nY <= bY && bY < nMaxY)
             {
                 collisionsFound.Add(
                     new CollisionResolution
@@ -72,8 +76,10 @@ namespace RetroWar.Services.Implementations.Collision
              * 
              * Top left corner of normal in base
              */
-            if (nX <= bMaxX && bMaxX < nMaxX &&
-                nY <= bMaxY && bMaxY < nMaxY)
+            if (bX <= nX && nX < bMaxX &&
+              bY <= nY && nY < bMaxY)
+            //if (nX <= bMaxX && bMaxX < nMaxX &&
+            //    nY <= bMaxY && bMaxY < nMaxY)
             {
                 collisionsFound.Add(new CollisionResolution
                 {
@@ -87,14 +93,16 @@ namespace RetroWar.Services.Implementations.Collision
             * ┌───┼* B |
             * | N └┼───┘
             * └────┘
-            * Top left corner of normal in base
+            * Top right corner of normal in base
             */
-            if (nX <= bX && bX < nMaxX &&
-                nY <= bMaxY && bMaxY < nMaxY)
+            if (bX <= nMaxX && nMaxX < bMaxX &&
+               bY <= nY && nY < bMaxY)
+            //if (nX <= bX && bX < nMaxX &&
+            //nY <= bMaxY && bMaxY < nMaxY)
             {
                 collisionsFound.Add(new CollisionResolution
                 {
-                    CollisionPoint = PointInCollision.TopLeft,
+                    CollisionPoint = PointInCollision.TopRight,
                     DeltaX = bX - nMaxX,
                     DeltaY = bMaxY - nY
                 });

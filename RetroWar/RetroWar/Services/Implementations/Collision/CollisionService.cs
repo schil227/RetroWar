@@ -48,7 +48,7 @@ namespace RetroWar.Services.Implementations.Collision
             return collisionResolutions.ToArray();
         }
 
-        public Resolution ResolveCollision(Sprite normal, Sprite based, CollisionResolution[] collisions, bool withRespectToX)
+        public Resolution ResolveCollision(Sprite normal, Sprite based, CollisionResolution[] collisions)
         {
             if (collisions.Length == 0)
             {
@@ -56,7 +56,7 @@ namespace RetroWar.Services.Implementations.Collision
             }
 
             var bestCollisionResolution = foundCollisionFilter.FindBestCollision(collisions);
-            return collisionResolver.ResolveCollision(normal, based, bestCollisionResolution, withRespectToX);
+            return collisionResolver.ResolveCollision(normal, based, bestCollisionResolution);
         }
     }
 }

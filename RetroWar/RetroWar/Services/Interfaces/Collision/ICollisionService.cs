@@ -6,6 +6,6 @@ namespace RetroWar.Services.Interfaces.Collision
     public interface ICollisionService
     {
         CollisionResolution[] GetCollisions(Sprite normal, Sprite based);
-        Resolution ResolveCollision(Sprite normal, Sprite based, CollisionResolution[] collisions, bool withRespectToX);
+        Resolution ResolveCollision(Sprite normal, Sprite based, CollisionResolution[] collisions);
     }
 }

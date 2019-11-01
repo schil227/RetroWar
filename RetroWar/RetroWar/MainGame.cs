@@ -78,8 +78,8 @@ namespace RetroWar
 
             graphics.ApplyChanges();
 
-            imageScaleX = (Window.ClientBounds.Width * 1.0f) / 256.0f * 2.4f;
-            imageScaleY = (Window.ClientBounds.Height * 1.0f) / 240.0f * 2.4f;
+            imageScaleX = (Window.ClientBounds.Width * 1.0f) / 256.0f;
+            imageScaleY = (Window.ClientBounds.Height * 1.0f) / 240.0f;
         }
 
         /// <summary>
@@ -90,26 +90,16 @@ namespace RetroWar
         /// </summary>
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             graphics.PreferredBackBufferWidth = 256;
             graphics.PreferredBackBufferHeight = 240;
             graphics.ApplyChanges();
 
+            imageScaleX = (Window.ClientBounds.Width * 1.0f) / 256.0f;
+            imageScaleY = (Window.ClientBounds.Height * 1.0f) / 240.0f;
 
-            //tankPosition = new Vector2(graphics.PreferredBackBufferWidth / 4, graphics.PreferredBackBufferHeight / 4);
             tankSpeed = 100f;
 
             Console.WriteLine($"Width: {graphics.PreferredBackBufferWidth }, Height: {graphics.PreferredBackBufferHeight }");
-
-            //groundPositions = new List<Vector2>
-            //{
-            //    new Vector2(0,226),
-            //    new Vector2(16,226),
-            //    new Vector2(32,226),
-            //    new Vector2(48,226),
-            //    new Vector2(64,226),
-            //    new Vector2(80,194)
-            //};
 
             spriteDatabase = new SpriteDatabase();
             actionDataDatabase = new ActionDataDatabase();
@@ -224,15 +214,15 @@ namespace RetroWar
             foreach (var ground in tiles)
             {
                 // TODO: wrap all this up in one call to collision service
-                var yCollisions = collisionService.GetCollisions(playerSprite, ground);
-                if (yCollisions.Length > 0)
+                var collisions = collisionService.GetCollisions(playerSprite, ground);
+                if (collisions.Length > 0)
                 {
                     var beforeY = playerSprite.Y;
-                    Console.WriteLine($"Found {yCollisions.Length} collisions {gameTime.TotalGameTime}");
-                    collisionService.ResolveCollision(playerSprite, ground, yCollisions, false);
+                    Console.WriteLine($"Found {collisions.Length} collisions {gameTime.TotalGameTime}");
+                    collisionService.ResolveCollision(playerSprite, ground, collisions);
 
                     // resolution pushed sprite up, no longer falling
-                    if (playerSprite.Y < beforeY)
+                    if (playerSprite.Y != beforeY)
                     {
                         fallSum = 0;
                         isJumping = false;
