@@ -35,8 +35,6 @@ namespace RetroWar.Services.Implementations.Collision
              */
             if (bX <= nMaxX && nMaxX < bMaxX &&
                 bY <= nMaxY && nMaxY < bMaxY)
-            //if (nX <= bX && bX < nMaxX &&
-            //    nY <= bY && bY < nMaxY)
             {
                 collisionsFound.Add(
                     new CollisionResolution
@@ -56,8 +54,6 @@ namespace RetroWar.Services.Implementations.Collision
              */
             if (bX <= nX && nX < bMaxX &&
                bY <= nMaxY && nMaxY < bMaxY)
-            //if (nX <= bMaxX && bMaxX < nMaxX &&
-            //   nY <= bY && bY < nMaxY)
             {
                 collisionsFound.Add(
                     new CollisionResolution
@@ -78,8 +74,6 @@ namespace RetroWar.Services.Implementations.Collision
              */
             if (bX <= nX && nX < bMaxX &&
               bY <= nY && nY < bMaxY)
-            //if (nX <= bMaxX && bMaxX < nMaxX &&
-            //    nY <= bMaxY && bMaxY < nMaxY)
             {
                 collisionsFound.Add(new CollisionResolution
                 {
@@ -97,8 +91,6 @@ namespace RetroWar.Services.Implementations.Collision
             */
             if (bX <= nMaxX && nMaxX < bMaxX &&
                bY <= nY && nY < bMaxY)
-            //if (nX <= bX && bX < nMaxX &&
-            //nY <= bMaxY && bMaxY < nMaxY)
             {
                 collisionsFound.Add(new CollisionResolution
                 {
