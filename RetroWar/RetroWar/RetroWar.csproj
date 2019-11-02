@@ -61,6 +61,7 @@
     <Compile Include="Models\Repositories\Textures\TextureDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Tiles\TileDatabase.cs" />
     <Compile Include="Models\Repositories\Tiles\TileDatabaseItem.cs" />
+    <Compile Include="Models\UserInterface\Screen.cs" />
     <Compile Include="Models\Sprites\Action.cs" />
     <Compile Include="Models\Sprites\ActionData.cs" />
     <Compile Include="Models\Sprites\HitBoxes\HitBox.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Services\Implementations\Loaders\SpriteLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TextureLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TileLoader.cs" />
+    <Compile Include="Services\Implementations\UserInterface\ScreenService.cs" />
     <Compile Include="Services\Interfaces\Collision\ICollisionFinder.cs" />
     <Compile Include="Services\Interfaces\Collision\ICollisionService.cs" />
     <Compile Include="Services\Interfaces\Collision\IFoundCollisionFilter.cs" />
@@ -93,6 +95,7 @@
     <Compile Include="Services\Interfaces\Loaders\ISpriteLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\ITextureLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\ITileLoader.cs" />
+    <Compile Include="Services\Interfaces\UserInterface\IScreenService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">

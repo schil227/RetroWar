@@ -4,11 +4,13 @@ using RetroWar.Services.Implementations.Collision.Resolvers;
 using RetroWar.Services.Implementations.Helpers;
 using RetroWar.Services.Implementations.Helpers.Model;
 using RetroWar.Services.Implementations.Loaders;
+using RetroWar.Services.Implementations.UserInterface;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
 using RetroWar.Services.Interfaces.Helpers;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
+using RetroWar.Services.Interfaces.UserInterface;
 
 namespace RetroWar
 {
@@ -27,6 +29,9 @@ namespace RetroWar
             services.AddSingleton<ISpriteLoader, SpriteLoader>();
             services.AddSingleton<ITextureLoader, TextureLoader>();
             services.AddSingleton<ITileLoader, TileLoader>();
+
+            // User Interface
+            services.AddSingleton<IScreenService, ScreenService>();
 
             // Collision
             services.AddSingleton<ICollisionFinder, CollisionFinder>();

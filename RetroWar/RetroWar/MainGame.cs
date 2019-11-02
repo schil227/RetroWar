@@ -5,11 +5,13 @@ using RetroWar.Models.Repositories;
 using RetroWar.Models.Repositories.Sprites;
 using RetroWar.Models.Repositories.Textures;
 using RetroWar.Models.Repositories.Tiles;
+using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
+using RetroWar.Services.Interfaces.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,11 +32,14 @@ namespace RetroWar
         private readonly ISpriteHelper spriteHelper;
         private readonly ITileLoader tileLoader;
         private readonly ICollisionService collisionService;
+        private readonly IScreenService screenService;
 
         SpriteDatabase spriteDatabase;
         ActionDataDatabase actionDataDatabase;
         TextureDatabase textureDatabase;
         TileDatabase tileDatabase;
+
+        Screen screen;
 
         Sprite playerSprite;
         List<Tile> tiles;
@@ -53,7 +58,8 @@ namespace RetroWar
             ITextureLoader textureLoader,
             ITileLoader tileLoader,
             ISpriteHelper spriteHelper,
-            ICollisionService collisionService
+            ICollisionService collisionService,
+            IScreenService screenService
             )
         {
             this.spriteLoader = spriteLoader;
@@ -62,6 +68,7 @@ namespace RetroWar
             this.tileLoader = tileLoader;
             this.spriteHelper = spriteHelper;
             this.collisionService = collisionService;
+            this.screenService = screenService;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -90,12 +97,18 @@ namespace RetroWar
         /// </summary>
         protected override void Initialize()
         {
-            graphics.PreferredBackBufferWidth = 256;
-            graphics.PreferredBackBufferHeight = 240;
+            screen = new Screen
+            {
+                X = 0,
+                Y = 0
+            };
+
+            graphics.PreferredBackBufferWidth = screen.Width;
+            graphics.PreferredBackBufferHeight = screen.Height;
             graphics.ApplyChanges();
 
-            imageScaleX = (Window.ClientBounds.Width * 1.0f) / 256.0f;
-            imageScaleY = (Window.ClientBounds.Height * 1.0f) / 240.0f;
+            imageScaleX = (Window.ClientBounds.Width * 1.0f) / screen.Width * 1.0f;
+            imageScaleY = (Window.ClientBounds.Height * 1.0f) / screen.Height * 1f;
 
             tankSpeed = 100f;
 
@@ -230,6 +243,8 @@ namespace RetroWar
                 }
             }
 
+            screenService.ScrollScreen(screen, playerSprite);
+
             base.Update(gameTime);
         }
 
@@ -257,7 +272,7 @@ namespace RetroWar
 
                 foreach (var texture in textures)
                 {
-                    var position = new Vector2(ground.X + 16 * texture.RelativeX, ground.Y + 16 * texture.RelativeY);
+                    var position = new Vector2((ground.X + 16 * texture.RelativeX) - screen.X, (ground.Y + 16 * texture.RelativeY) - screen.Y);
                     spriteBatch.Draw(textureDatabase.TextureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture, position, Color.White);
                 }
             }
@@ -266,7 +281,7 @@ namespace RetroWar
 
             foreach (var texture in playerTextures)
             {
-                var position = new Vector2(playerSprite.X + 16 * texture.RelativeX, playerSprite.Y + 16 * texture.RelativeY);
+                var position = new Vector2((playerSprite.X + 16 * texture.RelativeX) - screen.X, (playerSprite.Y + 16 * texture.RelativeY) - screen.Y);
                 spriteBatch.Draw(textureDatabase.TextureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture, position, Color.White);
             }
 
