@@ -3,6 +3,7 @@ using RetroWar.Exceptions.Implementations.Loaders;
 using RetroWar.Models.Repositories.Sprites;
 using RetroWar.Services.Interfaces.Helpers;
 using RetroWar.Services.Interfaces.Loaders;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RetroWar.Services.Implementations.Loaders
@@ -20,16 +21,31 @@ namespace RetroWar.Services.Implementations.Loaders
         {
             var spriteLoaderJson = streamReader.ReadFile(SpriteFileName);
 
-            var actionData = JsonConvert.DeserializeObject<SpriteDatabaseItem[]>(spriteLoaderJson);
+            var spriteData = JsonConvert.DeserializeObject<SpriteDatabaseItem[]>(spriteLoaderJson);
 
-            var duplicateIds = actionData.GroupBy(a => a.SpriteId).Where(g => g.Count() > 1)?.Select(i => i.Key);
+            var duplicateIds = spriteData.GroupBy(a => a.SpriteId).Where(g => g.Count() > 1)?.Select(i => i.Key);
 
             if (duplicateIds?.Count() > 0)
             {
                 throw new SpriteLoaderException($"Duplicate IDs found when loading Sprites. Ids: {string.Join(",", duplicateIds.Distinct())}");
             }
 
-            return actionData;
+            var nonMatchingIds = new List<string>();
+
+            foreach (var item in spriteData)
+            {
+                if (!string.Equals(item.SpriteId, item.Sprite.SpriteId))
+                {
+                    nonMatchingIds.Add(item.SpriteId);
+                }
+            }
+
+            if (nonMatchingIds.Count > 0)
+            {
+                throw new SpriteLoaderException($"Sprites found with non-matching Ids. Update sprites with the following Ids to be the same: {string.Join(",", nonMatchingIds)}");
+            }
+
+            return spriteData;
         }
     }
 }

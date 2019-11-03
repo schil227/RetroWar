@@ -51,8 +51,11 @@
     <Compile Include="Exceptions\Implementations\Loaders\TileLoaderException.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Models\Collisions\CollisionResolution.cs" />
+    <Compile Include="Models\Collisions\Grid\GridContainer.cs" />
+    <Compile Include="Models\Collisions\Grid\GridContainerSpriteType.cs" />
     <Compile Include="Models\Collisions\PointInCollision.cs" />
     <Compile Include="Models\Collisions\Resolution.cs" />
+    <Compile Include="Models\Common\Point.cs" />
     <Compile Include="Models\Repositories\ActionDataDatabase.cs" />
     <Compile Include="Models\Repositories\ActionDataDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Sprites\SpriteDatabase.cs" />
@@ -75,6 +78,9 @@
     <Compile Include="Services\Implementations\Collision\CollisionFinder.cs" />
     <Compile Include="Services\Implementations\Collision\CollisionService.cs" />
     <Compile Include="Services\Implementations\Collision\FoundCollisionFilter.cs" />
+    <Compile Include="Services\Implementations\Collision\Grid\GridHandler.cs" />
+    <Compile Include="Services\Implementations\Collision\Grid\GridService.cs" />
+    <Compile Include="Services\Implementations\Collision\Grid\SpacialHashingService.cs" />
     <Compile Include="Services\Implementations\Collision\MultiPointCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\CollisionResolver.cs" />
     <Compile Include="Services\Implementations\Helpers\Model\SpriteHelper.cs" />
@@ -84,6 +90,9 @@
     <Compile Include="Services\Implementations\Loaders\TextureLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TileLoader.cs" />
     <Compile Include="Services\Implementations\UserInterface\ScreenService.cs" />
+    <Compile Include="Services\Interfaces\Collision\Grid\IGridHandler.cs" />
+    <Compile Include="Services\Interfaces\Collision\Grid\IGridService.cs" />
+    <Compile Include="Services\Interfaces\Collision\Grid\ISpacialHashingService.cs" />
     <Compile Include="Services\Interfaces\Collision\ICollisionFinder.cs" />
     <Compile Include="Services\Interfaces\Collision\ICollisionService.cs" />
     <Compile Include="Services\Interfaces\Collision\IFoundCollisionFilter.cs" />

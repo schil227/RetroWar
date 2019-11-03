@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RetroWar.Models.Collisions.Grid;
 using RetroWar.Models.Repositories;
 using RetroWar.Models.Repositories.Sprites;
 using RetroWar.Models.Repositories.Textures;
@@ -9,6 +10,7 @@ using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Services.Interfaces.Collision;
+using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
 using RetroWar.Services.Interfaces.UserInterface;
@@ -33,11 +35,13 @@ namespace RetroWar
         private readonly ITileLoader tileLoader;
         private readonly ICollisionService collisionService;
         private readonly IScreenService screenService;
+        private readonly IGridHandler gridHandler;
 
         SpriteDatabase spriteDatabase;
         ActionDataDatabase actionDataDatabase;
         TextureDatabase textureDatabase;
         TileDatabase tileDatabase;
+        Dictionary<Tuple<int, int>, GridContainer> gridHash;
 
         Screen screen;
 
@@ -59,7 +63,8 @@ namespace RetroWar
             ITileLoader tileLoader,
             ISpriteHelper spriteHelper,
             ICollisionService collisionService,
-            IScreenService screenService
+            IScreenService screenService,
+            IGridHandler gridHandler
             )
         {
             this.spriteLoader = spriteLoader;
@@ -69,6 +74,7 @@ namespace RetroWar
             this.spriteHelper = spriteHelper;
             this.collisionService = collisionService;
             this.screenService = screenService;
+            this.gridHandler = gridHandler;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -142,6 +148,8 @@ namespace RetroWar
                 throw new Exception("No ground sprites found.");
             }
 
+            gridHash = gridHandler.InitializeGrid(playerSprite, tiles);
+
             base.Initialize();
         }
 
@@ -214,6 +222,9 @@ namespace RetroWar
                 }
             }
 
+            var previousPlayerX = playerSprite.X;
+            var previousPlayerY = playerSprite.Y;
+
             fallSum += Math.Min(fallRate * deltaT, 10);
             playerSprite.deltaY += fallSum;
 
@@ -224,22 +235,46 @@ namespace RetroWar
             playerSprite.X += (int)playerSprite.deltaX;
             playerSprite.deltaX = 0;
 
-            foreach (var ground in tiles)
-            {
-                // TODO: wrap all this up in one call to collision service
-                var collisions = collisionService.GetCollisions(playerSprite, ground);
-                if (collisions.Length > 0)
-                {
-                    var beforeY = playerSprite.Y;
-                    Console.WriteLine($"Found {collisions.Length} collisions {gameTime.TotalGameTime}");
-                    collisionService.ResolveCollision(playerSprite, ground, collisions);
+            gridHandler.MoveSprite(gridHash, playerSprite, GridContainerSpriteType.Player, (int)previousPlayerX, (int)previousPlayerY);
 
-                    // resolution pushed sprite up, no longer falling
-                    if (playerSprite.Y != beforeY)
+            var collidedSprites = new Dictionary<string, string>();
+
+            var boxes = gridHandler.GetGridsFromPoints(gridHash, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
+
+            foreach (var box in boxes)
+            {
+                if (box.PlayerSprite == null)
+                {
+                    continue;
+                }
+
+                foreach (var ground in (box.TileSprites.Values.ToList()))
+                {
+                    // Already collided, skip.
+                    if (collidedSprites.ContainsKey(box.PlayerSprite.SpriteId + "_" + ground.SpriteId))
                     {
-                        fallSum = 0;
-                        isJumping = false;
+                        continue;
                     }
+
+                    Console.WriteLine($"Num Boxes: {box.TileSprites.Values.ToList().Count()}");
+
+                    // TODO: wrap all this up in one call to collision service
+                    var collisions = collisionService.GetCollisions(playerSprite, ground);
+                    if (collisions.Length > 0)
+                    {
+                        var beforeY = playerSprite.Y;
+                        Console.WriteLine($"Found {collisions.Length} collisions {gameTime.TotalGameTime}");
+                        collisionService.ResolveCollision(playerSprite, ground, collisions);
+
+                        // resolution pushed sprite up, no longer falling
+                        if (playerSprite.Y != beforeY)
+                        {
+                            fallSum = 0;
+                            isJumping = false;
+                        }
+                    }
+
+                    collidedSprites.Add(box.PlayerSprite.SpriteId + "_" + ground.SpriteId, "resolved.");
                 }
             }
 

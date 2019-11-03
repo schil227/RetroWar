@@ -4,110 +4,11 @@
     "Sprite": {
       "X": 16,
       "Y": 120,
+      "SpriteId": "tank",
       "Name": "Player Tank",
       "CurrentSequence": 0,
       "Action": "Idle",
       "ActionDataSetId": "tankv1"
     }
-  },
-  {
-    "SpriteId": "ground1",
-    "Sprite": {
-      "X": 0,
-      "Y": 226,
-      "Name": "Ground #1",
-      "CurrentSequence": 0,
-      "Action": "Idle",
-      "ActionDataSetId": "ground1"
-    }
-  },
-  {
-    "SpriteId": "ground2",
-    "Sprite": {
-      "X": 16,
-      "Y": 226,
-      "Name": "Ground #2",
-      "CurrentSequence": 0,
-      "Action": "Idle",
-      "ActionDataSetId": "ground1"
-    }
-  },
-  {
-    "SpriteId": "ground3",
-    "Sprite": {
-      "X": 32,
-      "Y": 226,
-      "CurrentSequence": 0,
-      "Action": "Idle",
-      "Name": "Ground #3",
-      "ActionDataSetId": "ground1"
-    }
-  },
-  {
-    "SpriteId": "ground4",
-    "Sprite": {
-      "X": 48,
-      "Y": 226,
-      "Name": "Ground #4",
-      "CurrentSequence": 0,
-      "Action": "Idle",
-      "ActionDataSetId": "ground1"
-    }
-  },
-  {
-    "SpriteId": "ground5",
-    "Sprite": {
-      "X": 64,
-      "Y": 226,
-      "Name": "Ground #5",
-      "CurrentSequence": 0,
-      "Action": "Idle",
-      "ActionDataSetId": "ground1"
-    }
-  },
-  {
-    "SpriteId": "ground6",
-    "Sprite": {
-      "X": 80,
-      "Y": 226,
-      "Name": "Ground #6",
-      "CurrentSequence": 0,
-      "Action": "Idle",
-      "ActionDataSetId": "ground1"
-    }
-  },
-  {
-    "SpriteId": "ground7",
-    "Sprite": {
-      "X": 96,
-      "Y": 226,
-      "Name": "Ground #7",
-      "CurrentSequence": 0,
-      "Action": "Idle",
-      "ActionDataSetId": "ground1"
-    }
-  },
-  {
-    "SpriteId": "ground8",
-    "Sprite": {
-      "X": 80,
-      "Y": 193,
-      "Name": "Ground #8",
-      "CurrentSequence": 0,
-      "Action": "Idle",
-      "ActionDataSetId": "ground1"
-    }
-  },
-  {
-    "SpriteId": "ground9",
-    "Sprite": {
-      "X": 64,
-      "Y": 160,
-      "Name": "Ground #8",
-      "CurrentSequence": 0,
-      "Action": "Idle",
-      "ActionDataSetId": "ground1"
-    }
-
   }
 ]

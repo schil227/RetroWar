@@ -30,6 +30,21 @@ namespace RetroWar.Services.Implementations.Loaders
                 throw new TileLoaderException($"Duplicate IDs found when loading Tiles. Ids: {string.Join(",", duplicateIds.Distinct())}");
             }
 
+            var nonMatchingIds = new List<string>();
+
+            foreach (var item in tileData)
+            {
+                if (!string.Equals(item.TileId, item.Tile.SpriteId))
+                {
+                    nonMatchingIds.Add(item.TileId);
+                }
+            }
+
+            if (nonMatchingIds.Count > 0)
+            {
+                throw new TileLoaderException($"Sprites found with non-matching Ids. Update sprites with the following Ids to be the same: {string.Join(",", nonMatchingIds)}");
+            }
+
             return tileData;
         }
     }
