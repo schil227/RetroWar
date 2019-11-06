@@ -248,10 +248,10 @@ namespace RetroWar
                     continue;
                 }
 
-                foreach (var ground in (box.TileSprites.Values.ToList()))
+                foreach (var tile in (box.TileSprites.Values.ToList()))
                 {
                     // Already collided, skip.
-                    if (collidedSprites.ContainsKey(box.PlayerSprite.SpriteId + "_" + ground.SpriteId))
+                    if (collidedSprites.ContainsKey(box.PlayerSprite.SpriteId + "_" + tile.SpriteId))
                     {
                         continue;
                     }
@@ -259,12 +259,12 @@ namespace RetroWar
                     Console.WriteLine($"Num Boxes: {box.TileSprites.Values.ToList().Count()}");
 
                     // TODO: wrap all this up in one call to collision service
-                    var collisions = collisionService.GetCollisions(playerSprite, ground);
+                    var collisions = collisionService.GetCollisions(playerSprite, tile);
                     if (collisions.Length > 0)
                     {
                         var beforeY = playerSprite.Y;
                         Console.WriteLine($"Found {collisions.Length} collisions {gameTime.TotalGameTime}");
-                        collisionService.ResolveCollision(playerSprite, ground, collisions);
+                        collisionService.ResolveCollision(playerSprite, tile, collisions);
 
                         // resolution pushed sprite up, no longer falling
                         if (playerSprite.Y != beforeY)
@@ -274,7 +274,7 @@ namespace RetroWar
                         }
                     }
 
-                    collidedSprites.Add(box.PlayerSprite.SpriteId + "_" + ground.SpriteId, "resolved.");
+                    collidedSprites.Add(box.PlayerSprite.SpriteId + "_" + tile.SpriteId, "resolved.");
                 }
             }
 
@@ -294,21 +294,27 @@ namespace RetroWar
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate, samplerState: SamplerState.PointClamp, transformMatrix: Matrix.CreateScale(imageScaleX, imageScaleY, 1.0f));
 
-            //foreach (var position in groundPositions)
-            //{
-            //    spriteBatch.Draw(groundTexture, position, Color.White);
-            //}
+            var boxes = gridHandler.GetGridsFromPoints(gridHash, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
+            var drawnSprites = new Dictionary<string, string>();
 
-            //spriteBatch.Draw(tankTexture, tankPosition, Color.White);
-
-            foreach (var ground in tiles)
+            foreach (var box in boxes)
             {
-                var textures = spriteHelper.GetCurrentTextureData(ground);
-
-                foreach (var texture in textures)
+                foreach (var tile in box.TileSprites.Values.ToList())
                 {
-                    var position = new Vector2((ground.X + 16 * texture.RelativeX) - screen.X, (ground.Y + 16 * texture.RelativeY) - screen.Y);
-                    spriteBatch.Draw(textureDatabase.TextureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture, position, Color.White);
+                    if (drawnSprites.ContainsKey(tile.SpriteId))
+                    {
+                        continue;
+                    }
+
+                    var textures = spriteHelper.GetCurrentTextureData(tile);
+
+                    foreach (var texture in textures)
+                    {
+                        var position = new Vector2((tile.X + 16 * texture.RelativeX) - screen.X, (tile.Y + 16 * texture.RelativeY) - screen.Y);
+                        spriteBatch.Draw(textureDatabase.TextureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture, position, Color.White);
+                    }
+
+                    drawnSprites.Add(tile.SpriteId, "drawn");
                 }
             }
 
