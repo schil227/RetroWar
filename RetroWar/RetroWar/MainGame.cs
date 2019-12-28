@@ -7,6 +7,7 @@ using RetroWar.Models.Repositories;
 using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Tiles;
+using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Helpers.Model;
@@ -30,6 +31,8 @@ namespace RetroWar
         private readonly IGridHandler gridHandler;
         private readonly IContentLoader contentLoader;
         private readonly IDrawService drawService;
+        private readonly ISequenceService sequenceService;
+        private readonly IActionService actionService;
 
         ContentDatabase contentDatabase;
         Stage stage;
@@ -51,7 +54,9 @@ namespace RetroWar
             ICollisionService collisionService,
             IScreenService screenService,
             IGridHandler gridHandler,
-            IDrawService drawService
+            IDrawService drawService,
+            ISequenceService sequenceService,
+            IActionService actionService
             )
         {
             this.contentLoader = contentLoader;
@@ -60,6 +65,8 @@ namespace RetroWar
             this.screenService = screenService;
             this.gridHandler = gridHandler;
             this.drawService = drawService;
+            this.sequenceService = sequenceService;
+            this.actionService = actionService;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -198,14 +205,14 @@ namespace RetroWar
             {
                 if (playerSprite.CurrentAction == Action.Idle)
                 {
-                    spriteHelper.SetAction(playerSprite, Action.Move);
+                    actionService.SetAction(playerSprite, Action.Move);
                 }
             }
             else
             {
                 if (playerSprite.CurrentAction == Action.Move)
                 {
-                    spriteHelper.SetAction(playerSprite, Action.Idle);
+                    actionService.SetAction(playerSprite, Action.Idle);
                 }
             }
 
@@ -267,7 +274,7 @@ namespace RetroWar
 
             screenService.ScrollScreen(screen, playerSprite);
 
-            spriteHelper.UpdateActionSequence(playerSprite, deltaT * 1000);
+            sequenceService.UpdateActionSequence(playerSprite, deltaT * 1000);
 
             base.Update(gameTime);
         }

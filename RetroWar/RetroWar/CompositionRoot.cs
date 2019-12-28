@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using RetroWar.Services.Implementations.Actions;
 using RetroWar.Services.Implementations.Collision;
 using RetroWar.Services.Implementations.Collision.Grid;
 using RetroWar.Services.Implementations.Collision.Resolvers;
@@ -7,6 +8,7 @@ using RetroWar.Services.Implementations.Helpers;
 using RetroWar.Services.Implementations.Helpers.Model;
 using RetroWar.Services.Implementations.Loaders;
 using RetroWar.Services.Implementations.UserInterface;
+using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
@@ -24,6 +26,10 @@ namespace RetroWar
         public static void AddServices(this IServiceCollection services)
         {
             services.AddSingleton<MainGame>();
+
+            // Actions
+            services.AddSingleton<IActionService, ActionService>();
+            services.AddSingleton<ISequenceService, SequenceService>();
 
             // Helpers
             services.AddSingleton<IStreamReader, StreamReader>();
