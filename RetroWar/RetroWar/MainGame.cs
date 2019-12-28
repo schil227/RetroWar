@@ -2,10 +2,8 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using RetroWar.Models.Collisions.Grid;
+using RetroWar.Models.Level;
 using RetroWar.Models.Repositories;
-using RetroWar.Models.Repositories.Sprites;
-using RetroWar.Models.Repositories.Textures;
-using RetroWar.Models.Repositories.Tiles;
 using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Tiles;
@@ -17,34 +15,25 @@ using RetroWar.Services.Interfaces.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Action = RetroWar.Models.Sprites.Actions.Action;
 
 namespace RetroWar
 {
-    /// <summary>
-    /// This is the main type for your game.
-    /// </summary>
     public class MainGame : Game
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private readonly ISpriteLoader spriteLoader;
-        private readonly IActionDataLoader actionDataLoader;
-        private readonly ITextureLoader textureLoader;
         private readonly ISpriteHelper spriteHelper;
-        private readonly ITileLoader tileLoader;
         private readonly ICollisionService collisionService;
         private readonly IScreenService screenService;
         private readonly IGridHandler gridHandler;
+        private readonly IContentLoader contentLoader;
+        private readonly IDrawService drawService;
 
-        SpriteDatabase spriteDatabase;
-        ActionDataDatabase actionDataDatabase;
-        TextureDatabase textureDatabase;
-        TileDatabase tileDatabase;
-        Dictionary<Tuple<int, int>, GridContainer> gridHash;
-
+        ContentDatabase contentDatabase;
+        Stage stage;
         Screen screen;
-
         Sprite playerSprite;
         List<Tile> tiles;
 
@@ -57,24 +46,20 @@ namespace RetroWar
         float imageScaleY = 1.0f;
 
         public MainGame(
-            ISpriteLoader spriteLoader,
-            IActionDataLoader actionDataLoader,
-            ITextureLoader textureLoader,
-            ITileLoader tileLoader,
+            IContentLoader contentLoader,
             ISpriteHelper spriteHelper,
             ICollisionService collisionService,
             IScreenService screenService,
-            IGridHandler gridHandler
+            IGridHandler gridHandler,
+            IDrawService drawService
             )
         {
-            this.spriteLoader = spriteLoader;
-            this.actionDataLoader = actionDataLoader;
-            this.textureLoader = textureLoader;
-            this.tileLoader = tileLoader;
+            this.contentLoader = contentLoader;
             this.spriteHelper = spriteHelper;
             this.collisionService = collisionService;
             this.screenService = screenService;
             this.gridHandler = gridHandler;
+            this.drawService = drawService;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -120,35 +105,20 @@ namespace RetroWar
 
             Console.WriteLine($"Width: {graphics.PreferredBackBufferWidth }, Height: {graphics.PreferredBackBufferHeight }");
 
-            spriteDatabase = new SpriteDatabase();
-            actionDataDatabase = new ActionDataDatabase();
-            textureDatabase = new TextureDatabase();
-            tileDatabase = new TileDatabase();
+            contentDatabase = contentLoader.LoadAllData(
+                Content,
+                "./Content/LoadingScripts/SpriteLoaderScript.json",
+                "./Content/LoadingScripts/ActionDataLoadingScript.json",
+                "./Content/LoadingScripts/TextureLoadingScript.json",
+                "./Content/LoadingScripts/TileLoaderScript.json"
+                );
 
-            spriteDatabase.SpriteDatabaseItems = spriteLoader.LoadSprites("./Content/LoadingScripts/SpriteLoaderScript.json");
-            tileDatabase.TileDatabaseItems = tileLoader.LoadTiles("./Content/LoadingScripts/TileLoaderScript.json");
-            actionDataDatabase.ActionDataDatabaseItems = actionDataLoader.LoadActionData("./Content/LoadingScripts/ActionDataLoadingScript.json");
-            textureDatabase.TextureDatabaseItems = textureLoader.LoadTextures("./Content/LoadingScripts/TextureLoadingScript.json", Content);
+            playerSprite = contentDatabase.Sprites.First(i => string.Equals(i.SpriteId, "tank")).Sprite;
+            tiles = contentDatabase.Tiles.Where(i => i.TileId.Contains("ground"))?.Select(s => s.Tile).ToList();
 
-            foreach (var spriteData in spriteDatabase.SpriteDatabaseItems)
-            {
-                spriteData.Sprite.ActionDataSet = actionDataDatabase.ActionDataDatabaseItems.First(a => string.Equals(spriteData.Sprite.ActionDataSetId, a.ActionDataId)).ActionData;
-            }
+            stage = new Stage();
 
-            foreach (var tileData in tileDatabase.TileDatabaseItems)
-            {
-                tileData.Tile.ActionDataSet = actionDataDatabase.ActionDataDatabaseItems.First(a => string.Equals(tileData.Tile.ActionDataSetId, a.ActionDataId)).ActionData;
-            }
-
-            playerSprite = spriteDatabase.SpriteDatabaseItems.First(i => string.Equals(i.SpriteId, "tank")).Sprite;
-            tiles = tileDatabase.TileDatabaseItems.Where(i => i.TileId.Contains("ground"))?.Select(s => s.Tile).ToList();
-
-            if (tiles.Count == 0)
-            {
-                throw new Exception("No ground sprites found.");
-            }
-
-            gridHash = gridHandler.InitializeGrid(playerSprite, tiles);
+            stage.Grids = gridHandler.InitializeGrid(playerSprite, tiles);
 
             base.Initialize();
         }
@@ -191,11 +161,6 @@ namespace RetroWar
 
             var deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (keyState.IsKeyDown(Keys.W))
-            {
-                playerSprite.deltaY -= tankSpeed * deltaT;
-            }
-
             if (keyState.IsKeyDown(Keys.R))
             {
                 playerSprite.X = 16;
@@ -203,14 +168,21 @@ namespace RetroWar
                 fallSum = 0;
             }
 
+            if (keyState.IsKeyDown(Keys.W))
+            {
+                playerSprite.deltaY -= tankSpeed * deltaT;
+            }
+
             if (keyState.IsKeyDown(Keys.A))
             {
                 playerSprite.deltaX -= tankSpeed * deltaT;
+                playerSprite.CurrentDirection = Direction.Left;
             }
 
             if (keyState.IsKeyDown(Keys.D))
             {
                 playerSprite.deltaX += tankSpeed * deltaT;
+                playerSprite.CurrentDirection = Direction.Right;
             }
 
             if (keyState.IsKeyDown(Keys.J))
@@ -219,6 +191,21 @@ namespace RetroWar
                 {
                     fallSum = -5;
                     isJumping = true;
+                }
+            }
+
+            if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
+            {
+                if (playerSprite.CurrentAction == Action.Idle)
+                {
+                    spriteHelper.SetAction(playerSprite, Action.Move);
+                }
+            }
+            else
+            {
+                if (playerSprite.CurrentAction == Action.Move)
+                {
+                    spriteHelper.SetAction(playerSprite, Action.Idle);
                 }
             }
 
@@ -235,11 +222,11 @@ namespace RetroWar
             playerSprite.X += (int)playerSprite.deltaX;
             playerSprite.deltaX = 0;
 
-            gridHandler.MoveSprite(gridHash, playerSprite, GridContainerSpriteType.Player, (int)previousPlayerX, (int)previousPlayerY);
+            gridHandler.MoveSprite(stage.Grids, playerSprite, GridContainerSpriteType.Player, (int)previousPlayerX, (int)previousPlayerY);
 
             var collidedSprites = new Dictionary<string, string>();
 
-            var boxes = gridHandler.GetGridsFromPoints(gridHash, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
+            var boxes = gridHandler.GetGridsFromPoints(stage.Grids, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
 
             foreach (var box in boxes)
             {
@@ -267,7 +254,7 @@ namespace RetroWar
                         collisionService.ResolveCollision(playerSprite, tile, collisions);
 
                         // resolution pushed sprite up, no longer falling
-                        if (playerSprite.Y != beforeY)
+                        if (playerSprite.Y < beforeY)
                         {
                             fallSum = 0;
                             isJumping = false;
@@ -279,6 +266,8 @@ namespace RetroWar
             }
 
             screenService.ScrollScreen(screen, playerSprite);
+
+            spriteHelper.UpdateActionSequence(playerSprite, deltaT * 1000);
 
             base.Update(gameTime);
         }
@@ -294,37 +283,7 @@ namespace RetroWar
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Immediate, samplerState: SamplerState.PointClamp, transformMatrix: Matrix.CreateScale(imageScaleX, imageScaleY, 1.0f));
 
-            var boxes = gridHandler.GetGridsFromPoints(gridHash, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
-            var drawnSprites = new Dictionary<string, string>();
-
-            foreach (var box in boxes)
-            {
-                foreach (var tile in box.TileSprites.Values.ToList())
-                {
-                    if (drawnSprites.ContainsKey(tile.SpriteId))
-                    {
-                        continue;
-                    }
-
-                    var textures = spriteHelper.GetCurrentTextureData(tile);
-
-                    foreach (var texture in textures)
-                    {
-                        var position = new Vector2((tile.X + 16 * texture.RelativeX) - screen.X, (tile.Y + 16 * texture.RelativeY) - screen.Y);
-                        spriteBatch.Draw(textureDatabase.TextureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture, position, Color.White);
-                    }
-
-                    drawnSprites.Add(tile.SpriteId, "drawn");
-                }
-            }
-
-            var playerTextures = spriteHelper.GetCurrentTextureData(playerSprite);
-
-            foreach (var texture in playerTextures)
-            {
-                var position = new Vector2((playerSprite.X + 16 * texture.RelativeX) - screen.X, (playerSprite.Y + 16 * texture.RelativeY) - screen.Y);
-                spriteBatch.Draw(textureDatabase.TextureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture, position, Color.White);
-            }
+            drawService.DrawScreen(spriteBatch, stage, screen, contentDatabase.Textures);
 
             spriteBatch.End();
 

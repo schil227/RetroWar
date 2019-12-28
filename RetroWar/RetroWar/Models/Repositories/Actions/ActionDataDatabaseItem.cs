@@ -1,7 +1,7 @@
-﻿using RetroWar.Models.Sprites;
+﻿using RetroWar.Models.Sprites.Actions;
 using System.Collections.Generic;
 
-namespace RetroWar.Models.Repositories
+namespace RetroWar.Models.Repositories.Actions
 {
     public class ActionDataDatabaseItem
     {

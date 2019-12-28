@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using RetroWar.Models.Sprites.Actions;
+using System.Collections.Generic;
 
 namespace RetroWar.Models.Sprites
 {
@@ -11,6 +12,8 @@ namespace RetroWar.Models.Sprites
         public string SpriteId;
         public string Name;
         public int CurrentSequence;
+        public float TickAccumulation;
+        public Direction CurrentDirection;
         public Action CurrentAction;
         public string ActionDataSetId;
         public IEnumerable<ActionData> ActionDataSet;

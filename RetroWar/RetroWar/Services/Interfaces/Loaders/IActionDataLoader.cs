@@ -1,9 +1,10 @@
-﻿using RetroWar.Models.Repositories;
+﻿using RetroWar.Models.Repositories.Actions;
+using System.Collections.Generic;
 
 namespace RetroWar.Services.Interfaces.Loaders
 {
     public interface IActionDataLoader
     {
-        ActionDataDatabaseItem[] LoadActionData(string actionDataJsonFileName);
+        IEnumerable<ActionDataDatabaseItem> LoadActionData(string actionDataJsonFileName);
     }
 }

@@ -1,0 +1,16 @@
+== Retro War ==
+	
+	Remember:  Make it a game, make it fun
+
+== Features ==
+-Implement (some) actions (e.g. idle, moving, jumping)
+-Fire artillery shells
+-Make a simple enemy tank
+-Tighten up movement, feels a little off
+
+== Refactoring ==
+- Move collision handling/grid lookup logic out of MainGame.Update
+
+== DONE ==
+-Make it so the tank faces the correct direction when moving left and right (12/26/19)
+-implement animations (12/27/19)

@@ -5,6 +5,9 @@
       {
         "Action": "Idle",
         "TotalSequences": 1,
+        "SequenceDurations": [ 200 ],
+        "Events": [ 0 ],
+        "IsContinuous": true,
         "ActionTextureSet": [
           {
             "TextureData": [
@@ -28,6 +31,106 @@
             ]
           }
         ]
+      },
+      {
+        "Action": "Move",
+        "TotalSequences": 8,
+        "SequenceDurations": [ 100, 100, 100, 100, 100, 100, 100, 100 ],
+        "Events": [ 0, 0, 0, 0, 0, 0, 0, 0 ],
+        "IsContinuous": true,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/tankv1_moving",
+                "RelativeX": 0,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -37,6 +140,9 @@
       {
         "Action": "Idle",
         "TotalSequences": 1,
+        "SequenceDurations": [ 200 ],
+        "Events": [ 0 ],
+        "IsContinuous": true,
         "ActionTextureSet": [
           {
             "TextureData": [

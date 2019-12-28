@@ -17,11 +17,11 @@ namespace RetroWar.Services.Implementations.Loaders
             this.streamReader = streamReader;
         }
 
-        public TextureDatabaseItem[] LoadTextures(string texturesFileName, ContentManager Content)
+        public IEnumerable<TextureDatabaseItem> LoadTextures(string texturesFileName, ContentManager Content)
         {
             var textureJsonData = streamReader.ReadFile(texturesFileName);
 
-            var texturesToLoad = JsonConvert.DeserializeObject<string[]>(textureJsonData);
+            var texturesToLoad = JsonConvert.DeserializeObject<IEnumerable<string>>(textureJsonData);
 
             var textureDatabaseItems = new List<TextureDatabaseItem>();
 
@@ -35,7 +35,7 @@ namespace RetroWar.Services.Implementations.Loaders
                     });
             }
 
-            return textureDatabaseItems.ToArray();
+            return textureDatabaseItems;
         }
     }
 }

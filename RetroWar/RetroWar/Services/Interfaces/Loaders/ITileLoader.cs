@@ -5,6 +5,6 @@ namespace RetroWar.Services.Interfaces.Loaders
 {
     public interface ITileLoader
     {
-        IEnumerable<TileDatabaseItem> LoadTiles(string TileFileName);
+        IEnumerable<TileDatabaseItem> LoadTiles(string tileFileName);
     }
 }

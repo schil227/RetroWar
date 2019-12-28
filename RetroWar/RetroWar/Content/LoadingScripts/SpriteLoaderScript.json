@@ -7,6 +7,8 @@
       "SpriteId": "tank",
       "Name": "Player Tank",
       "CurrentSequence": 0,
+      "TickAccumulation": 0,
+      "CurrentDirection": "Right",
       "Action": "Idle",
       "ActionDataSetId": "tankv1"
     }

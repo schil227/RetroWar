@@ -2,6 +2,7 @@
 using RetroWar.Services.Implementations.Collision;
 using RetroWar.Services.Implementations.Collision.Grid;
 using RetroWar.Services.Implementations.Collision.Resolvers;
+using RetroWar.Services.Implementations.Events;
 using RetroWar.Services.Implementations.Helpers;
 using RetroWar.Services.Implementations.Helpers.Model;
 using RetroWar.Services.Implementations.Loaders;
@@ -9,10 +10,12 @@ using RetroWar.Services.Implementations.UserInterface;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
+using RetroWar.Services.Interfaces.Events;
 using RetroWar.Services.Interfaces.Helpers;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
 using RetroWar.Services.Interfaces.UserInterface;
+using System.Collections.Generic;
 
 namespace RetroWar
 {
@@ -31,9 +34,11 @@ namespace RetroWar
             services.AddSingleton<ISpriteLoader, SpriteLoader>();
             services.AddSingleton<ITextureLoader, TextureLoader>();
             services.AddSingleton<ITileLoader, TileLoader>();
+            services.AddSingleton<IContentLoader, ContentLoader>();
 
             // User Interface
             services.AddSingleton<IScreenService, ScreenService>();
+            services.AddSingleton<IDrawService, DrawService>();
 
             // Collision
             services.AddSingleton<ICollisionFinder, CollisionFinder>();
@@ -48,6 +53,16 @@ namespace RetroWar
             services.AddSingleton<IGridHandler, GridHandler>();
             services.AddSingleton<IGridService, GridService>();
             services.AddSingleton<ISpacialHashingService, SpacialHashingService>();
+
+            // Events
+            services.AddSingleton<IEventHandler, EventHandlerComposite>();
+            services.AddSingleton<SpawnSpriteEventHandler>();
+            services.AddSingleton<IEnumerable<IEventHandler>>(provider =>
+                new List<IEventHandler>
+                {
+                    provider.GetService<SpawnSpriteEventHandler>()
+                }
+                );
         }
     }
 }
