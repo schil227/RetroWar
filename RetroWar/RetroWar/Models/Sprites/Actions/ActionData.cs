@@ -26,6 +26,6 @@ namespace RetroWar.Models.Sprites.Actions
         public IEnumerable<HitBoxCollection> ActionHitBoxSet { get; private set; }
 
         [JsonProperty]
-        public IEnumerable<int> Events { get; private set; }
+        public IEnumerable<int> SequencesToTriggerOn { get; private set; }
     }
 }

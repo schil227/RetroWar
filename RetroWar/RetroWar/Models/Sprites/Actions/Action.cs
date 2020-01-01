@@ -5,6 +5,6 @@
         Idle = 0,
         Move = 1,
         Jump = 2,
-        Shoot = 3
+        FireStandard = 3
     }
 }

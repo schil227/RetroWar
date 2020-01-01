@@ -1,0 +1,19 @@
+﻿[
+  {
+    "BulletId": "StandardBullet",
+    "Bullet": {
+      "X": 0,
+      "Y": 0,
+      "Name": "Standard Bullet",
+      "SpriteId": "StandardBullet",
+      "CurrentSequence": 0,
+      "TickAccumulation": 0,
+      "CurrentDirection": "Right",
+      "Action": "Idle",
+      "ActionDataSetId": "standard_bullet",
+      "Trajectory": "Straight",
+      "Speed": 200,
+      "SpecificGravity": 10
+    }
+  }
+]

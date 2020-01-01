@@ -6,12 +6,14 @@ using RetroWar.Models.Level;
 using RetroWar.Models.Repositories;
 using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
+using RetroWar.Models.Sprites.Bullets;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
+using RetroWar.Services.Interfaces.Repositories;
 using RetroWar.Services.Interfaces.UserInterface;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,8 @@ namespace RetroWar
         private readonly IDrawService drawService;
         private readonly ISequenceService sequenceService;
         private readonly IActionService actionService;
+        private readonly IContentRepository contentRepository;
+        private readonly IBulletHelper bulletHelper;
 
         ContentDatabase contentDatabase;
         Stage stage;
@@ -56,7 +60,9 @@ namespace RetroWar
             IGridHandler gridHandler,
             IDrawService drawService,
             ISequenceService sequenceService,
-            IActionService actionService
+            IActionService actionService,
+            IContentRepository contentRepository,
+            IBulletHelper bulletHelper
             )
         {
             this.contentLoader = contentLoader;
@@ -67,6 +73,8 @@ namespace RetroWar
             this.drawService = drawService;
             this.sequenceService = sequenceService;
             this.actionService = actionService;
+            this.contentRepository = contentRepository;
+            this.bulletHelper = bulletHelper;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -117,7 +125,8 @@ namespace RetroWar
                 "./Content/LoadingScripts/SpriteLoaderScript.json",
                 "./Content/LoadingScripts/ActionDataLoadingScript.json",
                 "./Content/LoadingScripts/TextureLoadingScript.json",
-                "./Content/LoadingScripts/TileLoaderScript.json"
+                "./Content/LoadingScripts/TileLoaderScript.json",
+                "./Content/LoadingScripts/BulletLoaderScript.json"
                 );
 
             playerSprite = contentDatabase.Sprites.First(i => string.Equals(i.SpriteId, "tank")).Sprite;
@@ -126,6 +135,14 @@ namespace RetroWar
             stage = new Stage();
 
             stage.Grids = gridHandler.InitializeGrid(playerSprite, tiles);
+
+            contentRepository.Actions = contentDatabase.Actions;
+            contentRepository.Sprites = contentDatabase.Sprites;
+            contentRepository.Textures = contentDatabase.Textures;
+            contentRepository.Tiles = contentDatabase.Tiles;
+            contentRepository.Bullets = contentDatabase.Bullets;
+            contentRepository.CurrentStage = stage;
+            contentRepository.PlayerSprite = playerSprite;
 
             base.Initialize();
         }
@@ -201,6 +218,14 @@ namespace RetroWar
                 }
             }
 
+            if (keyState.IsKeyDown(Keys.K))
+            {
+                if (playerSprite.CurrentAction != Action.FireStandard)
+                {
+                    actionService.SetAction(playerSprite, Action.FireStandard);
+                }
+            }
+
             if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
             {
                 if (playerSprite.CurrentAction == Action.Idle)
@@ -235,6 +260,36 @@ namespace RetroWar
 
             var boxes = gridHandler.GetGridsFromPoints(stage.Grids, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
 
+            //Get all bullets first, moving them would screw up box iterations
+            var bullets = new HashSet<Bullet>();
+
+            foreach (var box in boxes)
+            {
+                foreach (var bullet in box.Bullets.Values)
+                {
+                    bullets.Add(bullet);
+                }
+            }
+
+            foreach (var bullet in bullets)
+            {
+                if (!screenService.IsOnScreen(screen, bullet))
+                {
+                    gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet);
+                    continue;
+                }
+
+                var oldX = bullet.X;
+                var oldY = bullet.Y;
+
+                var newPoint = bulletHelper.FindNextPointInTrajectory(bullet, deltaT);
+
+                bullet.X = newPoint.X;
+                bullet.Y = newPoint.Y;
+
+                gridHandler.MoveSprite(stage.Grids, bullet, GridContainerSpriteType.Bullet, (int)oldX, (int)oldY);
+            }
+
             foreach (var box in boxes)
             {
                 if (box.PlayerSprite == null)
@@ -242,7 +297,7 @@ namespace RetroWar
                     continue;
                 }
 
-                foreach (var tile in (box.TileSprites.Values.ToList()))
+                foreach (var tile in (box.Tiles.Values.ToList()))
                 {
                     // Already collided, skip.
                     if (collidedSprites.ContainsKey(box.PlayerSprite.SpriteId + "_" + tile.SpriteId))
@@ -250,7 +305,7 @@ namespace RetroWar
                         continue;
                     }
 
-                    Console.WriteLine($"Num Boxes: {box.TileSprites.Values.ToList().Count()}");
+                    Console.WriteLine($"Num Boxes: {box.Tiles.Values.ToList().Count()}");
 
                     // TODO: wrap all this up in one call to collision service
                     var collisions = collisionService.GetCollisions(playerSprite, tile);

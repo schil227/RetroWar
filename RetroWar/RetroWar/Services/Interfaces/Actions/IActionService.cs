@@ -6,5 +6,6 @@ namespace RetroWar.Services.Interfaces.Actions
     public interface IActionService
     {
         void SetAction(Sprite sprite, Action action);
+        void ProcessActionEvent(Sprite sprite);
     }
 }

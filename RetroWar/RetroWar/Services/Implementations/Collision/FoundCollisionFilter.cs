@@ -12,9 +12,13 @@ namespace RetroWar.Services.Implementations.Collision
         private readonly ICollisionFinder collisionFinder;
         private readonly IMultiPointCollisionResolver multiPointCollisionResolver;
 
-        public FoundCollisionFilter(ICollisionFinder collisionFinder)
+        public FoundCollisionFilter(
+            ICollisionFinder collisionFinder,
+            IMultiPointCollisionResolver multiPointCollisionResolver
+            )
         {
             this.collisionFinder = collisionFinder;
+            this.multiPointCollisionResolver = multiPointCollisionResolver;
         }
 
         public CollisionResolution FilterCollisionsFound(Sprite normal, Sprite based, HitBox normalBox, HitBox basedBox)

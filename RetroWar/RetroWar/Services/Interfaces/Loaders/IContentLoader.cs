@@ -6,11 +6,12 @@ namespace RetroWar.Services.Interfaces.Loaders
     public interface IContentLoader
     {
         ContentDatabase LoadAllData(
-            ContentManager Content,
+            ContentManager content,
             string spriteFileName,
             string actionDataFileName,
             string textureFileName,
-            string tileFileName
+            string tileFileName,
+            string bulletFileName
             );
     }
 }

@@ -4,10 +4,10 @@ using RetroWar.Models.Level;
 using RetroWar.Models.Repositories.Textures;
 using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
+using RetroWar.Models.Sprites.Textures;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.UserInterface;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,7 +27,7 @@ namespace RetroWar.Services.Implementations.UserInterface
             this.spriteHelper = spriteHelper;
         }
 
-        public void DrawScreen(SpriteBatch spriteBatch, Stage stage, Screen screen, IEnumerable<TextureDatabaseItem> textureDatabaseItem)
+        public void DrawScreen(SpriteBatch spriteBatch, Stage stage, Screen screen, IEnumerable<TextureDatabaseItem> textureDatabaseItems)
         {
             Sprite playerSprite = null;
 
@@ -36,23 +36,8 @@ namespace RetroWar.Services.Implementations.UserInterface
 
             foreach (var box in boxes)
             {
-                foreach (var tile in box.TileSprites.Values.ToList())
-                {
-                    if (drawnSprites.ContainsKey(tile.SpriteId))
-                    {
-                        continue;
-                    }
-
-                    var textures = spriteHelper.GetCurrentTextureData(tile);
-
-                    foreach (var texture in textures)
-                    {
-                        var position = new Vector2((tile.X + 16 * texture.RelativeX) - screen.X, (tile.Y + 16 * texture.RelativeY) - screen.Y);
-                        spriteBatch.Draw(textureDatabaseItem.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture, position, Color.White);
-                    }
-
-                    drawnSprites.Add(tile.SpriteId, "drawn");
-                }
+                DrawSprites(spriteBatch, textureDatabaseItems, box.Tiles.Values.ToArray(), screen, drawnSprites);
+                DrawSprites(spriteBatch, textureDatabaseItems, box.Bullets.Values.ToArray(), screen, drawnSprites);
 
                 if (playerSprite == null && box.PlayerSprite != null)
                 {
@@ -71,20 +56,40 @@ namespace RetroWar.Services.Implementations.UserInterface
 
             foreach (var texture in playerTextures)
             {
-                var position = new Vector2((playerSprite.X + 16 * texture.RelativeX) - screen.X, (playerSprite.Y + 16 * texture.RelativeY) - screen.Y);
-                var textureToDraw = textureDatabaseItem.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture;
-                var spriteEffect = flipSpriteHorizontal ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                var rectangle = new Rectangle(16 * playerSprite.CurrentSequence, 0, 16, 16);
+                DrawSprite(spriteBatch, playerSprite, textureDatabaseItems, screen, texture);
+            }
+        }
 
-                if (playerSprite.CurrentSequence > 0)
+        private void DrawSprites(SpriteBatch spriteBatch, IEnumerable<TextureDatabaseItem> textureDatabaseItems, IEnumerable<Sprite> sprites, Screen screen, Dictionary<string, string> drawnSprites)
+        {
+            foreach (var sprite in sprites)
+            {
+                if (drawnSprites.ContainsKey(sprite.SpriteId))
                 {
-                    Console.WriteLine($"CurrentSequence: {playerSprite.CurrentSequence}");
+                    continue;
                 }
 
-#pragma warning disable CS0618 // Type or member is obsolete
-                spriteBatch.Draw(textureToDraw, position: position, sourceRectangle: rectangle, color: Color.White, effects: spriteEffect);
-#pragma warning restore CS0618 // Type or member is obsolete
+                var textures = spriteHelper.GetCurrentTextureData(sprite);
+
+                foreach (var texture in textures)
+                {
+                    DrawSprite(spriteBatch, sprite, textureDatabaseItems, screen, texture);
+                }
+
+                drawnSprites.Add(sprite.SpriteId, "drawn");
             }
+        }
+
+        private void DrawSprite(SpriteBatch spriteBatch, Sprite sprite, IEnumerable<TextureDatabaseItem> textureDatabaseItems, Screen screen, TextureData texture)
+        {
+            var position = new Vector2((sprite.X + 16 * texture.RelativeX) - screen.X, (sprite.Y + 16 * texture.RelativeY) - screen.Y);
+            var textureToDraw = textureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture;
+            var spriteEffect = sprite.CurrentDirection == Direction.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            var rectangle = new Rectangle(16 * sprite.CurrentSequence, 0, 16, 16);
+
+#pragma warning disable CS0618 // Type or member is obsolete
+            spriteBatch.Draw(textureToDraw, position: position, sourceRectangle: rectangle, color: Color.White, effects: spriteEffect);
+#pragma warning restore CS0618 // Type or member is obsolete
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿[
   "Sprites/tankv1",
   "Sprites/tankv1_moving",
-  "Sprites/ground1"
+  "Sprites/tankv1_firing_std",
+  "Sprites/ground1",
+  "Sprites/tankv1_bullet_std"
 ]

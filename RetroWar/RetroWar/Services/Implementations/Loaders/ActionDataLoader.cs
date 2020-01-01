@@ -48,24 +48,6 @@ namespace RetroWar.Services.Implementations.Loaders
                 throw new ActionDataLoaderException($"Found inconsistant sequences: the TotalSequences for an action must have an entry in SequenceDurations for each frame. Check the following entries: {string.Join(", ", incorrectSequenceDataIDs)}");
             }
 
-            var incorrectEventsData = new HashSet<string>();
-
-            foreach (var data in actionData)
-            {
-                foreach (var action in data.ActionData)
-                {
-                    if (action.TotalSequences != action.Events.Count())
-                    {
-                        incorrectSequenceDataIDs.Add($"Id: {data.ActionDataId}, Action: {action.Action}");
-                    }
-                }
-            }
-
-            if (incorrectSequenceDataIDs.Count > 0)
-            {
-                throw new ActionDataLoaderException($"Found inconsistant events: the TotalSequences for an action must have an entry in events for each frame. Check the following entries: {string.Join(", ", incorrectSequenceDataIDs)}");
-            }
-
             return actionData;
         }
     }

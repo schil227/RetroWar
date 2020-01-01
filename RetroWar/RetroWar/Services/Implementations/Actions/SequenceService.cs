@@ -1,6 +1,5 @@
 ﻿using RetroWar.Models.Sprites;
 using RetroWar.Services.Interfaces.Actions;
-using RetroWar.Services.Interfaces.Events;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using System.Linq;
 using Action = RetroWar.Models.Sprites.Actions.Action;
@@ -11,17 +10,14 @@ namespace RetroWar.Services.Implementations.Actions
     {
         private readonly ISpriteHelper spriteHelper;
         private readonly IActionService actionService;
-        private readonly IEventHandler eventHandlerComposite;
 
         public SequenceService(
             ISpriteHelper spriteHelper,
-            IActionService actionService,
-            IEventHandler eventHandlerComposite
+            IActionService actionService
             )
         {
             this.spriteHelper = spriteHelper;
             this.actionService = actionService;
-            this.eventHandlerComposite = eventHandlerComposite;
         }
 
         public void IncrementSequence(Sprite sprite)
@@ -36,15 +32,11 @@ namespace RetroWar.Services.Implementations.Actions
                 if (!currentAction.IsContinuous)
                 {
                     actionService.SetAction(sprite, Action.Idle);
+                    return;
                 }
             }
 
-            var eventId = spriteHelper.GetCurrentEvent(sprite);
-
-            if (eventId != 0)
-            {
-                //Trigger action events here
-            }
+            actionService.ProcessActionEvent(sprite);
         }
 
         public void UpdateActionSequence(Sprite sprite, float deltaTimeTick)

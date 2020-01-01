@@ -1,5 +1,7 @@
 ﻿using RetroWar.Models.Collisions.Grid;
 using RetroWar.Models.Sprites;
+using RetroWar.Models.Sprites.Bullets;
+using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using System;
 using System.Collections.Generic;
@@ -17,7 +19,8 @@ namespace RetroWar.Services.Implementations.Collision.Grid
                 gridContainer = new GridContainer
                 {
                     PlayerSprite = null,
-                    TileSprites = new Dictionary<string, Sprite>()
+                    Tiles = new Dictionary<string, Tile>(),
+                    Bullets = new Dictionary<string, Bullet>()
                 };
 
                 gridHash.Add(new Tuple<int, int>(gridX, gridY), gridContainer);
@@ -29,7 +32,10 @@ namespace RetroWar.Services.Implementations.Collision.Grid
                     gridContainer.PlayerSprite = sprite;
                     break;
                 case GridContainerSpriteType.Tile:
-                    gridContainer.TileSprites.Add(sprite.SpriteId, sprite);
+                    gridContainer.Tiles.Add(sprite.SpriteId, (Tile)sprite);
+                    break;
+                case GridContainerSpriteType.Bullet:
+                    gridContainer.Bullets.Add(sprite.SpriteId, (Bullet)sprite);
                     break;
             }
         }
@@ -43,14 +49,15 @@ namespace RetroWar.Services.Implementations.Collision.Grid
                 return new GridContainer
                 {
                     PlayerSprite = null,
-                    TileSprites = new Dictionary<string, Sprite>()
+                    Tiles = new Dictionary<string, Tile>(),
+                    Bullets = new Dictionary<string, Bullet>()
                 };
             }
 
             return containerValue;
         }
 
-        public void RemoveSpriteToGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, GridContainerSpriteType spriteType, Sprite sprite, int gridX, int gridY)
+        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, GridContainerSpriteType spriteType, Sprite sprite, int gridX, int gridY)
         {
             GridContainer gridContainer;
 
@@ -59,7 +66,8 @@ namespace RetroWar.Services.Implementations.Collision.Grid
                 gridContainer = new GridContainer
                 {
                     PlayerSprite = null,
-                    TileSprites = new Dictionary<string, Sprite>()
+                    Tiles = new Dictionary<string, Tile>(),
+                    Bullets = new Dictionary<string, Bullet>()
                 };
 
                 gridHash.Add(new Tuple<int, int>(gridX, gridY), gridContainer);
@@ -71,7 +79,10 @@ namespace RetroWar.Services.Implementations.Collision.Grid
                     gridContainer.PlayerSprite = null;
                     break;
                 case GridContainerSpriteType.Tile:
-                    gridContainer.TileSprites.Remove(sprite.SpriteId);
+                    gridContainer.Tiles.Remove(sprite.SpriteId);
+                    break;
+                case GridContainerSpriteType.Bullet:
+                    gridContainer.Bullets.Remove(sprite.SpriteId);
                     break;
             }
         }

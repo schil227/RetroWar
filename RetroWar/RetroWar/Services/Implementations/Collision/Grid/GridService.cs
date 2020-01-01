@@ -75,7 +75,7 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             {
                 for (int j = startY; j <= endY; j++)
                 {
-                    spacialHashingService.RemoveSpriteToGrid(gridHash, spriteType, sprite, i, j);
+                    spacialHashingService.RemoveSpriteFromGrid(gridHash, spriteType, sprite, i, j);
                 }
             }
         }

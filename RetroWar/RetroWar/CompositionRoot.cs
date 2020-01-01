@@ -3,21 +3,22 @@ using RetroWar.Services.Implementations.Actions;
 using RetroWar.Services.Implementations.Collision;
 using RetroWar.Services.Implementations.Collision.Grid;
 using RetroWar.Services.Implementations.Collision.Resolvers;
-using RetroWar.Services.Implementations.Events;
+using RetroWar.Services.Implementations.Factories;
 using RetroWar.Services.Implementations.Helpers;
 using RetroWar.Services.Implementations.Helpers.Model;
 using RetroWar.Services.Implementations.Loaders;
+using RetroWar.Services.Implementations.Repositories;
 using RetroWar.Services.Implementations.UserInterface;
 using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
-using RetroWar.Services.Interfaces.Events;
+using RetroWar.Services.Interfaces.Factories;
 using RetroWar.Services.Interfaces.Helpers;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
+using RetroWar.Services.Interfaces.Repositories;
 using RetroWar.Services.Interfaces.UserInterface;
-using System.Collections.Generic;
 
 namespace RetroWar
 {
@@ -27,11 +28,18 @@ namespace RetroWar
         {
             services.AddSingleton<MainGame>();
 
+            // Data
+            services.AddSingleton<IContentRepository, ContentRepository>();
+
             // Actions
             services.AddSingleton<IActionService, ActionService>();
             services.AddSingleton<ISequenceService, SequenceService>();
 
+            // Factories
+            services.AddSingleton<ISpriteFactory, SpriteFactory>();
+
             // Helpers
+            services.AddSingleton<IBulletHelper, BulletHelper>();
             services.AddSingleton<IStreamReader, StreamReader>();
             services.AddSingleton<ISpriteHelper, SpriteHelper>();
 
@@ -40,6 +48,7 @@ namespace RetroWar
             services.AddSingleton<ISpriteLoader, SpriteLoader>();
             services.AddSingleton<ITextureLoader, TextureLoader>();
             services.AddSingleton<ITileLoader, TileLoader>();
+            services.AddSingleton<IBulletLoader, BulletLoader>();
             services.AddSingleton<IContentLoader, ContentLoader>();
 
             // User Interface
@@ -59,16 +68,6 @@ namespace RetroWar
             services.AddSingleton<IGridHandler, GridHandler>();
             services.AddSingleton<IGridService, GridService>();
             services.AddSingleton<ISpacialHashingService, SpacialHashingService>();
-
-            // Events
-            services.AddSingleton<IEventHandler, EventHandlerComposite>();
-            services.AddSingleton<SpawnSpriteEventHandler>();
-            services.AddSingleton<IEnumerable<IEventHandler>>(provider =>
-                new List<IEventHandler>
-                {
-                    provider.GetService<SpawnSpriteEventHandler>()
-                }
-                );
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using RetroWar.Models.Sprites;
+using RetroWar.Models.Sprites.Actions;
 using RetroWar.Models.Sprites.HitBoxes;
 using RetroWar.Models.Sprites.Textures;
 using RetroWar.Services.Interfaces.Helpers.Model;
@@ -10,6 +11,11 @@ namespace RetroWar.Services.Implementations.Helpers.Model
 {
     public class SpriteHelper : ISpriteHelper
     {
+        public ActionData GetCurrentActionData(Sprite sprite)
+        {
+            return sprite.ActionDataSet.First(a => a.Action == sprite.CurrentAction);
+        }
+
         public HitBox[] GetCurrentHitBoxes(Sprite sprite)
         {
             return sprite.ActionDataSet.First(a => a.Action == sprite.CurrentAction)
@@ -23,18 +29,12 @@ namespace RetroWar.Services.Implementations.Helpers.Model
             // check out this sick hack.   ^^^
         }
 
-        public int GetCurrentEvent(Sprite sprite)
-        {
-            return sprite.ActionDataSet.First(a => a.Action == sprite.CurrentAction)
-                .Events.ElementAt(sprite.CurrentSequence);
-        }
-
         public Point GetMaximumPoints(Sprite sprite)
         {
             var point = new Point
             {
-                X = 0,
-                Y = 0
+                X = int.MinValue,
+                Y = int.MinValue
             };
 
             var hitBoxes = GetCurrentHitBoxes(sprite);
