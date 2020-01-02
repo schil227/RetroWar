@@ -234,7 +234,9 @@
               {
                 "TextureId": "Sprites/tankv1_bullet_std",
                 "RelativeX": 0,
-                "RelativeY": 0
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
               }
             ]
           }

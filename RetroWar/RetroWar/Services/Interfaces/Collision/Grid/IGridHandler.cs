@@ -10,7 +10,7 @@ namespace RetroWar.Services.Interfaces.Collision.Grid
     {
         Dictionary<Tuple<int, int>, GridContainer> InitializeGrid(Sprite playerSprite, IEnumerable<Tile> bullets);
         void MoveSprite(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, GridContainerSpriteType spritetype, int oldX, int oldY);
-        void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, GridContainerSpriteType spritetype);
+        void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, GridContainerSpriteType spritetype, int oldX, int oldY);
         IEnumerable<GridContainer> GetGridsFromPoints(Dictionary<Tuple<int, int>, GridContainer> gridHash, int x, int y, int maxX, int maxY);
     }
 }

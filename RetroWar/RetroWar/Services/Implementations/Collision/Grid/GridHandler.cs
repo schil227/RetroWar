@@ -41,9 +41,9 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             return gridService.GetGridsFromPoints(gridHash, x, y, maxX, maxY);
         }
 
-        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, GridContainerSpriteType spritetype)
+        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, GridContainerSpriteType spritetype, int oldX, int oldY)
         {
-            gridService.RemoveSpriteFromGrid(gridHash, spritetype, sprite, (int)sprite.X, (int)sprite.Y);
+            gridService.RemoveSpriteFromGrid(gridHash, spritetype, sprite, oldX, oldY);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace RetroWar.Services.Implementations.Helpers.Model
             // check out this sick hack.   ^^^
         }
 
-        public Point GetMaximumPoints(Sprite sprite)
+        public Point GetMaximumPoints(Sprite sprite, int spriteX, int spriteY)
         {
             var point = new Point
             {
@@ -42,14 +42,14 @@ namespace RetroWar.Services.Implementations.Helpers.Model
 
             foreach (var hitbox in hitBoxes)
             {
-                point.X = Math.Max(point.X, (int)sprite.X + (hitbox.RelativeX * 16) + hitbox.Width);
-                point.Y = Math.Max(point.Y, (int)sprite.Y + (hitbox.RelativeY * 16) + hitbox.Height);
+                point.X = Math.Max(point.X, spriteX + (hitbox.RelativeX * 16) + hitbox.Width);
+                point.Y = Math.Max(point.Y, spriteY + (hitbox.RelativeY * 16) + hitbox.Height);
             }
 
             foreach (var texture in textures)
             {
-                point.X = Math.Max(point.X, (int)sprite.X + (texture.RelativeX * 16) + texture.Width);
-                point.Y = Math.Max(point.Y, (int)sprite.Y + (texture.RelativeY * 16) + texture.Height);
+                point.X = Math.Max(point.X, spriteX + (texture.RelativeX * 16) + texture.Width);
+                point.Y = Math.Max(point.Y, spriteY + (texture.RelativeY * 16) + texture.Height);
             }
 
             return point;

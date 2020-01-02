@@ -6,7 +6,6 @@ using RetroWar.Models.Level;
 using RetroWar.Models.Repositories;
 using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
-using RetroWar.Models.Sprites.Bullets;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision;
@@ -241,6 +240,11 @@ namespace RetroWar
                 }
             }
 
+            if (keyState.IsKeyDown(Keys.Right))
+            {
+                screen.X += 10;
+            }
+
             var previousPlayerX = playerSprite.X;
             var previousPlayerY = playerSprite.Y;
 
@@ -257,38 +261,69 @@ namespace RetroWar
             gridHandler.MoveSprite(stage.Grids, playerSprite, GridContainerSpriteType.Player, (int)previousPlayerX, (int)previousPlayerY);
 
             var collidedSprites = new Dictionary<string, string>();
+            var processedBullets = new Dictionary<string, string>();
 
             var boxes = gridHandler.GetGridsFromPoints(stage.Grids, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
 
-            //Get all bullets first, moving them would screw up box iterations
-            var bullets = new HashSet<Bullet>();
-
             foreach (var box in boxes)
             {
-                foreach (var bullet in box.Bullets.Values)
+                var bullets = box.Bullets.Values.ToList();
+
+                foreach (var bullet in bullets)
                 {
-                    bullets.Add(bullet);
+                    if (processedBullets.ContainsKey(bullet.SpriteId))
+                    {
+                        continue;
+                    }
+
+                    var oldX = (int)bullet.X;
+                    var oldY = (int)bullet.Y;
+
+                    var newPoint = bulletHelper.FindNextPointInTrajectory(bullet, deltaT);
+
+                    bullet.X = newPoint.X;
+                    bullet.Y = newPoint.Y;
+
+                    if (!screenService.IsOnScreen(screen, bullet))
+                    {
+                        gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet, oldX, oldY);
+                        continue;
+                    }
+
+                    gridHandler.MoveSprite(stage.Grids, bullet, GridContainerSpriteType.Bullet, oldX, oldY);
+
+                    processedBullets.Add(bullet.SpriteId, "Processed");
                 }
             }
 
-            foreach (var bullet in bullets)
-            {
-                if (!screenService.IsOnScreen(screen, bullet))
-                {
-                    gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet);
-                    continue;
-                }
+            //foreach (var bullet in bullets)
+            //{
+            //    if (!screenService.IsOnScreen(screen, bullet))
+            //    {
+            //        Console.WriteLine($"Num bullets: {bulletsList.Count}");
+            //        gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet);
+            //        continue;
+            //    }
 
-                var oldX = bullet.X;
-                var oldY = bullet.Y;
+            //    var oldX = bullet.X;
+            //    var oldY = bullet.Y;
 
-                var newPoint = bulletHelper.FindNextPointInTrajectory(bullet, deltaT);
+            //    var newPoint = bulletHelper.FindNextPointInTrajectory(bullet, deltaT);
 
-                bullet.X = newPoint.X;
-                bullet.Y = newPoint.Y;
+            //    bullet.X = newPoint.X;
+            //    bullet.Y = newPoint.Y;
 
-                gridHandler.MoveSprite(stage.Grids, bullet, GridContainerSpriteType.Bullet, (int)oldX, (int)oldY);
-            }
+            //    if (!screenService.IsOnScreen(screen, bullet))
+            //    {
+            //        Console.WriteLine($"Num bullets: {bulletsList.Count}");
+            //        bullet.X = oldX;
+            //        bullet.Y = oldY;
+            //        gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet);
+            //        continue;
+            //    }
+
+            //    gridHandler.MoveSprite(stage.Grids, bullet, GridContainerSpriteType.Bullet, (int)oldX, (int)oldY);
+            //}
 
             foreach (var box in boxes)
             {

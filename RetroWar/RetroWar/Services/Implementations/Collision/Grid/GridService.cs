@@ -23,13 +23,13 @@ namespace RetroWar.Services.Implementations.Collision.Grid
 
         public void AddSpriteToGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, GridContainerSpriteType spriteType, Sprite sprite)
         {
-            var maximumPoint = spriteHelper.GetMaximumPoints(sprite);
+            var maximumPoint = spriteHelper.GetMaximumPoints(sprite, (int)sprite.X, (int)sprite.Y);
 
-            int startX = (int)(sprite.X / 32);
-            int startY = (int)(sprite.Y / 32);
+            int startX = GetBoxCoord((int)sprite.X);
+            int startY = GetBoxCoord((int)sprite.Y);
 
-            int endX = maximumPoint.X / 32;
-            int endY = maximumPoint.Y / 32;
+            int endX = GetBoxCoord(maximumPoint.X);
+            int endY = GetBoxCoord(maximumPoint.Y);
 
             for (int i = startX; i <= endX; i++)
             {
@@ -42,11 +42,11 @@ namespace RetroWar.Services.Implementations.Collision.Grid
 
         public IEnumerable<GridContainer> GetGridsFromPoints(Dictionary<Tuple<int, int>, GridContainer> gridHash, int x, int y, int maxX, int maxY)
         {
-            int startX = x / 32;
-            int startY = y / 32;
+            int startX = GetBoxCoord(x);
+            int startY = GetBoxCoord(y);
 
-            int endX = maxX / 32;
-            int endY = maxY / 32;
+            int endX = GetBoxCoord(maxX);
+            int endY = GetBoxCoord(maxY);
 
             var grids = new List<GridContainer>();
 
@@ -63,13 +63,13 @@ namespace RetroWar.Services.Implementations.Collision.Grid
 
         public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, GridContainerSpriteType spriteType, Sprite sprite, int oldX, int oldY)
         {
-            var maximumPoint = spriteHelper.GetMaximumPoints(sprite);
+            var maximumPoint = spriteHelper.GetMaximumPoints(sprite, oldX, oldY);
 
-            int startX = oldX / 32;
-            int startY = oldY / 32;
+            int startX = GetBoxCoord(oldX);
+            int startY = GetBoxCoord(oldY);
 
-            int endX = maximumPoint.X / 32;
-            int endY = maximumPoint.Y / 32;
+            int endX = GetBoxCoord(maximumPoint.X);
+            int endY = GetBoxCoord(maximumPoint.Y);
 
             for (int i = startX; i <= endX; i++)
             {
@@ -78,6 +78,18 @@ namespace RetroWar.Services.Implementations.Collision.Grid
                     spacialHashingService.RemoveSpriteFromGrid(gridHash, spriteType, sprite, i, j);
                 }
             }
+        }
+
+        private int GetBoxCoord(int position)
+        {
+            // negative values need to be pushed to the previous box, 
+            // since a position of, say -5 would otherwise put them in the wrong box
+            // -5/32  => box 0
+            // subtracting 1 when the postion is negative corrects this:
+            // (-5/32) - 1 => box -1
+            // box:... -2          -1          0        1         2  ...
+            // posn:   [-64, -32]  [-32, -0]  [0, 32]   [32, 64]  [64, 96]
+            return position > 0 ? position / 32 : (position / 32) - 1;
         }
     }
 }
