@@ -209,12 +209,23 @@
     <None Include="Content\LoadingScripts\SpriteLoaderScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\Sprites\ASE\ground1.ase" />
     <None Include="Content\Sprites\ASE\tankv1.ase" />
+    <None Include="Content\Sprites\ASE\tankv1_bullet_std.ase" />
+    <None Include="Content\Sprites\ASE\tankv1_firing_std.ase" />
+    <None Include="Content\Sprites\ASE\tankv1_moving.ase" />
+    <None Include="Content\Sprites\ASE\tankv1_moving_v1.ase" />
+    <None Include="Content\Sprites\ASE\tankv1_moving_v2.ase" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Content\Sprites\ground1.png" />
     <Content Include="Content\Sprites\tankv1.png" />
+    <Content Include="Content\Sprites\tankv1_bullet_std.png" />
+    <Content Include="Content\Sprites\tankv1_firing_std.png" />
+    <Content Include="Content\Sprites\tankv1_moving.png" />
+    <Content Include="Content\Sprites\tankv2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
