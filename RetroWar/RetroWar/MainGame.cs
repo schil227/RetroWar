@@ -7,6 +7,7 @@ using RetroWar.Models.Repositories;
 using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Tiles;
+using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Grid;
@@ -40,7 +41,7 @@ namespace RetroWar
         ContentDatabase contentDatabase;
         Stage stage;
         Screen screen;
-        Sprite playerSprite;
+        Vehicle playerTank;
         List<Tile> tiles;
 
         float tankSpeed;
@@ -121,27 +122,27 @@ namespace RetroWar
 
             contentDatabase = contentLoader.LoadAllData(
                 Content,
-                "./Content/LoadingScripts/SpriteLoaderScript.json",
+                "./Content/LoadingScripts/VehicleLoaderScript.json",
                 "./Content/LoadingScripts/ActionDataLoadingScript.json",
                 "./Content/LoadingScripts/TextureLoadingScript.json",
                 "./Content/LoadingScripts/TileLoaderScript.json",
                 "./Content/LoadingScripts/BulletLoaderScript.json"
                 );
 
-            playerSprite = contentDatabase.Sprites.First(i => string.Equals(i.SpriteId, "tank")).Sprite;
+            playerTank = contentDatabase.Vehicles.First(i => string.Equals(i.VehicleId, "tank")).Vehicle;
             tiles = contentDatabase.Tiles.Where(i => i.TileId.Contains("ground"))?.Select(s => s.Tile).ToList();
 
             stage = new Stage();
 
-            stage.Grids = gridHandler.InitializeGrid(playerSprite, tiles);
+            stage.Grids = gridHandler.InitializeGrid(playerTank, tiles);
 
             contentRepository.Actions = contentDatabase.Actions;
-            contentRepository.Sprites = contentDatabase.Sprites;
+            contentRepository.Vehicles = contentDatabase.Vehicles;
             contentRepository.Textures = contentDatabase.Textures;
             contentRepository.Tiles = contentDatabase.Tiles;
             contentRepository.Bullets = contentDatabase.Bullets;
             contentRepository.CurrentStage = stage;
-            contentRepository.PlayerSprite = playerSprite;
+            contentRepository.PlayerTank = playerTank;
 
             base.Initialize();
         }
@@ -186,26 +187,26 @@ namespace RetroWar
 
             if (keyState.IsKeyDown(Keys.R))
             {
-                playerSprite.X = 16;
-                playerSprite.Y = 140;
+                playerTank.X = 16;
+                playerTank.Y = 140;
                 fallSum = 0;
             }
 
             if (keyState.IsKeyDown(Keys.W))
             {
-                playerSprite.deltaY -= tankSpeed * deltaT;
+                playerTank.deltaY -= tankSpeed * deltaT;
             }
 
             if (keyState.IsKeyDown(Keys.A))
             {
-                playerSprite.deltaX -= tankSpeed * deltaT;
-                playerSprite.CurrentDirection = Direction.Left;
+                playerTank.deltaX -= tankSpeed * deltaT;
+                playerTank.CurrentDirection = Direction.Left;
             }
 
             if (keyState.IsKeyDown(Keys.D))
             {
-                playerSprite.deltaX += tankSpeed * deltaT;
-                playerSprite.CurrentDirection = Direction.Right;
+                playerTank.deltaX += tankSpeed * deltaT;
+                playerTank.CurrentDirection = Direction.Right;
             }
 
             if (keyState.IsKeyDown(Keys.J))
@@ -219,24 +220,24 @@ namespace RetroWar
 
             if (keyState.IsKeyDown(Keys.K))
             {
-                if (playerSprite.CurrentAction != Action.FireStandard)
+                if (playerTank.CurrentAction != Action.FireStandard)
                 {
-                    actionService.SetAction(playerSprite, Action.FireStandard);
+                    actionService.SetAction(playerTank, Action.FireStandard);
                 }
             }
 
             if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
             {
-                if (playerSprite.CurrentAction == Action.Idle)
+                if (playerTank.CurrentAction == Action.Idle)
                 {
-                    actionService.SetAction(playerSprite, Action.Move);
+                    actionService.SetAction(playerTank, Action.Move);
                 }
             }
             else
             {
-                if (playerSprite.CurrentAction == Action.Move)
+                if (playerTank.CurrentAction == Action.Move)
                 {
-                    actionService.SetAction(playerSprite, Action.Idle);
+                    actionService.SetAction(playerTank, Action.Idle);
                 }
             }
 
@@ -245,20 +246,20 @@ namespace RetroWar
                 screen.X += 10;
             }
 
-            var previousPlayerX = playerSprite.X;
-            var previousPlayerY = playerSprite.Y;
+            var previousPlayerX = playerTank.X;
+            var previousPlayerY = playerTank.Y;
 
             fallSum += Math.Min(fallRate * deltaT, 10);
-            playerSprite.deltaY += fallSum;
+            playerTank.deltaY += fallSum;
 
             // Collision Handling
-            playerSprite.Y += (int)playerSprite.deltaY;
-            playerSprite.deltaY = 0;
+            playerTank.Y += (int)playerTank.deltaY;
+            playerTank.deltaY = 0;
 
-            playerSprite.X += (int)playerSprite.deltaX;
-            playerSprite.deltaX = 0;
+            playerTank.X += (int)playerTank.deltaX;
+            playerTank.deltaX = 0;
 
-            gridHandler.MoveSprite(stage.Grids, playerSprite, GridContainerSpriteType.Player, (int)previousPlayerX, (int)previousPlayerY);
+            gridHandler.MoveSprite(stage.Grids, playerTank, GridContainerSpriteType.Player, (int)previousPlayerX, (int)previousPlayerY);
 
             var collidedSprites = new Dictionary<string, string>();
             var processedBullets = new Dictionary<string, string>();
@@ -327,7 +328,7 @@ namespace RetroWar
 
             foreach (var box in boxes)
             {
-                if (box.PlayerSprite == null)
+                if (box.playerTank == null)
                 {
                     continue;
                 }
@@ -335,7 +336,7 @@ namespace RetroWar
                 foreach (var tile in (box.Tiles.Values.ToList()))
                 {
                     // Already collided, skip.
-                    if (collidedSprites.ContainsKey(box.PlayerSprite.SpriteId + "_" + tile.SpriteId))
+                    if (collidedSprites.ContainsKey(box.playerTank.SpriteId + "_" + tile.SpriteId))
                     {
                         continue;
                     }
@@ -343,28 +344,28 @@ namespace RetroWar
                     Console.WriteLine($"Num Boxes: {box.Tiles.Values.ToList().Count()}");
 
                     // TODO: wrap all this up in one call to collision service
-                    var collisions = collisionService.GetCollisions(playerSprite, tile);
+                    var collisions = collisionService.GetCollisions(playerTank, tile);
                     if (collisions.Length > 0)
                     {
-                        var beforeY = playerSprite.Y;
+                        var beforeY = playerTank.Y;
                         Console.WriteLine($"Found {collisions.Length} collisions {gameTime.TotalGameTime}");
-                        collisionService.ResolveCollision(playerSprite, tile, collisions);
+                        collisionService.ResolveCollision(playerTank, tile, collisions);
 
                         // resolution pushed sprite up, no longer falling
-                        if (playerSprite.Y < beforeY)
+                        if (playerTank.Y < beforeY)
                         {
                             fallSum = 0;
                             isJumping = false;
                         }
                     }
 
-                    collidedSprites.Add(box.PlayerSprite.SpriteId + "_" + tile.SpriteId, "resolved.");
+                    collidedSprites.Add(box.playerTank.SpriteId + "_" + tile.SpriteId, "resolved.");
                 }
             }
 
-            screenService.ScrollScreen(screen, playerSprite);
+            screenService.ScrollScreen(screen, playerTank);
 
-            sequenceService.UpdateActionSequence(playerSprite, deltaT * 1000);
+            sequenceService.UpdateActionSequence(playerTank, deltaT * 1000);
 
             base.Update(gameTime);
         }

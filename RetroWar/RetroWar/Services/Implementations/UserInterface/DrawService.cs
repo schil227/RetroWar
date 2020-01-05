@@ -5,6 +5,7 @@ using RetroWar.Models.Repositories.Textures;
 using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Textures;
+using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.UserInterface;
@@ -29,7 +30,7 @@ namespace RetroWar.Services.Implementations.UserInterface
 
         public void DrawScreen(SpriteBatch spriteBatch, Stage stage, Screen screen, IEnumerable<TextureDatabaseItem> textureDatabaseItems)
         {
-            Sprite playerSprite = null;
+            Vehicle playerTank = null;
 
             var boxes = gridHandler.GetGridsFromPoints(stage.Grids, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
             var drawnSprites = new Dictionary<string, string>();
@@ -39,24 +40,24 @@ namespace RetroWar.Services.Implementations.UserInterface
                 DrawSprites(spriteBatch, textureDatabaseItems, box.Tiles.Values.ToArray(), screen, drawnSprites);
                 DrawSprites(spriteBatch, textureDatabaseItems, box.Bullets.Values.ToArray(), screen, drawnSprites);
 
-                if (playerSprite == null && box.PlayerSprite != null)
+                if (playerTank == null && box.playerTank != null)
                 {
-                    playerSprite = box.PlayerSprite;
+                    playerTank = box.playerTank;
                 }
             }
 
-            if (playerSprite == null)
+            if (playerTank == null)
             {
                 return;
             }
 
-            var flipSpriteHorizontal = playerSprite.CurrentDirection == Direction.Left;
+            var flipSpriteHorizontal = playerTank.CurrentDirection == Direction.Left;
 
-            var playerTextures = spriteHelper.GetCurrentTextureData(playerSprite);
+            var playerTextures = spriteHelper.GetCurrentTextureData(playerTank);
 
             foreach (var texture in playerTextures)
             {
-                DrawSprite(spriteBatch, playerSprite, textureDatabaseItems, screen, texture);
+                DrawSprite(spriteBatch, playerTank, textureDatabaseItems, screen, texture);
             }
         }
 

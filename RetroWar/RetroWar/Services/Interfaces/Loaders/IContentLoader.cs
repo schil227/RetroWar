@@ -7,7 +7,7 @@ namespace RetroWar.Services.Interfaces.Loaders
     {
         ContentDatabase LoadAllData(
             ContentManager content,
-            string spriteFileName,
+            string vehicleFileName,
             string actionDataFileName,
             string textureFileName,
             string tileFileName,

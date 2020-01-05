@@ -1,6 +1,7 @@
 ﻿using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Textures;
+using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.UserInterface;
 
@@ -15,24 +16,24 @@ namespace RetroWar.Services.Implementations.UserInterface
             this.spriteHelper = spriteHelper;
         }
 
-        public void ScrollScreen(Screen screen, Sprite playerSprite)
+        public void ScrollScreen(Screen screen, Vehicle playerTank)
         {
-            if (playerSprite.X - screen.X < screen.Width * 0.2)
+            if (playerTank.X - screen.X < screen.Width * 0.2)
             {
-                screen.X -= (int)((screen.Width * 0.2) - (playerSprite.X - screen.X));
+                screen.X -= (int)((screen.Width * 0.2) - (playerTank.X - screen.X));
             }
-            else if (playerSprite.X - screen.X > screen.Width * 0.8)
+            else if (playerTank.X - screen.X > screen.Width * 0.8)
             {
-                screen.X += (int)((playerSprite.X - screen.X) - screen.Width * 0.8);
+                screen.X += (int)((playerTank.X - screen.X) - screen.Width * 0.8);
             }
 
-            if (playerSprite.Y - screen.Y < screen.Height * 0.2)
+            if (playerTank.Y - screen.Y < screen.Height * 0.2)
             {
-                screen.Y -= (int)((screen.Height * 0.2) - (playerSprite.Y - screen.Y));
+                screen.Y -= (int)((screen.Height * 0.2) - (playerTank.Y - screen.Y));
             }
-            else if (playerSprite.Y - screen.Y > screen.Height * 0.8)
+            else if (playerTank.Y - screen.Y > screen.Height * 0.8)
             {
-                screen.Y += (int)((playerSprite.Y - screen.Y) - screen.Height * 0.8);
+                screen.Y += (int)((playerTank.Y - screen.Y) - screen.Height * 0.8);
             }
         }
 

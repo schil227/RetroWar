@@ -7,7 +7,7 @@ namespace RetroWar.Services.Implementations.Loaders
 {
     public class ContentLoader : IContentLoader
     {
-        private readonly ISpriteLoader spriteLoader;
+        private readonly IVehicleLoader vehicleLoader;
         private readonly IActionDataLoader actionDataLoader;
         private readonly ITextureLoader textureLoader;
         private readonly ITileLoader tileLoader;
@@ -15,34 +15,33 @@ namespace RetroWar.Services.Implementations.Loaders
 
         public ContentLoader
             (
-            ISpriteLoader spriteLoader,
+            IVehicleLoader vehicleLoader,
             IActionDataLoader actionDataLoader,
             ITextureLoader textureLoader,
             ITileLoader tileLoader,
             IBulletLoader bulletLoader
             )
         {
-            this.spriteLoader = spriteLoader;
+            this.vehicleLoader = vehicleLoader;
             this.actionDataLoader = actionDataLoader;
             this.textureLoader = textureLoader;
             this.tileLoader = tileLoader;
             this.bulletLoader = bulletLoader;
         }
 
-        ContentDatabase IContentLoader.LoadAllData(ContentManager content, string spriteFileName, string actionDataFileName, string textureFileName, string tileFileName, string bulletFileName)
+        ContentDatabase IContentLoader.LoadAllData(ContentManager content, string vehicleFileName, string actionDataFileName, string textureFileName, string tileFileName, string bulletFileName)
         {
             var contentDatabase = new ContentDatabase();
 
-            contentDatabase.Sprites = spriteLoader.LoadSprites(spriteFileName);
+            contentDatabase.Vehicles = vehicleLoader.LoadVehicles(vehicleFileName);
             contentDatabase.Textures = textureLoader.LoadTextures(textureFileName, content);
             contentDatabase.Tiles = tileLoader.LoadTiles(tileFileName);
             contentDatabase.Bullets = bulletLoader.LoadBullets(bulletFileName);
             contentDatabase.Actions = actionDataLoader.LoadActionData(actionDataFileName);
 
-
-            foreach (var spriteData in contentDatabase.Sprites)
+            foreach (var spriteData in contentDatabase.Vehicles)
             {
-                spriteData.Sprite.ActionDataSet = contentDatabase.Actions.First(a => string.Equals(spriteData.Sprite.ActionDataSetId, a.ActionDataId)).ActionData;
+                spriteData.Vehicle.ActionDataSet = contentDatabase.Actions.First(a => string.Equals(spriteData.Vehicle.ActionDataSetId, a.ActionDataId)).ActionData;
             }
 
             foreach (var tileData in contentDatabase.Tiles)

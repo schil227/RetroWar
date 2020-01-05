@@ -45,7 +45,7 @@ namespace RetroWar
 
             // Loaders
             services.AddSingleton<IActionDataLoader, ActionDataLoader>();
-            services.AddSingleton<ISpriteLoader, SpriteLoader>();
+            services.AddSingleton<IVehicleLoader, VehicleLoader>();
             services.AddSingleton<ITextureLoader, TextureLoader>();
             services.AddSingleton<ITileLoader, TileLoader>();
             services.AddSingleton<IBulletLoader, BulletLoader>();

@@ -61,13 +61,14 @@
     <Compile Include="Models\Repositories\Actions\ActionDataDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Bullets\BulletDatabaseItem.cs" />
     <Compile Include="Models\Repositories\ContentDatabase.cs" />
-    <Compile Include="Models\Repositories\Sprites\SpriteDatabaseItem.cs" />
+    <Compile Include="Models\Repositories\Vehicles\VehicleDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Textures\TextureDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Tiles\TileDatabaseItem.cs" />
     <Compile Include="Models\Sprites\Bullets\Bullet.cs" />
     <Compile Include="Models\Sprites\Bullets\Trajectory.cs" />
     <Compile Include="Models\Sprites\Direction.cs" />
     <Compile Include="Models\Sprites\SpriteType.cs" />
+    <Compile Include="Models\Sprites\Vehicles\Vehicle.cs" />
     <Compile Include="Models\UserInterface\Screen.cs" />
     <Compile Include="Models\Sprites\Actions\Action.cs" />
     <Compile Include="Models\Sprites\Actions\ActionData.cs" />
@@ -96,7 +97,7 @@
     <Compile Include="Services\Implementations\Loaders\ActionDataLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\BulletLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\ContentLoader.cs" />
-    <Compile Include="Services\Implementations\Loaders\SpriteLoader.cs" />
+    <Compile Include="Services\Implementations\Loaders\VehicleLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TextureLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TileLoader.cs" />
     <Compile Include="Services\Implementations\Repositories\ContentRepository.cs" />
@@ -119,7 +120,7 @@
     <Compile Include="Services\Interfaces\Loaders\IActionDataLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\IBulletLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\IContentLoader.cs" />
-    <Compile Include="Services\Interfaces\Loaders\ISpriteLoader.cs" />
+    <Compile Include="Services\Interfaces\Loaders\IVehicleLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\ITextureLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\ITileLoader.cs" />
     <Compile Include="Services\Interfaces\Repositories\IContentRepository.cs" />
@@ -206,7 +207,7 @@
     <None Include="Content\LoadingScripts\TextureLoadingScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\LoadingScripts\SpriteLoaderScript.json">
+    <None Include="Content\LoadingScripts\VehicleLoaderScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Sprites\ASE\ground1.ase" />

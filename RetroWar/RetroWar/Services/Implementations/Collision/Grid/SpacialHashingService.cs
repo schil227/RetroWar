@@ -2,6 +2,7 @@
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Bullets;
 using RetroWar.Models.Sprites.Tiles;
+using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             {
                 gridContainer = new GridContainer
                 {
-                    PlayerSprite = null,
+                    playerTank = null,
                     Tiles = new Dictionary<string, Tile>(),
                     Bullets = new Dictionary<string, Bullet>()
                 };
@@ -29,7 +30,7 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             switch (spriteType)
             {
                 case GridContainerSpriteType.Player:
-                    gridContainer.PlayerSprite = sprite;
+                    gridContainer.playerTank = (Vehicle)sprite;
                     break;
                 case GridContainerSpriteType.Tile:
                     gridContainer.Tiles.Add(sprite.SpriteId, (Tile)sprite);
@@ -48,7 +49,7 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             {
                 return new GridContainer
                 {
-                    PlayerSprite = null,
+                    playerTank = null,
                     Tiles = new Dictionary<string, Tile>(),
                     Bullets = new Dictionary<string, Bullet>()
                 };
@@ -65,7 +66,7 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             {
                 gridContainer = new GridContainer
                 {
-                    PlayerSprite = null,
+                    playerTank = null,
                     Tiles = new Dictionary<string, Tile>(),
                     Bullets = new Dictionary<string, Bullet>()
                 };
@@ -76,7 +77,7 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             switch (spriteType)
             {
                 case GridContainerSpriteType.Player:
-                    gridContainer.PlayerSprite = null;
+                    gridContainer.playerTank = null;
                     break;
                 case GridContainerSpriteType.Tile:
                     gridContainer.Tiles.Remove(sprite.SpriteId);

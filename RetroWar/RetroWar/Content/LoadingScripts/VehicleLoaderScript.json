@@ -1,7 +1,7 @@
 ﻿[
   {
-    "SpriteId": "tank",
-    "Sprite": {
+    "VehicleId": "tank",
+    "Vehicle": {
       "X": 16,
       "Y": 120,
       "SpriteId": "tank",
@@ -10,7 +10,9 @@
       "TickAccumulation": 0,
       "CurrentDirection": "Right",
       "Action": "Idle",
-      "ActionDataSetId": "tankv1"
+      "ActionDataSetId": "tankv1",
+      "TotalHealth": 10,
+      "Health": 10
     }
   }
 ]
