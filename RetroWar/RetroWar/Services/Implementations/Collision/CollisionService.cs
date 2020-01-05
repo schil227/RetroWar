@@ -48,11 +48,11 @@ namespace RetroWar.Services.Implementations.Collision
             return collisionResolutions.ToArray();
         }
 
-        public Resolution ResolveCollision(Sprite normal, Sprite based, CollisionResolution[] collisions)
+        public bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution[] collisions)
         {
             if (collisions.Length == 0)
             {
-                return Resolution.None;
+                return false;
             }
 
             var bestCollisionResolution = foundCollisionFilter.FindBestCollision(collisions);

@@ -5,6 +5,6 @@ namespace RetroWar.Services.Interfaces.Collision.Resolvers
 {
     public interface ICollisionResolver
     {
-        Resolution ResolveCollision(Sprite normal, Sprite based, CollisionResolution collisionResolution);
+        bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution collisionResolution);
     }
 }

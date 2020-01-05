@@ -19,6 +19,7 @@ using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
 using RetroWar.Services.Interfaces.Repositories;
 using RetroWar.Services.Interfaces.UserInterface;
+using System.Collections.Generic;
 
 namespace RetroWar
 {
@@ -62,7 +63,16 @@ namespace RetroWar
             services.AddSingleton<IMultiPointCollisionResolver, MultiPointCollisionResolver>();
 
             // Collision Resolvers
-            services.AddSingleton<ICollisionResolver, CollisionResolver>();
+            services.AddSingleton<VehicleTileCollisionResolver>();
+
+            services.AddSingleton<IEnumerable<ICollisionResolver>>(
+                provider => new List<ICollisionResolver>
+                {
+                    provider.GetService<VehicleTileCollisionResolver>()
+                });
+
+            services.AddSingleton<ICollisionResolver, CompositeCollisionResolver>();
+
 
             // Grid
             services.AddSingleton<IGridHandler, GridHandler>();
