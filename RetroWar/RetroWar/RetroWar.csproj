@@ -89,6 +89,7 @@
     <Compile Include="Services\Implementations\Collision\Grid\GridService.cs" />
     <Compile Include="Services\Implementations\Collision\Grid\SpacialHashingService.cs" />
     <Compile Include="Services\Implementations\Collision\MultiPointCollisionResolver.cs" />
+    <Compile Include="Services\Implementations\Collision\Resolvers\BulletTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\CompositeCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\VehicleTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Factories\SpriteFactory.cs" />

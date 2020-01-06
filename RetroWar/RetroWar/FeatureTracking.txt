@@ -3,20 +3,24 @@
 	Remember:  Make it a game, make it fun
 
 == Features ==
--Implement (some) actions (e.g. idle, moving, jumping)
--Fire artillery shells
 -Make a simple enemy tank
 -Tighten up movement, feels a little off
 
 == Bugs ==
  - Collision:
 	-collision needs to be tweaked; if the tank (12 px tall) jumps into a tile (16 px tall), the collision wont resolve to kick them out the way they came (may actually not be a collision issue; could be that movement is being cumulative or something...)
-- Screen:
-	-grids are not getting created for when the screen's X&Y values are less than 0 - e.g. shoot a bullet and if it's not on the screen, it's removed from the grid. however, if the sprites X value is less than 0, the grid it's in cannot be found (because it's x value, for example, would point to grid [-1, 2], when it's actually in [1,2]
+- Grid:
+	- sprites that have points in the negative region aren't getting added and removed correctly: e.g. with a sprite whos x values is -5 and maximum value is 8, both (when divided by 32) result in the 0 grid, when it's actually straddling the -1 and 0 grid
 	
 == Refactoring ==
 - Move collision handling/grid lookup logic out of MainGame.Update
 
 == DONE ==
--Make it so the tank faces the correct direction when moving left and right (12/26/19)
--implement animations (12/27/19)
+= Features =
+	-Make it so the tank faces the correct direction when moving left and right (12/26/19)
+	-implement animations (12/27/19)
+	-Implement (some) actions (e.g. idle, moving, jumping) (12/30/19)
+	-Fire artillery shells (1/5/20)
+	
+	=Bugs=
+		- sprites that have points in the negative region aren't getting added and removed correctly: e.g. with a 	sprite whos x values is -5 and maximum value is 8, both (when divided by 32) result in the 0 grid, when it's actually straddling the -1 and 0 grid (1/1/2020)

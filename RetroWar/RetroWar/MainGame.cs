@@ -188,7 +188,7 @@ namespace RetroWar
             if (keyState.IsKeyDown(Keys.R))
             {
                 playerTank.X = 16;
-                playerTank.Y = 140;
+                playerTank.Y = 180;
                 fallSum = 0;
             }
 
@@ -297,69 +297,59 @@ namespace RetroWar
                 }
             }
 
-            //foreach (var bullet in bullets)
-            //{
-            //    if (!screenService.IsOnScreen(screen, bullet))
-            //    {
-            //        Console.WriteLine($"Num bullets: {bulletsList.Count}");
-            //        gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet);
-            //        continue;
-            //    }
-
-            //    var oldX = bullet.X;
-            //    var oldY = bullet.Y;
-
-            //    var newPoint = bulletHelper.FindNextPointInTrajectory(bullet, deltaT);
-
-            //    bullet.X = newPoint.X;
-            //    bullet.Y = newPoint.Y;
-
-            //    if (!screenService.IsOnScreen(screen, bullet))
-            //    {
-            //        Console.WriteLine($"Num bullets: {bulletsList.Count}");
-            //        bullet.X = oldX;
-            //        bullet.Y = oldY;
-            //        gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet);
-            //        continue;
-            //    }
-
-            //    gridHandler.MoveSprite(stage.Grids, bullet, GridContainerSpriteType.Bullet, (int)oldX, (int)oldY);
-            //}
+            var spritesToCollide = new HashSet<Sprite>();
 
             foreach (var box in boxes)
             {
-                if (box.playerTank == null)
+                if (box.playerTank == null && box.Bullets.Count == 0)
                 {
                     continue;
                 }
 
-                foreach (var tile in (box.Tiles.Values.ToList()))
+                if (box.playerTank != null)
                 {
-                    // Already collided, skip.
-                    if (collidedSprites.ContainsKey(box.playerTank.SpriteId + "_" + tile.SpriteId))
+                    spritesToCollide.Add(box.playerTank);
+                }
+
+                foreach (var bullet in box.Bullets)
+                {
+                    spritesToCollide.Add(bullet.Value);
+                }
+
+                foreach (var tile in box.Tiles)
+                {
+                    spritesToCollide.Add(tile.Value);
+                }
+            }
+
+            foreach (var normal in spritesToCollide)
+            {
+                foreach (var based in spritesToCollide)
+                {
+                    if (normal == based
+                        || (normal is Tile && based is Tile)
+                        || collidedSprites.ContainsKey(normal.SpriteId + based.SpriteId) || collidedSprites.ContainsKey(based.SpriteId + normal.SpriteId))
                     {
                         continue;
                     }
 
-                    Console.WriteLine($"Num Boxes: {box.Tiles.Values.ToList().Count()}");
+                    var collisions = collisionService.GetCollisions(normal, based);
 
-                    // TODO: wrap all this up in one call to collision service
-                    var collisions = collisionService.GetCollisions(playerTank, tile);
                     if (collisions.Length > 0)
                     {
                         var beforeY = playerTank.Y;
-                        Console.WriteLine($"Found {collisions.Length} collisions {gameTime.TotalGameTime}");
-                        collisionService.ResolveCollision(playerTank, tile, collisions);
+                        collisionService.ResolveCollision(normal, based, collisions);
 
-                        // resolution pushed sprite up, no longer falling
-                        if (playerTank.Y < beforeY)
+                        // resolution pushed player vehicle up, no longer falling
+                        // Note: Open this up for all vehicles, not just player 
+                        //      (need to expand vehicle class)
+                        if (((normal == playerTank && based is Tile) || (based == playerTank && normal is Tile)) && playerTank.Y < beforeY)
                         {
                             fallSum = 0;
                             isJumping = false;
                         }
-                    }
 
-                    collidedSprites.Add(box.playerTank.SpriteId + "_" + tile.SpriteId, "resolved.");
+                    }
                 }
             }
 
