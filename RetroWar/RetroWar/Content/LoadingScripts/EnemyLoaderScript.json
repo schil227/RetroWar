@@ -1,0 +1,20 @@
+﻿[
+  {
+    "EnemyId": "enemy_tank",
+    "Enemy": {
+      "X": 112,
+      "Y": 120,
+      "SpriteId": "enemy_tank",
+      "Name": "Enemy Tank",
+      "CurrentSequence": 0,
+      "TickAccumulation": 0,
+      "CurrentDirection": "Right",
+      "Action": "Idle",
+      "ActionDataSetId": "enemy_tankv1",
+      "TotalHealth": 10,
+      "Health": 10,
+      "IsBoss": false,
+      "Behavior": "MoveLeft"
+    }
+  }
+]

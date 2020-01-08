@@ -7,7 +7,8 @@ namespace RetroWar.Services.Implementations.Loaders
 {
     public class ContentLoader : IContentLoader
     {
-        private readonly IVehicleLoader vehicleLoader;
+        private readonly IPlayerVehicleLoader playerVehicleLoader;
+        private readonly IEnemyVehicleLoader enemyVehicleLoader;
         private readonly IActionDataLoader actionDataLoader;
         private readonly ITextureLoader textureLoader;
         private readonly ITileLoader tileLoader;
@@ -15,33 +16,48 @@ namespace RetroWar.Services.Implementations.Loaders
 
         public ContentLoader
             (
-            IVehicleLoader vehicleLoader,
+            IPlayerVehicleLoader playerVehicleLoader,
+            IEnemyVehicleLoader enemyVehicleLoader,
             IActionDataLoader actionDataLoader,
             ITextureLoader textureLoader,
             ITileLoader tileLoader,
             IBulletLoader bulletLoader
             )
         {
-            this.vehicleLoader = vehicleLoader;
+            this.playerVehicleLoader = playerVehicleLoader;
+            this.enemyVehicleLoader = enemyVehicleLoader;
             this.actionDataLoader = actionDataLoader;
             this.textureLoader = textureLoader;
             this.tileLoader = tileLoader;
             this.bulletLoader = bulletLoader;
         }
 
-        ContentDatabase IContentLoader.LoadAllData(ContentManager content, string vehicleFileName, string actionDataFileName, string textureFileName, string tileFileName, string bulletFileName)
+        ContentDatabase IContentLoader.LoadAllData(
+            ContentManager content,
+            string playerVehicleFileName,
+            string enemyVehicleFileName,
+            string actionDataFileName,
+            string textureFileName,
+            string tileFileName,
+            string bulletFileName)
         {
             var contentDatabase = new ContentDatabase();
 
-            contentDatabase.Vehicles = vehicleLoader.LoadVehicles(vehicleFileName);
+            contentDatabase.PlayerVehicles = playerVehicleLoader.LoadPlayerVehicles(playerVehicleFileName);
+            contentDatabase.EnemyVehicles = enemyVehicleLoader.LoadEnemyVehicles(enemyVehicleFileName);
             contentDatabase.Textures = textureLoader.LoadTextures(textureFileName, content);
             contentDatabase.Tiles = tileLoader.LoadTiles(tileFileName);
             contentDatabase.Bullets = bulletLoader.LoadBullets(bulletFileName);
             contentDatabase.Actions = actionDataLoader.LoadActionData(actionDataFileName);
 
-            foreach (var spriteData in contentDatabase.Vehicles)
+            foreach (var spriteData in contentDatabase.PlayerVehicles)
             {
-                spriteData.Vehicle.ActionDataSet = contentDatabase.Actions.First(a => string.Equals(spriteData.Vehicle.ActionDataSetId, a.ActionDataId)).ActionData;
+                spriteData.Player.ActionDataSet = contentDatabase.Actions.First(a => string.Equals(spriteData.Player.ActionDataSetId, a.ActionDataId)).ActionData;
+            }
+
+            foreach (var spriteData in contentDatabase.EnemyVehicles)
+            {
+                spriteData.Enemy.ActionDataSet = contentDatabase.Actions.First(a => string.Equals(spriteData.Enemy.ActionDataSetId, a.ActionDataId)).ActionData;
             }
 
             foreach (var tileData in contentDatabase.Tiles)

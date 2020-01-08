@@ -2,6 +2,7 @@
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Models.Sprites.Vehicles;
+using RetroWar.Models.Vehicles.Vehicles.EnemyVehicle;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using System;
 using System.Collections.Generic;
@@ -17,15 +18,20 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             this.gridService = gridService;
         }
 
-        public Dictionary<Tuple<int, int>, GridContainer> InitializeGrid(Vehicle playerTank, IEnumerable<Tile> bullets)
+        public Dictionary<Tuple<int, int>, GridContainer> InitializeGrid(Vehicle playerTank, IEnumerable<EnemyVehicle> enemyVehicles, IEnumerable<Tile> tiles)
         {
             var gridHash = new Dictionary<Tuple<int, int>, GridContainer>();
 
             gridService.AddSpriteToGrid(gridHash, GridContainerSpriteType.Player, playerTank);
 
-            foreach (var bullet in bullets)
+            foreach (var tile in tiles)
             {
-                gridService.AddSpriteToGrid(gridHash, GridContainerSpriteType.Tile, bullet);
+                gridService.AddSpriteToGrid(gridHash, GridContainerSpriteType.Tile, tile);
+            }
+
+            foreach (var enemy in enemyVehicles)
+            {
+                gridService.AddSpriteToGrid(gridHash, GridContainerSpriteType.Enemy, enemy);
             }
 
             return gridHash;

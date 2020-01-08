@@ -185,6 +185,191 @@
     ]
   },
   {
+    "ActionDataId": "enemy_tankv1",
+    "ActionData": [
+      {
+        "Action": "Idle",
+        "TotalSequences": 1,
+        "SequenceDurations": [ 200 ],
+        "SequencesToTriggerOn": [],
+        "IsContinuous": true,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/enemy_tankv1",
+                "RelativeX": 0,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Action": "Move",
+        "TotalSequences": 8,
+        "SequenceDurations": [ 100, 100, 100, 100, 100, 100, 100, 100 ],
+        "SequencesToTriggerOn": [],
+        "IsContinuous": true,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/enemy_tankv1_moving",
+                "RelativeX": 0,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Action": "FireStandard",
+        "TotalSequences": 3,
+        "SequenceDurations": [ 200, 200, 200 ],
+        "SequencesToTriggerOn": [ 0 ],
+        "IsContinuous": false,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/enemy_tankv1_firing_std",
+                "RelativeX": 0,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "ActionDataId": "ground1",
     "ActionData": [
       {

@@ -61,7 +61,11 @@
     <Compile Include="Models\Repositories\Actions\ActionDataDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Bullets\BulletDatabaseItem.cs" />
     <Compile Include="Models\Repositories\ContentDatabase.cs" />
-    <Compile Include="Models\Repositories\Vehicles\VehicleDatabaseItem.cs" />
+    <Compile Include="Models\Repositories\Vehicles\EnemyVehicle\EnemyVehicleDatabaseItem.cs" />
+    <Compile Include="Models\Repositories\Vehicles\PlayerVehicle\PlayerVehicleDatabaseItem.cs" />
+    <Compile Include="Models\Sprites\Vehicles\EnemyVehicle\AIBehavior.cs" />
+    <Compile Include="Models\Sprites\Vehicles\EnemyVehicle\EnemyVehicle.cs" />
+    <Compile Include="Models\Sprites\Vehicles\PlayerVehicle\PlayerVehicle.cs" />
     <Compile Include="Models\Repositories\Textures\TextureDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Tiles\TileDatabaseItem.cs" />
     <Compile Include="Models\Sprites\Bullets\Bullet.cs" />
@@ -99,10 +103,13 @@
     <Compile Include="Services\Implementations\Loaders\ActionDataLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\BulletLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\ContentLoader.cs" />
-    <Compile Include="Services\Implementations\Loaders\VehicleLoader.cs" />
+    <Compile Include="Services\Implementations\Loaders\EnemyVehicleLoader.cs" />
+    <Compile Include="Services\Implementations\Loaders\PlayerVehicleLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TextureLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TileLoader.cs" />
     <Compile Include="Services\Implementations\Repositories\ContentRepository.cs" />
+    <Compile Include="Services\Implementations\Updaters\BulletUpdater.cs" />
+    <Compile Include="Services\Implementations\Updaters\SpriteUpdaterComposite.cs" />
     <Compile Include="Services\Implementations\UserInterface\DrawService.cs" />
     <Compile Include="Services\Implementations\UserInterface\ScreenService.cs" />
     <Compile Include="Services\Interfaces\Actions\IActionService.cs" />
@@ -122,10 +129,12 @@
     <Compile Include="Services\Interfaces\Loaders\IActionDataLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\IBulletLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\IContentLoader.cs" />
-    <Compile Include="Services\Interfaces\Loaders\IVehicleLoader.cs" />
+    <Compile Include="Services\Interfaces\Loaders\IEnemyVehicleLoader.cs" />
+    <Compile Include="Services\Interfaces\Loaders\IPlayerVehicleLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\ITextureLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\ITileLoader.cs" />
     <Compile Include="Services\Interfaces\Repositories\IContentRepository.cs" />
+    <Compile Include="Services\Interfaces\Updaters\ISpriteUpdater.cs" />
     <Compile Include="Services\Interfaces\UserInterface\IDrawService.cs" />
     <Compile Include="Services\Interfaces\UserInterface\IScreenService.cs" />
   </ItemGroup>
@@ -209,7 +218,10 @@
     <None Include="Content\LoadingScripts\TextureLoadingScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\LoadingScripts\VehicleLoaderScript.json">
+    <None Include="Content\LoadingScripts\EnemyLoaderScript.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\LoadingScripts\PlayerLoaderScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Sprites\ASE\ground1.ase" />

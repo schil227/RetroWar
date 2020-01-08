@@ -14,6 +14,7 @@ using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
 using RetroWar.Services.Interfaces.Repositories;
+using RetroWar.Services.Interfaces.Updaters;
 using RetroWar.Services.Interfaces.UserInterface;
 using System;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ namespace RetroWar
         private readonly ISequenceService sequenceService;
         private readonly IActionService actionService;
         private readonly IContentRepository contentRepository;
-        private readonly IBulletHelper bulletHelper;
+        private readonly ISpriteUpdater spriteUpdaterComposite;
 
         ContentDatabase contentDatabase;
         Stage stage;
@@ -62,7 +63,8 @@ namespace RetroWar
             ISequenceService sequenceService,
             IActionService actionService,
             IContentRepository contentRepository,
-            IBulletHelper bulletHelper
+            IBulletHelper bulletHelper,
+            ISpriteUpdater spriteUpdaterComposite
             )
         {
             this.contentLoader = contentLoader;
@@ -74,7 +76,7 @@ namespace RetroWar
             this.sequenceService = sequenceService;
             this.actionService = actionService;
             this.contentRepository = contentRepository;
-            this.bulletHelper = bulletHelper;
+            this.spriteUpdaterComposite = spriteUpdaterComposite;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -122,26 +124,29 @@ namespace RetroWar
 
             contentDatabase = contentLoader.LoadAllData(
                 Content,
-                "./Content/LoadingScripts/VehicleLoaderScript.json",
+                "./Content/LoadingScripts/PlayerLoaderScript.json",
+                "./Content/LoadingScripts/EnemyLoaderScript.json",
                 "./Content/LoadingScripts/ActionDataLoadingScript.json",
                 "./Content/LoadingScripts/TextureLoadingScript.json",
                 "./Content/LoadingScripts/TileLoaderScript.json",
                 "./Content/LoadingScripts/BulletLoaderScript.json"
                 );
 
-            playerTank = contentDatabase.Vehicles.First(i => string.Equals(i.VehicleId, "tank")).Vehicle;
+            playerTank = contentDatabase.PlayerVehicles.First(i => string.Equals(i.PlayerId, "tank")).Player;
             tiles = contentDatabase.Tiles.Where(i => i.TileId.Contains("ground"))?.Select(s => s.Tile).ToList();
 
             stage = new Stage();
 
-            stage.Grids = gridHandler.InitializeGrid(playerTank, tiles);
+            stage.Grids = gridHandler.InitializeGrid(playerTank, contentDatabase.EnemyVehicles.Select(e => e.Enemy), tiles);
 
             contentRepository.Actions = contentDatabase.Actions;
-            contentRepository.Vehicles = contentDatabase.Vehicles;
+            contentRepository.PlayerVehicles = contentDatabase.PlayerVehicles;
+            contentRepository.EnemyVehicles = contentDatabase.EnemyVehicles;
             contentRepository.Textures = contentDatabase.Textures;
             contentRepository.Tiles = contentDatabase.Tiles;
             contentRepository.Bullets = contentDatabase.Bullets;
             contentRepository.CurrentStage = stage;
+            contentRepository.Screen = screen;
             contentRepository.PlayerTank = playerTank;
 
             base.Initialize();
@@ -272,30 +277,35 @@ namespace RetroWar
 
                 foreach (var bullet in bullets)
                 {
-                    if (processedBullets.ContainsKey(bullet.SpriteId))
-                    {
-                        continue;
-                    }
-
-                    var oldX = (int)bullet.X;
-                    var oldY = (int)bullet.Y;
-
-                    var newPoint = bulletHelper.FindNextPointInTrajectory(bullet, deltaT);
-
-                    bullet.X = newPoint.X;
-                    bullet.Y = newPoint.Y;
-
-                    if (!screenService.IsOnScreen(screen, bullet))
-                    {
-                        gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet, oldX, oldY);
-                        continue;
-                    }
-
-                    gridHandler.MoveSprite(stage.Grids, bullet, GridContainerSpriteType.Bullet, oldX, oldY);
-
-                    processedBullets.Add(bullet.SpriteId, "Processed");
+                    spriteUpdaterComposite.UpdateSprite(bullet, deltaT, processedBullets);
                 }
             }
+            //    foreach (var bullet in bullets)
+            //    {
+            //        if (processedBullets.ContainsKey(bullet.SpriteId))
+            //        {
+            //            continue;
+            //        }
+
+            //        var oldX = (int)bullet.X;
+            //        var oldY = (int)bullet.Y;
+
+            //        var newPoint = bulletHelper.FindNextPointInTrajectory(bullet, deltaT);
+
+            //        bullet.X = newPoint.X;
+            //        bullet.Y = newPoint.Y;
+
+            //        if (!screenService.IsOnScreen(screen, bullet))
+            //        {
+            //            gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet, oldX, oldY);
+            //            continue;
+            //        }
+
+            //        gridHandler.MoveSprite(stage.Grids, bullet, GridContainerSpriteType.Bullet, oldX, oldY);
+
+            //        processedBullets.Add(bullet.SpriteId, "Processed");
+            //    }
+            //}
 
             var spritesToCollide = new HashSet<Sprite>();
 

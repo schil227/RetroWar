@@ -8,6 +8,7 @@ using RetroWar.Services.Implementations.Helpers;
 using RetroWar.Services.Implementations.Helpers.Model;
 using RetroWar.Services.Implementations.Loaders;
 using RetroWar.Services.Implementations.Repositories;
+using RetroWar.Services.Implementations.Updaters;
 using RetroWar.Services.Implementations.UserInterface;
 using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision;
@@ -18,6 +19,7 @@ using RetroWar.Services.Interfaces.Helpers;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
 using RetroWar.Services.Interfaces.Repositories;
+using RetroWar.Services.Interfaces.Updaters;
 using RetroWar.Services.Interfaces.UserInterface;
 using System.Collections.Generic;
 
@@ -46,7 +48,8 @@ namespace RetroWar
 
             // Loaders
             services.AddSingleton<IActionDataLoader, ActionDataLoader>();
-            services.AddSingleton<IVehicleLoader, VehicleLoader>();
+            services.AddSingleton<IPlayerVehicleLoader, PlayerVehicleLoader>();
+            services.AddSingleton<IEnemyVehicleLoader, EnemyVehicleLoader>();
             services.AddSingleton<ITextureLoader, TextureLoader>();
             services.AddSingleton<ITileLoader, TileLoader>();
             services.AddSingleton<IBulletLoader, BulletLoader>();
@@ -75,6 +78,17 @@ namespace RetroWar
 
             services.AddSingleton<ICollisionResolver, CompositeCollisionResolver>();
 
+            // Sprite Updaters
+
+            services.AddSingleton<BulletUpdater>();
+
+            services.AddSingleton<IEnumerable<ISpriteUpdater>>(
+                provider => new List<ISpriteUpdater>
+                {
+                    provider.GetService<BulletUpdater>()
+                });
+
+            services.AddSingleton<ISpriteUpdater, SpriteUpdaterComposite>();
 
             // Grid
             services.AddSingleton<IGridHandler, GridHandler>();

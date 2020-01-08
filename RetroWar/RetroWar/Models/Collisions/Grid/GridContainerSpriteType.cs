@@ -4,6 +4,7 @@
     {
         Player = 0,
         Tile = 1,
-        Bullet = 2
+        Bullet = 2,
+        Enemy = 3
     }
 }

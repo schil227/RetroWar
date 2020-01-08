@@ -10,7 +10,8 @@ namespace RetroWar.Models.Repositories
     public class ContentDatabase
     {
         public IEnumerable<ActionDataDatabaseItem> Actions { get; set; }
-        public IEnumerable<VehicleDatabaseItem> Vehicles { get; set; }
+        public IEnumerable<PlayerVehicleDatabaseItem> PlayerVehicles { get; set; }
+        public IEnumerable<EnemyVehicleDatabaseItem> EnemyVehicles { get; set; }
         public IEnumerable<TextureDatabaseItem> Textures { get; set; }
         public IEnumerable<TileDatabaseItem> Tiles { get; set; }
         public IEnumerable<BulletDatabaseItem> Bullets { get; set; }

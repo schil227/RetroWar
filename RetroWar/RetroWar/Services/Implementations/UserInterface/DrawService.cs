@@ -39,6 +39,7 @@ namespace RetroWar.Services.Implementations.UserInterface
             {
                 DrawSprites(spriteBatch, textureDatabaseItems, box.Tiles.Values.ToArray(), screen, drawnSprites);
                 DrawSprites(spriteBatch, textureDatabaseItems, box.Bullets.Values.ToArray(), screen, drawnSprites);
+                DrawSprites(spriteBatch, textureDatabaseItems, box.EnemyVehicles.Values.ToArray(), screen, drawnSprites);
 
                 if (playerTank == null && box.playerTank != null)
                 {

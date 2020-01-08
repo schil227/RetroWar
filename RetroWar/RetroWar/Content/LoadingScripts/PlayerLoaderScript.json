@@ -1,7 +1,7 @@
 ﻿[
   {
-    "VehicleId": "tank",
-    "Vehicle": {
+    "PlayerId": "tank",
+    "Player": {
       "X": 16,
       "Y": 120,
       "SpriteId": "tank",
@@ -12,7 +12,8 @@
       "Action": "Idle",
       "ActionDataSetId": "tankv1",
       "TotalHealth": 10,
-      "Health": 10
+      "Health": 10,
+      "NumLives": 3
     }
   }
 ]
