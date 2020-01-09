@@ -81,11 +81,13 @@ namespace RetroWar
             // Sprite Updaters
 
             services.AddSingleton<BulletUpdater>();
+            services.AddSingleton<PlayerUpdater>();
 
             services.AddSingleton<IEnumerable<ISpriteUpdater>>(
                 provider => new List<ISpriteUpdater>
                 {
-                    provider.GetService<BulletUpdater>()
+                    provider.GetService<BulletUpdater>(),
+                    provider.GetService<PlayerUpdater>()
                 });
 
             services.AddSingleton<ISpriteUpdater, SpriteUpdaterComposite>();

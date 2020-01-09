@@ -13,6 +13,10 @@
       "ActionDataSetId": "tankv1",
       "TotalHealth": 10,
       "Health": 10,
+      "IsJumping": false,
+      "FallSum": 0,
+      "FallRate": 10,
+      "VehicleSpeed": 100,
       "NumLives": 3
     }
   }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using RetroWar.Models.Collisions.Grid;
 using RetroWar.Models.Level;
 using RetroWar.Models.Repositories;
 using RetroWar.Models.Screen;
@@ -19,7 +18,6 @@ using RetroWar.Services.Interfaces.UserInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Action = RetroWar.Models.Sprites.Actions.Action;
 
 namespace RetroWar
 {
@@ -44,11 +42,6 @@ namespace RetroWar
         Screen screen;
         Vehicle playerTank;
         List<Tile> tiles;
-
-        float tankSpeed;
-        float fallSum = 0;
-        float fallRate = 10;
-        bool isJumping = false;
 
         float imageScaleX = 1.0f;
         float imageScaleY = 1.0f;
@@ -118,8 +111,6 @@ namespace RetroWar
             imageScaleX = (Window.ClientBounds.Width * 1.0f) / screen.Width * 1.0f;
             imageScaleY = (Window.ClientBounds.Height * 1.0f) / screen.Height * 1f;
 
-            tankSpeed = 100f;
-
             Console.WriteLine($"Width: {graphics.PreferredBackBufferWidth }, Height: {graphics.PreferredBackBufferHeight }");
 
             contentDatabase = contentLoader.LoadAllData(
@@ -185,129 +176,11 @@ namespace RetroWar
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
-            var keyState = Keyboard.GetState();
-
             var deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-            if (keyState.IsKeyDown(Keys.R))
-            {
-                playerTank.X = 16;
-                playerTank.Y = 180;
-                fallSum = 0;
-            }
-
-            if (keyState.IsKeyDown(Keys.W))
-            {
-                playerTank.deltaY -= tankSpeed * deltaT;
-            }
-
-            if (keyState.IsKeyDown(Keys.A))
-            {
-                playerTank.deltaX -= tankSpeed * deltaT;
-                playerTank.CurrentDirection = Direction.Left;
-            }
-
-            if (keyState.IsKeyDown(Keys.D))
-            {
-                playerTank.deltaX += tankSpeed * deltaT;
-                playerTank.CurrentDirection = Direction.Right;
-            }
-
-            if (keyState.IsKeyDown(Keys.J))
-            {
-                if (fallSum == 0 && isJumping == false)
-                {
-                    fallSum = -5;
-                    isJumping = true;
-                }
-            }
-
-            if (keyState.IsKeyDown(Keys.K))
-            {
-                if (playerTank.CurrentAction != Action.FireStandard)
-                {
-                    actionService.SetAction(playerTank, Action.FireStandard);
-                }
-            }
-
-            if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
-            {
-                if (playerTank.CurrentAction == Action.Idle)
-                {
-                    actionService.SetAction(playerTank, Action.Move);
-                }
-            }
-            else
-            {
-                if (playerTank.CurrentAction == Action.Move)
-                {
-                    actionService.SetAction(playerTank, Action.Idle);
-                }
-            }
-
-            if (keyState.IsKeyDown(Keys.Right))
-            {
-                screen.X += 10;
-            }
-
-            var previousPlayerX = playerTank.X;
-            var previousPlayerY = playerTank.Y;
-
-            fallSum += Math.Min(fallRate * deltaT, 10);
-            playerTank.deltaY += fallSum;
-
-            // Collision Handling
-            playerTank.Y += (int)playerTank.deltaY;
-            playerTank.deltaY = 0;
-
-            playerTank.X += (int)playerTank.deltaX;
-            playerTank.deltaX = 0;
-
-            gridHandler.MoveSprite(stage.Grids, playerTank, GridContainerSpriteType.Player, (int)previousPlayerX, (int)previousPlayerY);
-
-            var collidedSprites = new Dictionary<string, string>();
-            var processedBullets = new Dictionary<string, string>();
 
             var boxes = gridHandler.GetGridsFromPoints(stage.Grids, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
 
-            foreach (var box in boxes)
-            {
-                var bullets = box.Bullets.Values.ToList();
-
-                foreach (var bullet in bullets)
-                {
-                    spriteUpdaterComposite.UpdateSprite(bullet, deltaT, processedBullets);
-                }
-            }
-            //    foreach (var bullet in bullets)
-            //    {
-            //        if (processedBullets.ContainsKey(bullet.SpriteId))
-            //        {
-            //            continue;
-            //        }
-
-            //        var oldX = (int)bullet.X;
-            //        var oldY = (int)bullet.Y;
-
-            //        var newPoint = bulletHelper.FindNextPointInTrajectory(bullet, deltaT);
-
-            //        bullet.X = newPoint.X;
-            //        bullet.Y = newPoint.Y;
-
-            //        if (!screenService.IsOnScreen(screen, bullet))
-            //        {
-            //            gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet, oldX, oldY);
-            //            continue;
-            //        }
-
-            //        gridHandler.MoveSprite(stage.Grids, bullet, GridContainerSpriteType.Bullet, oldX, oldY);
-
-            //        processedBullets.Add(bullet.SpriteId, "Processed");
-            //    }
-            //}
-
-            var spritesToCollide = new HashSet<Sprite>();
+            var sprites = new HashSet<Sprite>();
 
             foreach (var box in boxes)
             {
@@ -318,23 +191,32 @@ namespace RetroWar
 
                 if (box.playerTank != null)
                 {
-                    spritesToCollide.Add(box.playerTank);
+                    sprites.Add(box.playerTank);
                 }
 
                 foreach (var bullet in box.Bullets)
                 {
-                    spritesToCollide.Add(bullet.Value);
+                    sprites.Add(bullet.Value);
                 }
 
                 foreach (var tile in box.Tiles)
                 {
-                    spritesToCollide.Add(tile.Value);
+                    sprites.Add(tile.Value);
                 }
             }
 
-            foreach (var normal in spritesToCollide)
+            var updatedSprites = new Dictionary<string, string>();
+
+            foreach (var sprite in sprites)
             {
-                foreach (var based in spritesToCollide)
+                spriteUpdaterComposite.UpdateSprite(sprite, deltaT, updatedSprites);
+            }
+
+            var collidedSprites = new Dictionary<string, string>();
+
+            foreach (var normal in sprites)
+            {
+                foreach (var based in sprites)
                 {
                     if (normal == based
                         || (normal is Tile && based is Tile)
@@ -355,8 +237,8 @@ namespace RetroWar
                         //      (need to expand vehicle class)
                         if (((normal == playerTank && based is Tile) || (based == playerTank && normal is Tile)) && playerTank.Y < beforeY)
                         {
-                            fallSum = 0;
-                            isJumping = false;
+                            playerTank.FallSum = 0;
+                            playerTank.IsJumping = false;
                         }
 
                     }

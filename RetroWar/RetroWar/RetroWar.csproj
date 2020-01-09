@@ -109,6 +109,7 @@
     <Compile Include="Services\Implementations\Loaders\TileLoader.cs" />
     <Compile Include="Services\Implementations\Repositories\ContentRepository.cs" />
     <Compile Include="Services\Implementations\Updaters\BulletUpdater.cs" />
+    <Compile Include="Services\Implementations\Updaters\PlayerUpdater.cs" />
     <Compile Include="Services\Implementations\Updaters\SpriteUpdaterComposite.cs" />
     <Compile Include="Services\Implementations\UserInterface\DrawService.cs" />
     <Compile Include="Services\Implementations\UserInterface\ScreenService.cs" />
