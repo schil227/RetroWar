@@ -86,6 +86,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementations\Actions\ActionService.cs" />
     <Compile Include="Services\Implementations\Actions\SequenceService.cs" />
+    <Compile Include="Services\Implementations\AI\BehaviorProcessorComposite.cs" />
+    <Compile Include="Services\Implementations\AI\MoveLeftProcessor.cs" />
     <Compile Include="Services\Implementations\Collision\CollisionFinder.cs" />
     <Compile Include="Services\Implementations\Collision\CollisionService.cs" />
     <Compile Include="Services\Implementations\Collision\FoundCollisionFilter.cs" />
@@ -109,12 +111,14 @@
     <Compile Include="Services\Implementations\Loaders\TileLoader.cs" />
     <Compile Include="Services\Implementations\Repositories\ContentRepository.cs" />
     <Compile Include="Services\Implementations\Updaters\BulletUpdater.cs" />
+    <Compile Include="Services\Implementations\Updaters\EnemyUpdater.cs" />
     <Compile Include="Services\Implementations\Updaters\PlayerUpdater.cs" />
     <Compile Include="Services\Implementations\Updaters\SpriteUpdaterComposite.cs" />
     <Compile Include="Services\Implementations\UserInterface\DrawService.cs" />
     <Compile Include="Services\Implementations\UserInterface\ScreenService.cs" />
     <Compile Include="Services\Interfaces\Actions\IActionService.cs" />
     <Compile Include="Services\Interfaces\Actions\ISequenceService.cs" />
+    <Compile Include="Services\Interfaces\AI\IBehaviorProcessor.cs" />
     <Compile Include="Services\Interfaces\Collision\Grid\IGridHandler.cs" />
     <Compile Include="Services\Interfaces\Collision\Grid\IGridService.cs" />
     <Compile Include="Services\Interfaces\Collision\Grid\ISpacialHashingService.cs" />

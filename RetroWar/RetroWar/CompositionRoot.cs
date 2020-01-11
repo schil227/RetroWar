@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RetroWar.Services.Implementations.Actions;
+using RetroWar.Services.Implementations.AI;
 using RetroWar.Services.Implementations.Collision;
 using RetroWar.Services.Implementations.Collision.Grid;
 using RetroWar.Services.Implementations.Collision.Resolvers;
@@ -11,6 +12,7 @@ using RetroWar.Services.Implementations.Repositories;
 using RetroWar.Services.Implementations.Updaters;
 using RetroWar.Services.Implementations.UserInterface;
 using RetroWar.Services.Interfaces.Actions;
+using RetroWar.Services.Interfaces.AI;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
@@ -79,18 +81,30 @@ namespace RetroWar
             services.AddSingleton<ICollisionResolver, CompositeCollisionResolver>();
 
             // Sprite Updaters
-
             services.AddSingleton<BulletUpdater>();
             services.AddSingleton<PlayerUpdater>();
+            services.AddSingleton<EnemyUpdater>();
 
             services.AddSingleton<IEnumerable<ISpriteUpdater>>(
                 provider => new List<ISpriteUpdater>
                 {
                     provider.GetService<BulletUpdater>(),
-                    provider.GetService<PlayerUpdater>()
+                    provider.GetService<PlayerUpdater>(),
+                    provider.GetService<EnemyUpdater>(),
                 });
 
             services.AddSingleton<ISpriteUpdater, SpriteUpdaterComposite>();
+
+            // AI Behavior Processors
+            services.AddSingleton<MoveLeftProcessor>();
+
+            services.AddSingleton<IEnumerable<IBehaviorProcessor>>(
+                provider => new List<IBehaviorProcessor>
+                {
+                    provider.GetService<MoveLeftProcessor>()
+                });
+
+            services.AddSingleton<IBehaviorProcessor, BehaviorProcessorComposite>();
 
             // Grid
             services.AddSingleton<IGridHandler, GridHandler>();

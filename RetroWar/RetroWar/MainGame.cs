@@ -184,7 +184,7 @@ namespace RetroWar
 
             foreach (var box in boxes)
             {
-                if (box.playerTank == null && box.Bullets.Count == 0)
+                if (box.playerTank == null && box.Bullets.Count == 0 && box.EnemyVehicles.Count == 0)
                 {
                     continue;
                 }
@@ -192,6 +192,11 @@ namespace RetroWar
                 if (box.playerTank != null)
                 {
                     sprites.Add(box.playerTank);
+                }
+
+                foreach (var enemy in box.EnemyVehicles)
+                {
+                    sprites.Add(enemy.Value);
                 }
 
                 foreach (var bullet in box.Bullets)
@@ -229,18 +234,24 @@ namespace RetroWar
 
                     if (collisions.Length > 0)
                     {
-                        var beforeY = playerTank.Y;
+                        var beforeYNormal = normal.Y;
+                        var beforeYBased = based.Y;
+
                         collisionService.ResolveCollision(normal, based, collisions);
 
                         // resolution pushed player vehicle up, no longer falling
                         // Note: Open this up for all vehicles, not just player 
                         //      (need to expand vehicle class)
-                        if (((normal == playerTank && based is Tile) || (based == playerTank && normal is Tile)) && playerTank.Y < beforeY)
+                        if (normal is Vehicle && based is Tile && normal.Y < beforeYNormal)
                         {
-                            playerTank.FallSum = 0;
-                            playerTank.IsJumping = false;
+                            ((Vehicle)normal).FallSum = 0;
+                            ((Vehicle)normal).IsJumping = false;
                         }
-
+                        else if (based is Vehicle && normal is Tile && based.Y < beforeYBased)
+                        {
+                            ((Vehicle)based).FallSum = 0;
+                            ((Vehicle)based).IsJumping = false;
+                        }
                     }
                 }
             }
