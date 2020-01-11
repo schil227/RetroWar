@@ -234,24 +234,7 @@ namespace RetroWar
 
                     if (collisions.Length > 0)
                     {
-                        var beforeYNormal = normal.Y;
-                        var beforeYBased = based.Y;
-
                         collisionService.ResolveCollision(normal, based, collisions);
-
-                        // resolution pushed player vehicle up, no longer falling
-                        // Note: Open this up for all vehicles, not just player 
-                        //      (need to expand vehicle class)
-                        if (normal is Vehicle && based is Tile && normal.Y < beforeYNormal)
-                        {
-                            ((Vehicle)normal).FallSum = 0;
-                            ((Vehicle)normal).IsJumping = false;
-                        }
-                        else if (based is Vehicle && normal is Tile && based.Y < beforeYBased)
-                        {
-                            ((Vehicle)based).FallSum = 0;
-                            ((Vehicle)based).IsJumping = false;
-                        }
                     }
                 }
             }

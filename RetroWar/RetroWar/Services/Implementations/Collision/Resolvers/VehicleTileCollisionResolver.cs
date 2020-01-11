@@ -29,6 +29,8 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 return false;
             }
 
+            var beforeY = vehicle.Y;
+
             if (Math.Abs(collisionResolution.DeltaX) < Math.Abs(collisionResolution.DeltaY))
             {
                 if (collisionResolution.DeltaX > 0)
@@ -78,6 +80,13 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                         vehicle.X += collisionResolution.DeltaX;
                     }
                 }
+            }
+
+            // resolution was to push it up by landing on a tile; no longer jumping.
+            if (vehicle.Y < beforeY)
+            {
+                vehicle.FallSum = 0;
+                vehicle.IsJumping = false;
             }
 
             return true;
