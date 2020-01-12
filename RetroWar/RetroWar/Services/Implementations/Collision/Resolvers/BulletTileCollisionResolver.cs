@@ -1,5 +1,4 @@
 ﻿using RetroWar.Models.Collisions;
-using RetroWar.Models.Collisions.Grid;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Bullets;
 using RetroWar.Models.Sprites.Tiles;
@@ -44,7 +43,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 return false;
             }
 
-            gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, bullet, GridContainerSpriteType.Bullet, (int)bullet.X, (int)bullet.Y);
+            gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, bullet, (int)bullet.X, (int)bullet.Y);
 
             return true;
         }

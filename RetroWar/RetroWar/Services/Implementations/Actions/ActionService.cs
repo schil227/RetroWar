@@ -1,6 +1,9 @@
 ﻿using RetroWar.Models.Common;
 using RetroWar.Models.Sprites;
+using RetroWar.Models.Sprites.Bullets;
+using RetroWar.Models.Vehicles.Vehicles.PlayerVehicle;
 using RetroWar.Services.Interfaces.Actions;
+using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Factories;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Repositories;
@@ -14,16 +17,19 @@ namespace RetroWar.Services.Implementations.Actions
         private readonly ISpriteHelper spriteHelper;
         private readonly IContentRepository contentRepository;
         private readonly ISpriteFactory spriteFactory;
+        private readonly IGridHandler gridHandler;
 
         public ActionService(
             ISpriteHelper spriteHelper,
             IContentRepository contentRepository,
-            ISpriteFactory spriteFactory
+            ISpriteFactory spriteFactory,
+            IGridHandler gridHandler
             )
         {
             this.spriteHelper = spriteHelper;
             this.contentRepository = contentRepository;
             this.spriteFactory = spriteFactory;
+            this.gridHandler = gridHandler;
         }
 
         public void ProcessActionEvent(Sprite sprite)
@@ -46,7 +52,14 @@ namespace RetroWar.Services.Implementations.Actions
                                 Y = sprite.Y + 6
                             };
 
-                            spriteFactory.CreateBullet("StandardBullet", spawnPoint, sprite.CurrentDirection);
+                            var damageType = (sprite is PlayerVehicle ? DamageDiscrimination.DamagesEnemy : DamageDiscrimination.DamagesPlayer);
+
+                            spriteFactory.CreateBullet("StandardBullet", spawnPoint, sprite.CurrentDirection, damageType);
+                            break;
+                        }
+                    case Action.Destroyed:
+                        {
+                            gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, sprite, (int)sprite.X, (int)sprite.Y);
                             break;
                         }
                 }

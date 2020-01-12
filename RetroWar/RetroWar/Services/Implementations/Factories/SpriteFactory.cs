@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using RetroWar.Models.Collisions.Grid;
 using RetroWar.Models.Common;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Bullets;
@@ -26,7 +25,7 @@ namespace RetroWar.Services.Implementations.Factories
             this.gridService = gridService;
         }
 
-        public Bullet CreateBullet(string bulletId, Point point, Direction direction)
+        public Bullet CreateBullet(string bulletId, Point point, Direction direction, DamageDiscrimination damageDiscrimination)
         {
             var bulletMaster = contentRepository.Bullets.First(b => string.Equals(b.BulletId, bulletId)).Bullet;
 
@@ -37,8 +36,9 @@ namespace RetroWar.Services.Implementations.Factories
             bullet.X = point.X;
             bullet.Y = point.Y;
             bullet.CurrentDirection = direction;
+            bullet.DamageDiscrimination = damageDiscrimination;
 
-            gridService.AddSpriteToGrid(contentRepository.CurrentStage.Grids, GridContainerSpriteType.Bullet, bullet);
+            gridService.AddSpriteToGrid(contentRepository.CurrentStage.Grids, bullet);
 
             return bullet;
         }

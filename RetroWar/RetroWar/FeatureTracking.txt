@@ -3,24 +3,28 @@
 	Remember:  Make it a game, make it fun
 
 == Features ==
--Make a simple enemy tank
--Tighten up movement, feels a little off
+	-Tighten up movement, feels a little off
+	-Add hitbox offset that is added, not multiplied (1/11/2020)
+	-Make a larger level (1/11/2020)
+	-Implement damage when shot, death animations, etc. (1/11/2020)
 
 == Bugs ==
  - Collision:
 	-collision needs to be tweaked; if the tank (12 px tall) jumps into a tile (16 px tall), the collision wont resolve to kick them out the way they came (may actually not be a collision issue; could be that movement is being cumulative or something...)
-- Grid:
-	- sprites that have points in the negative region aren't getting added and removed correctly: e.g. with a sprite whos x values is -5 and maximum value is 8, both (when divided by 32) result in the 0 grid, when it's actually straddling the -1 and 0 grid
 	
 == Refactoring ==
-- Move collision handling/grid lookup logic out of MainGame.Update
 
-== DONE ==
+
+====== DONE ======
 = Features =
 	-Make it so the tank faces the correct direction when moving left and right (12/26/19)
 	-implement animations (12/27/19)
 	-Implement (some) actions (e.g. idle, moving, jumping) (12/30/19)
 	-Fire artillery shells (1/5/20)
+	-Make a simple enemy tank (1/11/2020)
 	
-	=Bugs=
-		- sprites that have points in the negative region aren't getting added and removed correctly: e.g. with a 	sprite whos x values is -5 and maximum value is 8, both (when divided by 32) result in the 0 grid, when it's actually straddling the -1 and 0 grid (1/1/2020)
+= Bugs =
+	- sprites that have points in the negative region aren't getting added and removed correctly: e.g. with a 	sprite whos x values is -5 and maximum value is 8, both (when divided by 32) result in the 0 grid, when it's actually straddling the -1 and 0 grid (1/1/2020)
+		
+= Refactoring =
+	- Move collision handling/grid lookup logic out of MainGame.Update (1/11/2020)

@@ -1,5 +1,4 @@
-﻿using RetroWar.Models.Collisions.Grid;
-using RetroWar.Models.Vehicles.Vehicles.EnemyVehicle;
+﻿using RetroWar.Models.Vehicles.Vehicles.EnemyVehicle;
 using RetroWar.Services.Interfaces.AI;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Repositories;
@@ -37,7 +36,7 @@ namespace RetroWar.Services.Implementations.AI
             enemy.FallSum += System.Math.Min(enemy.FallRate * deltaTime, 10);
             enemy.Y += enemy.FallSum;
 
-            gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, enemy, GridContainerSpriteType.Enemy, oldX, oldY);
+            gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, enemy, oldX, oldY);
 
             return true;
         }

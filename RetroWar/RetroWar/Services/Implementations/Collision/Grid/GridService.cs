@@ -21,7 +21,7 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             this.spriteHelper = spriteHelper;
         }
 
-        public void AddSpriteToGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, GridContainerSpriteType spriteType, Sprite sprite)
+        public void AddSpriteToGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite)
         {
             var maximumPoint = spriteHelper.GetMaximumPoints(sprite, (int)sprite.X, (int)sprite.Y);
 
@@ -35,7 +35,7 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             {
                 for (int j = startY; j <= endY; j++)
                 {
-                    spacialHashingService.AddSpriteToGrid(gridHash, spriteType, sprite, i, j);
+                    spacialHashingService.AddSpriteToGrid(gridHash, sprite, i, j);
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             return grids;
         }
 
-        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, GridContainerSpriteType spriteType, Sprite sprite, int oldX, int oldY)
+        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int oldX, int oldY)
         {
             var maximumPoint = spriteHelper.GetMaximumPoints(sprite, oldX, oldY);
 
@@ -75,7 +75,7 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             {
                 for (int j = startY; j <= endY; j++)
                 {
-                    spacialHashingService.RemoveSpriteFromGrid(gridHash, spriteType, sprite, i, j);
+                    spacialHashingService.RemoveSpriteFromGrid(gridHash, sprite, i, j);
                 }
             }
         }

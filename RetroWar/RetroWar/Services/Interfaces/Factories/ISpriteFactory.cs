@@ -6,6 +6,6 @@ namespace RetroWar.Services.Interfaces.Factories
 {
     public interface ISpriteFactory
     {
-        Bullet CreateBullet(string bulletId, Point point, Direction direction);
+        Bullet CreateBullet(string bulletId, Point point, Direction direction, DamageDiscrimination damageDiscrimination);
     }
 }

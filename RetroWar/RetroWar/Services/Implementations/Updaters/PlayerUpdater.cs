@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework.Input;
-using RetroWar.Models.Collisions.Grid;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Actions;
 using RetroWar.Models.Vehicles.Vehicles.PlayerVehicle;
@@ -8,6 +7,7 @@ using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Repositories;
 using RetroWar.Services.Interfaces.Updaters;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace RetroWar.Services.Implementations.Updaters
 {
@@ -46,9 +46,29 @@ namespace RetroWar.Services.Implementations.Updaters
 
             if (keyState.IsKeyDown(Keys.R))
             {
+                var oldX = (int)playerTank.X;
+                var oldY = (int)playerTank.Y;
+
                 playerTank.X = 16;
                 playerTank.Y = 180;
                 playerTank.FallSum = 0;
+
+                gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank, oldX, oldY);
+
+                var enemy = contentRepository.EnemyVehicles.First().Enemy;
+
+                oldX = (int)enemy.X;
+                oldY = (int)enemy.Y;
+
+                enemy.X = 112;
+                enemy.Y = 120;
+                enemy.FallSum = 0;
+
+                gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, enemy, oldX, oldY);
+
+                processedSprites.Add(playerTank.SpriteId, "processed");
+
+                return true;
             }
 
             if (keyState.IsKeyDown(Keys.W))
@@ -113,7 +133,7 @@ namespace RetroWar.Services.Implementations.Updaters
             playerTank.X += (int)playerTank.deltaX;
             playerTank.deltaX = 0;
 
-            gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank, GridContainerSpriteType.Player, (int)previousPlayerX, (int)previousPlayerY);
+            gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank, (int)previousPlayerX, (int)previousPlayerY);
 
             processedSprites.Add(playerTank.SpriteId, "processed");
 

@@ -53,7 +53,6 @@
     <Compile Include="MainGame.cs" />
     <Compile Include="Models\Collisions\CollisionResolution.cs" />
     <Compile Include="Models\Collisions\Grid\GridContainer.cs" />
-    <Compile Include="Models\Collisions\Grid\GridContainerSpriteType.cs" />
     <Compile Include="Models\Collisions\PointInCollision.cs" />
     <Compile Include="Models\Collisions\Resolution.cs" />
     <Compile Include="Models\Common\Point.cs" />
@@ -63,6 +62,7 @@
     <Compile Include="Models\Repositories\ContentDatabase.cs" />
     <Compile Include="Models\Repositories\Vehicles\EnemyVehicle\EnemyVehicleDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Vehicles\PlayerVehicle\PlayerVehicleDatabaseItem.cs" />
+    <Compile Include="Models\Sprites\Bullets\DamageDiscrimination.cs" />
     <Compile Include="Models\Sprites\Vehicles\EnemyVehicle\AIBehavior.cs" />
     <Compile Include="Models\Sprites\Vehicles\EnemyVehicle\EnemyVehicle.cs" />
     <Compile Include="Models\Sprites\Vehicles\PlayerVehicle\PlayerVehicle.cs" />
@@ -95,6 +95,7 @@
     <Compile Include="Services\Implementations\Collision\Grid\GridService.cs" />
     <Compile Include="Services\Implementations\Collision\Grid\SpacialHashingService.cs" />
     <Compile Include="Services\Implementations\Collision\MultiPointCollisionResolver.cs" />
+    <Compile Include="Services\Implementations\Collision\Resolvers\BulletPlayerVehicleCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\BulletTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\CompositeCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\VehicleTileCollisionResolver.cs" />

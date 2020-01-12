@@ -1,5 +1,4 @@
-﻿using RetroWar.Models.Collisions.Grid;
-using RetroWar.Models.Sprites;
+﻿using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Bullets;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Helpers.Model;
@@ -56,12 +55,12 @@ namespace RetroWar.Services.Implementations.Updaters
 
             if (!screenService.IsOnScreen(screen, bullet))
             {
-                gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, GridContainerSpriteType.Bullet, oldX, oldY);
+                gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, oldX, oldY);
                 processedSprites.Add(bullet.SpriteId, "Processed");
                 return true;
             }
 
-            gridHandler.MoveSprite(stage.Grids, bullet, GridContainerSpriteType.Bullet, oldX, oldY);
+            gridHandler.MoveSprite(stage.Grids, bullet, oldX, oldY);
 
             processedSprites.Add(bullet.SpriteId, "Processed");
 

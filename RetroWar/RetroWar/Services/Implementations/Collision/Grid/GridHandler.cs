@@ -22,25 +22,25 @@ namespace RetroWar.Services.Implementations.Collision.Grid
         {
             var gridHash = new Dictionary<Tuple<int, int>, GridContainer>();
 
-            gridService.AddSpriteToGrid(gridHash, GridContainerSpriteType.Player, playerTank);
+            gridService.AddSpriteToGrid(gridHash, playerTank);
 
             foreach (var tile in tiles)
             {
-                gridService.AddSpriteToGrid(gridHash, GridContainerSpriteType.Tile, tile);
+                gridService.AddSpriteToGrid(gridHash, tile);
             }
 
             foreach (var enemy in enemyVehicles)
             {
-                gridService.AddSpriteToGrid(gridHash, GridContainerSpriteType.Enemy, enemy);
+                gridService.AddSpriteToGrid(gridHash, enemy);
             }
 
             return gridHash;
         }
 
-        public void MoveSprite(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, GridContainerSpriteType spritetype, int oldX, int oldY)
+        public void MoveSprite(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int oldX, int oldY)
         {
-            gridService.RemoveSpriteFromGrid(gridHash, spritetype, sprite, oldX, oldY);
-            gridService.AddSpriteToGrid(gridHash, spritetype, sprite);
+            gridService.RemoveSpriteFromGrid(gridHash, sprite, oldX, oldY);
+            gridService.AddSpriteToGrid(gridHash, sprite);
         }
 
         public IEnumerable<GridContainer> GetGridsFromPoints(Dictionary<Tuple<int, int>, GridContainer> gridHash, int x, int y, int maxX, int maxY)
@@ -48,9 +48,9 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             return gridService.GetGridsFromPoints(gridHash, x, y, maxX, maxY);
         }
 
-        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, GridContainerSpriteType spritetype, int oldX, int oldY)
+        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int oldX, int oldY)
         {
-            gridService.RemoveSpriteFromGrid(gridHash, spritetype, sprite, oldX, oldY);
+            gridService.RemoveSpriteFromGrid(gridHash, sprite, oldX, oldY);
         }
     }
 }

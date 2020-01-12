@@ -12,45 +12,47 @@ namespace RetroWar.Services.Implementations.Collision.Grid
 {
     public class SpacialHashingService : ISpacialHashingService
     {
-        public void AddSpriteToGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, GridContainerSpriteType spriteType, Sprite sprite, int gridX, int gridY)
+        public void AddSpriteToGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int gridX, int gridY)
         {
             var gridContainer = GetGridContainer(gridHash, gridX, gridY);
 
-            switch (spriteType)
+            if (sprite is PlayerVehicle)
             {
-                case GridContainerSpriteType.Player:
-                    gridContainer.playerTank = (PlayerVehicle)sprite;
-                    break;
-                case GridContainerSpriteType.Tile:
-                    gridContainer.Tiles.Add(sprite.SpriteId, (Tile)sprite);
-                    break;
-                case GridContainerSpriteType.Bullet:
-                    gridContainer.Bullets.Add(sprite.SpriteId, (Bullet)sprite);
-                    break;
-                case GridContainerSpriteType.Enemy:
-                    gridContainer.EnemyVehicles.Add(sprite.SpriteId, (EnemyVehicle)sprite);
-                    break;
+                gridContainer.playerTank = (PlayerVehicle)sprite;
+            }
+            else if (sprite is EnemyVehicle)
+            {
+                gridContainer.EnemyVehicles.Add(sprite.SpriteId, (EnemyVehicle)sprite);
+            }
+            else if (sprite is Bullet)
+            {
+                gridContainer.Bullets.Add(sprite.SpriteId, (Bullet)sprite);
+            }
+            else if (sprite is Tile)
+            {
+                gridContainer.Tiles.Add(sprite.SpriteId, (Tile)sprite);
             }
         }
 
-        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, GridContainerSpriteType spriteType, Sprite sprite, int gridX, int gridY)
+        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int gridX, int gridY)
         {
             var gridContainer = GetGridContainer(gridHash, gridX, gridY);
 
-            switch (spriteType)
+            if (sprite is PlayerVehicle)
             {
-                case GridContainerSpriteType.Player:
-                    gridContainer.playerTank = null;
-                    break;
-                case GridContainerSpriteType.Tile:
-                    gridContainer.Tiles.Remove(sprite.SpriteId);
-                    break;
-                case GridContainerSpriteType.Bullet:
-                    gridContainer.Bullets.Remove(sprite.SpriteId);
-                    break;
-                case GridContainerSpriteType.Enemy:
-                    gridContainer.EnemyVehicles.Remove(sprite.SpriteId);
-                    break;
+                gridContainer.playerTank = null;
+            }
+            else if (sprite is EnemyVehicle)
+            {
+                gridContainer.EnemyVehicles.Remove(sprite.SpriteId);
+            }
+            else if (sprite is Bullet)
+            {
+                gridContainer.Bullets.Remove(sprite.SpriteId);
+            }
+            else if (sprite is Tile)
+            {
+                gridContainer.Tiles.Remove(sprite.SpriteId);
             }
         }
 
