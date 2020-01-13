@@ -196,5 +196,41 @@
       "HasTileToLeft": false,
       "HasTileToRight": false
     }
+  },
+  {
+    "TileId": "ground12",
+    "Tile": {
+      "X": -16,
+      "Y": 226,
+      "Name": "Ground #12",
+      "SpriteId": "ground12",
+      "CurrentSequence": 0,
+      "TickAccumulation": 0,
+      "CurrentDirection": "Right",
+      "Action": "Idle",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": true,
+      "HasTileBelow": false,
+      "HasTileToLeft": false,
+      "HasTileToRight": true
+    }
+  },
+  {
+    "TileId": "ground13",
+    "Tile": {
+      "X": -16,
+      "Y": 210,
+      "Name": "Ground #13",
+      "SpriteId": "ground13",
+      "CurrentSequence": 0,
+      "TickAccumulation": 0,
+      "CurrentDirection": "Right",
+      "Action": "Idle",
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": true,
+      "HasTileToLeft": false,
+      "HasTileToRight": false
+    }
   }
 ]

@@ -13,7 +13,8 @@
       "ActionDataSetId": "standard_bullet",
       "Trajectory": "Straight",
       "Speed": 200,
-      "SpecificGravity": 10
+      "SpecificGravity": 10,
+      "Damage": 1
     }
   }
 ]

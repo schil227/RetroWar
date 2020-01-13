@@ -95,6 +95,7 @@
     <Compile Include="Services\Implementations\Collision\Grid\GridService.cs" />
     <Compile Include="Services\Implementations\Collision\Grid\SpacialHashingService.cs" />
     <Compile Include="Services\Implementations\Collision\MultiPointCollisionResolver.cs" />
+    <Compile Include="Services\Implementations\Collision\Resolvers\BulletEnemyVehicleCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\BulletPlayerVehicleCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\BulletTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\CompositeCollisionResolver.cs" />

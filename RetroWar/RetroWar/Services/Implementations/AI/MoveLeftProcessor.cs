@@ -31,7 +31,11 @@ namespace RetroWar.Services.Implementations.AI
             var oldY = (int)enemy.Y;
 
             enemy.CurrentDirection = Models.Sprites.Direction.Left;
-            enemy.X -= enemy.VehicleSpeed * deltaTime;
+
+            if (enemy.CurrentAction != Models.Sprites.Actions.Action.Destroyed)
+            {
+                enemy.X -= enemy.VehicleSpeed * deltaTime;
+            }
 
             enemy.FallSum += System.Math.Min(enemy.FallRate * deltaTime, 10);
             enemy.Y += enemy.FallSum;

@@ -6,5 +6,6 @@
         public float Speed;
         public float SpecificGravity;
         public DamageDiscrimination DamageDiscrimination;
+        public int Damage;
     }
 }

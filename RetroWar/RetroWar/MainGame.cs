@@ -32,7 +32,7 @@ namespace RetroWar
         private readonly IGridHandler gridHandler;
         private readonly IContentLoader contentLoader;
         private readonly IDrawService drawService;
-        private readonly ISequenceService sequenceService;
+
         private readonly IActionService actionService;
         private readonly IContentRepository contentRepository;
         private readonly ISpriteUpdater spriteUpdaterComposite;
@@ -53,7 +53,6 @@ namespace RetroWar
             IScreenService screenService,
             IGridHandler gridHandler,
             IDrawService drawService,
-            ISequenceService sequenceService,
             IActionService actionService,
             IContentRepository contentRepository,
             IBulletHelper bulletHelper,
@@ -66,7 +65,6 @@ namespace RetroWar
             this.screenService = screenService;
             this.gridHandler = gridHandler;
             this.drawService = drawService;
-            this.sequenceService = sequenceService;
             this.actionService = actionService;
             this.contentRepository = contentRepository;
             this.spriteUpdaterComposite = spriteUpdaterComposite;
@@ -240,8 +238,6 @@ namespace RetroWar
             }
 
             screenService.ScrollScreen(screen, playerTank);
-
-            sequenceService.UpdateActionSequence(playerTank, deltaT * 1000);
 
             base.Update(gameTime);
         }

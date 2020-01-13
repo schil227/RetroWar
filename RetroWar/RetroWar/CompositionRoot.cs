@@ -70,12 +70,16 @@ namespace RetroWar
             // Collision Resolvers
             services.AddSingleton<VehicleTileCollisionResolver>();
             services.AddSingleton<BulletTileCollisionResolver>();
+            services.AddSingleton<BulletPlayerVehicleCollisionResolver>();
+            services.AddSingleton<BulletEnemyVehicleCollisionResolver>();
 
             services.AddSingleton<IEnumerable<ICollisionResolver>>(
                 provider => new List<ICollisionResolver>
                 {
+                    provider.GetService<BulletPlayerVehicleCollisionResolver>(),
+                    provider.GetService<BulletEnemyVehicleCollisionResolver>(),
                     provider.GetService<VehicleTileCollisionResolver>(),
-                    provider.GetService<BulletTileCollisionResolver>()
+                    provider.GetService<BulletTileCollisionResolver>(),
                 });
 
             services.AddSingleton<ICollisionResolver, CompositeCollisionResolver>();

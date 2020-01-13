@@ -16,17 +16,20 @@ namespace RetroWar.Services.Implementations.Updaters
         private readonly IActionService actionService;
         private readonly IContentRepository contentRepository;
         private readonly IGridHandler gridHandler;
+        private readonly ISequenceService sequenceService;
 
         public PlayerUpdater
             (
                 IActionService actionService,
                 IContentRepository contentRepository,
-                IGridHandler gridHandler
+                IGridHandler gridHandler,
+                ISequenceService sequenceService
             )
         {
             this.actionService = actionService;
             this.contentRepository = contentRepository;
             this.gridHandler = gridHandler;
+            this.sequenceService = sequenceService;
         }
 
         public bool UpdateSprite(Sprite sprite, float deltaTime, Dictionary<string, string> processedSprites)
@@ -42,6 +45,8 @@ namespace RetroWar.Services.Implementations.Updaters
                 return false;
             }
 
+            sequenceService.UpdateActionSequence(playerTank, deltaTime * 1000);
+
             var keyState = Keyboard.GetState();
 
             if (keyState.IsKeyDown(Keys.R))
@@ -52,6 +57,8 @@ namespace RetroWar.Services.Implementations.Updaters
                 playerTank.X = 16;
                 playerTank.Y = 180;
                 playerTank.FallSum = 0;
+
+                actionService.SetAction(playerTank, Action.Idle);
 
                 gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank, oldX, oldY);
 
@@ -64,6 +71,8 @@ namespace RetroWar.Services.Implementations.Updaters
                 enemy.Y = 120;
                 enemy.FallSum = 0;
 
+                actionService.SetAction(enemy, Action.Idle);
+
                 gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, enemy, oldX, oldY);
 
                 processedSprites.Add(playerTank.SpriteId, "processed");
@@ -71,24 +80,24 @@ namespace RetroWar.Services.Implementations.Updaters
                 return true;
             }
 
-            if (keyState.IsKeyDown(Keys.W))
+            if (keyState.IsKeyDown(Keys.W) && playerTank.CurrentAction != Action.Destroyed)
             {
                 playerTank.deltaY -= playerTank.VehicleSpeed * deltaTime;
             }
 
-            if (keyState.IsKeyDown(Keys.A))
+            if (keyState.IsKeyDown(Keys.A) && playerTank.CurrentAction != Action.Destroyed)
             {
                 playerTank.deltaX -= playerTank.VehicleSpeed * deltaTime;
                 playerTank.CurrentDirection = Direction.Left;
             }
 
-            if (keyState.IsKeyDown(Keys.D))
+            if (keyState.IsKeyDown(Keys.D) && playerTank.CurrentAction != Action.Destroyed)
             {
                 playerTank.deltaX += playerTank.VehicleSpeed * deltaTime;
                 playerTank.CurrentDirection = Direction.Right;
             }
 
-            if (keyState.IsKeyDown(Keys.J))
+            if (keyState.IsKeyDown(Keys.J) && playerTank.CurrentAction != Action.Destroyed)
             {
                 if (playerTank.FallSum == 0 && playerTank.IsJumping == false)
                 {
@@ -97,7 +106,7 @@ namespace RetroWar.Services.Implementations.Updaters
                 }
             }
 
-            if (keyState.IsKeyDown(Keys.K))
+            if (keyState.IsKeyDown(Keys.K) && playerTank.CurrentAction != Action.Destroyed)
             {
                 if (playerTank.CurrentAction != Action.FireStandard)
                 {

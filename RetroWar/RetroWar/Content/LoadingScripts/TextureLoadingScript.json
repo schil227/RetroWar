@@ -6,5 +6,6 @@
   "Sprites/tankv1_bullet_std",
   "Sprites/enemy_tankv1",
   "Sprites/enemy_tankv1_moving_v2",
-  "Sprites/enemy_tankv1_firing_std"
+  "Sprites/enemy_tankv1_firing_std",
+  "Sprites/explosion"
 ]

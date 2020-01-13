@@ -2,6 +2,7 @@
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Actions;
 using RetroWar.Models.Sprites.Bullets;
+using RetroWar.Models.Vehicles.Vehicles.EnemyVehicle;
 using RetroWar.Models.Vehicles.Vehicles.PlayerVehicle;
 using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision.Grid;
@@ -10,13 +11,13 @@ using RetroWar.Services.Interfaces.Repositories;
 
 namespace RetroWar.Services.Implementations.Collision.Resolvers
 {
-    public class BulletPlayerVehicleCollisionResolver : ICollisionResolver
+    public class BulletEnemyVehicleCollisionResolver : ICollisionResolver
     {
         private readonly IGridHandler gridHandler;
         private readonly IActionService actionService;
         public readonly IContentRepository contentRepository;
 
-        public BulletPlayerVehicleCollisionResolver
+        public BulletEnemyVehicleCollisionResolver
             (
                 IGridHandler gridHandler,
                 IActionService actionService,
@@ -30,17 +31,17 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
 
         public bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution collisionResolution)
         {
-            PlayerVehicle playerTank = null;
+            EnemyVehicle enemyTank = null;
             Bullet bullet = null;
 
             if (normal is PlayerVehicle && based is Bullet)
             {
-                playerTank = (PlayerVehicle)normal;
+                enemyTank = (EnemyVehicle)normal;
                 bullet = (Bullet)based;
             }
-            else if (normal is Bullet && based is PlayerVehicle)
+            else if (normal is Bullet && based is EnemyVehicle)
             {
-                playerTank = (PlayerVehicle)based;
+                enemyTank = (EnemyVehicle)based;
                 bullet = (Bullet)normal;
             }
             else
@@ -48,16 +49,16 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 return false;
             }
 
-            if (bullet.DamageDiscrimination != DamageDiscrimination.DamagesPlayer && bullet.DamageDiscrimination != DamageDiscrimination.DamagesAll)
+            if (bullet.DamageDiscrimination != DamageDiscrimination.DamagesEnemy && bullet.DamageDiscrimination != DamageDiscrimination.DamagesAll)
             {
                 return true;
             }
 
-            playerTank.Health -= bullet.Damage;
+            enemyTank.Health -= bullet.Damage;
 
-            if (playerTank.Health <= 0)
+            if (enemyTank.Health <= 0)
             {
-                actionService.SetAction(playerTank, Action.Destroyed);
+                actionService.SetAction(enemyTank, Action.Destroyed);
             }
 
             gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, bullet, (int)bullet.X, (int)bullet.Y);
