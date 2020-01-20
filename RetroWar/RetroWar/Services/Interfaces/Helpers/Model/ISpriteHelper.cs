@@ -12,5 +12,6 @@ namespace RetroWar.Services.Interfaces.Helpers.Model
         ActionData GetCurrentActionData(Sprite sprite);
         HitBox[] GetCurrentHitBoxes(Sprite sprite);
         TextureData[] GetCurrentTextureData(Sprite sprite);
+        int GetHitboxXOffset(Sprite sprite, int currentXOffset, int hitBoxWidth);
     }
 }

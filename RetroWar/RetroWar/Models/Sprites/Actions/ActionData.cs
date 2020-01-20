@@ -17,6 +17,12 @@ namespace RetroWar.Models.Sprites.Actions
         public bool IsContinuous { get; private set; }
 
         [JsonProperty]
+        public int TextureTileWidthX { get; private set; }
+
+        [JsonProperty]
+        public int TextureTileLengthY { get; private set; }
+
+        [JsonProperty]
         public IEnumerable<int> SequenceDurations { get; private set; }
 
         [JsonProperty]

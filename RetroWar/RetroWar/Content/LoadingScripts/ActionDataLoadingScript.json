@@ -8,6 +8,8 @@
         "SequenceDurations": [ 200 ],
         "SequencesToTriggerOn": [],
         "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY":  1,
         "ActionTextureSet": [
           {
             "TextureData": [
@@ -38,6 +40,8 @@
         "SequenceDurations": [ 100, 100, 100, 100, 100, 100, 100, 100 ],
         "SequencesToTriggerOn": [],
         "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
         "ActionTextureSet": [
           {
             "TextureData": [
@@ -138,6 +142,8 @@
         "SequenceDurations": [ 200, 200, 200 ],
         "SequencesToTriggerOn": [ 0 ],
         "IsContinuous": false,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
         "ActionTextureSet": [
           {
             "TextureData": [
@@ -193,6 +199,8 @@
         "SequenceDurations": [ 200 ],
         "SequencesToTriggerOn": [],
         "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
         "ActionTextureSet": [
           {
             "TextureData": [
@@ -223,6 +231,8 @@
         "SequenceDurations": [ 200 ],
         "SequencesToTriggerOn": [ 0 ],
         "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
         "ActionTextureSet": [
           {
             "TextureData": [
@@ -253,6 +263,8 @@
         "SequenceDurations": [ 100, 100, 100, 100, 100, 100, 100, 100 ],
         "SequencesToTriggerOn": [],
         "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
         "ActionTextureSet": [
           {
             "TextureData": [
@@ -353,6 +365,8 @@
         "SequenceDurations": [ 200, 200, 200 ],
         "SequencesToTriggerOn": [ 0 ],
         "IsContinuous": false,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
         "ActionTextureSet": [
           {
             "TextureData": [
@@ -408,6 +422,8 @@
         "SequenceDurations": [ 200 ],
         "SequencesToTriggerOn": [],
         "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
         "ActionTextureSet": [
           {
             "TextureData": [
@@ -443,6 +459,8 @@
         "SequenceDurations": [ 200 ],
         "SequencesToTriggerOn": [],
         "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
         "ActionTextureSet": [
           {
             "TextureData": [

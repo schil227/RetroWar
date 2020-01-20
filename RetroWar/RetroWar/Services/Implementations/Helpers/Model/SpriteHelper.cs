@@ -29,6 +29,18 @@ namespace RetroWar.Services.Implementations.Helpers.Model
             // check out this sick hack.   ^^^
         }
 
+        public int GetHitboxXOffset(Sprite sprite, int currentXOffset, int hitBoxWidth)
+        {
+            // Since images are right-facing, when they are flipped due to the direction,
+            // the hitbox must be moved to fit the new graphic.
+            if (sprite.CurrentDirection == Direction.Left)
+            {
+                return (GetCurrentActionData(sprite).TextureTileWidthX * 16) - hitBoxWidth - currentXOffset;
+            }
+
+            return currentXOffset;
+        }
+
         public Point GetMaximumPoints(Sprite sprite, int spriteX, int spriteY)
         {
             var point = new Point
@@ -42,8 +54,8 @@ namespace RetroWar.Services.Implementations.Helpers.Model
 
             foreach (var hitbox in hitBoxes)
             {
-                point.X = Math.Max(point.X, spriteX + (hitbox.RelativeX * 16) + hitbox.Width);
-                point.Y = Math.Max(point.Y, spriteY + (hitbox.RelativeY * 16) + hitbox.Height);
+                point.X = Math.Max(point.X, spriteX + (hitbox.RelativeX) + hitbox.Width);
+                point.Y = Math.Max(point.Y, spriteY + (hitbox.RelativeY) + hitbox.Height);
             }
 
             foreach (var texture in textures)

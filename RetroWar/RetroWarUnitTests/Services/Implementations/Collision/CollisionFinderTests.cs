@@ -1,21 +1,27 @@
-﻿using NUnit.Framework;
+﻿using Moq;
+using NUnit.Framework;
 using RetroWar.Models.Collisions;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.HitBoxes;
 using RetroWar.Services.Implementations.Collision;
 using RetroWar.Services.Interfaces.Collision;
+using RetroWar.Services.Interfaces.Helpers.Model;
 using System.Linq;
 
 namespace RetroWarUnitTests.Services.Implementations.Collision
 {
     public class CollisionFinderTests
     {
+        private MockRepository moq;
+        private Mock<ISpriteHelper> mockSpriteHelper;
         private ICollisionFinder sut;
 
         [SetUp]
         public void SetUp()
         {
-            sut = new CollisionFinder();
+            moq = new MockRepository(MockBehavior.Strict);
+            mockSpriteHelper = moq.Create<ISpriteHelper>();
+            sut = new CollisionFinder(mockSpriteHelper.Object);
         }
 
         [Test]

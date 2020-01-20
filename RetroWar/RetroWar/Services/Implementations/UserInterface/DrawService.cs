@@ -4,11 +4,13 @@ using RetroWar.Models.Level;
 using RetroWar.Models.Repositories.Textures;
 using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
+using RetroWar.Models.Sprites.HitBoxes;
 using RetroWar.Models.Sprites.Textures;
 using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.UserInterface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,6 +21,9 @@ namespace RetroWar.Services.Implementations.UserInterface
         private readonly IGridHandler gridHandler;
         private readonly ISpriteHelper spriteHelper;
 
+        private static Dictionary<Tuple<int, int>, Texture2D> cachedHitBoxTextures;
+        private static bool DebugModeEnabled;
+
         public DrawService(
             IGridHandler gridHandler,
             ISpriteHelper spriteHelper
@@ -26,6 +31,9 @@ namespace RetroWar.Services.Implementations.UserInterface
         {
             this.gridHandler = gridHandler;
             this.spriteHelper = spriteHelper;
+
+            cachedHitBoxTextures = new Dictionary<Tuple<int, int>, Texture2D>();
+            DebugModeEnabled = true;
         }
 
         public void DrawScreen(SpriteBatch spriteBatch, Stage stage, Screen screen, IEnumerable<TextureDatabaseItem> textureDatabaseItems)
@@ -92,6 +100,53 @@ namespace RetroWar.Services.Implementations.UserInterface
 #pragma warning disable CS0618 // Type or member is obsolete
             spriteBatch.Draw(textureToDraw, position: position, sourceRectangle: rectangle, color: Color.White, effects: spriteEffect);
 #pragma warning restore CS0618 // Type or member is obsolete
+
+            // Draw the HitBox outline
+            if (DebugModeEnabled)
+            {
+                var currentHitBox = spriteHelper.GetCurrentHitBoxes(sprite).First();
+
+                Texture2D hitboxRectangle;
+
+                cachedHitBoxTextures.TryGetValue(new Tuple<int, int>(currentHitBox.Width, currentHitBox.Height), out hitboxRectangle);
+
+                if (hitboxRectangle == null)
+                {
+                    hitboxRectangle = MakeHitBoxTexture(spriteBatch, sprite, currentHitBox);
+                    cachedHitBoxTextures.Add(new Tuple<int, int>(currentHitBox.Width, currentHitBox.Height), hitboxRectangle);
+                }
+
+                position.X = sprite.X + spriteHelper.GetHitboxXOffset(sprite, currentHitBox.RelativeX, currentHitBox.Width) - screen.X;
+                position.Y = sprite.Y + currentHitBox.RelativeY - screen.Y;
+
+                spriteBatch.Draw(hitboxRectangle, position, Color.Red);
+            }
+        }
+
+        private Texture2D MakeHitBoxTexture(SpriteBatch spriteBatch, Sprite sprite, HitBox currentHitBox)
+        {
+            var hitboxRectangle = new Texture2D(spriteBatch.GraphicsDevice, currentHitBox.Width, currentHitBox.Height);
+            Color[] colorData = new Color[currentHitBox.Width * currentHitBox.Height];
+
+            for (int i = 0; i < currentHitBox.Width; i++)
+            {
+                for (int j = 0; j < currentHitBox.Height; j++)
+                {
+                    // make the a red-outlined box with a transparent middle for the hitboxes hitboxes
+                    if (i == 0 || i == currentHitBox.Width - 1 || j == 0 || j == currentHitBox.Height - 1)
+                    {
+                        colorData[i + j * currentHitBox.Height] = Color.Red;
+                    }
+                    else
+                    {
+                        colorData[i + j * currentHitBox.Height] = Color.Transparent;
+                    }
+
+                    hitboxRectangle.SetData(colorData);
+                }
+            }
+
+            return hitboxRectangle;
         }
     }
 }
