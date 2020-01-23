@@ -1,27 +1,27 @@
 ﻿using RetroWar.Models.Collisions;
 using RetroWar.Models.Sprites;
+using RetroWar.Models.Sprites.Illusions;
 using RetroWar.Models.Sprites.Tiles;
-using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
 using System;
 
 namespace RetroWar.Services.Implementations.Collision.Resolvers
 {
-    public class VehicleTileCollisionResolver : ICollisionResolver
+    public class IllusionTileCollisionResolver : ICollisionResolver
     {
         public bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution collisionResolution)
         {
-            Vehicle vehicle = null;
+            Illusion illusion = null;
             Tile tile = null;
 
-            if (normal is Vehicle && based is Tile)
+            if (normal is Illusion && based is Tile)
             {
-                vehicle = (Vehicle)normal;
+                illusion = (Illusion)normal;
                 tile = (Tile)based;
             }
-            else if (normal is Tile && based is Vehicle)
+            else if (normal is Tile && based is Illusion)
             {
-                vehicle = (Vehicle)based;
+                illusion = (Illusion)based;
                 tile = (Tile)normal;
             }
             else
@@ -29,7 +29,12 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 return false;
             }
 
-            var beforeY = vehicle.Y;
+            if (!illusion.SubjectToGravity)
+            {
+                return true;
+            }
+
+            var beforeY = illusion.Y;
 
             if (Math.Abs(collisionResolution.DeltaX) < Math.Abs(collisionResolution.DeltaY))
             {
@@ -37,22 +42,22 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 {
                     if (!tile.HasTileToRight)
                     {
-                        vehicle.X += collisionResolution.DeltaX;
+                        illusion.X += collisionResolution.DeltaX;
                     }
                     else
                     {
-                        vehicle.Y += collisionResolution.DeltaY;
+                        illusion.Y += collisionResolution.DeltaY;
                     }
                 }
                 else
                 {
                     if (!tile.HasTileToLeft)
                     {
-                        vehicle.X += collisionResolution.DeltaX;
+                        illusion.X += collisionResolution.DeltaX;
                     }
                     else
                     {
-                        vehicle.Y += collisionResolution.DeltaY;
+                        illusion.Y += collisionResolution.DeltaY;
                     }
                 }
             }
@@ -62,31 +67,30 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 {
                     if (!tile.HasTileBelow)
                     {
-                        vehicle.Y += collisionResolution.DeltaY;
+                        illusion.Y += collisionResolution.DeltaY;
                     }
                     else
                     {
-                        vehicle.X += collisionResolution.DeltaX;
+                        illusion.X += collisionResolution.DeltaX;
                     }
                 }
                 else
                 {
                     if (!tile.HasTileAbove)
                     {
-                        vehicle.Y += collisionResolution.DeltaY;
+                        illusion.Y += collisionResolution.DeltaY;
                     }
                     else
                     {
-                        vehicle.X += collisionResolution.DeltaX;
+                        illusion.X += collisionResolution.DeltaX;
                     }
                 }
             }
 
             // resolution was to push it up by landing on a tile; no longer falling.
-            if (vehicle.Y < beforeY)
+            if (illusion.Y < beforeY)
             {
-                vehicle.FallSum = 0;
-                vehicle.IsJumping = false;
+                illusion.FallSum = 0;
             }
 
             return true;

@@ -16,20 +16,17 @@ namespace RetroWar.Services.Implementations.Updaters
         private readonly IActionService actionService;
         private readonly IContentRepository contentRepository;
         private readonly IGridHandler gridHandler;
-        private readonly ISequenceService sequenceService;
 
         public PlayerUpdater
             (
                 IActionService actionService,
                 IContentRepository contentRepository,
-                IGridHandler gridHandler,
-                ISequenceService sequenceService
+                IGridHandler gridHandler
             )
         {
             this.actionService = actionService;
             this.contentRepository = contentRepository;
             this.gridHandler = gridHandler;
-            this.sequenceService = sequenceService;
         }
 
         public bool UpdateSprite(Sprite sprite, float deltaTime, Dictionary<string, string> processedSprites)
@@ -44,8 +41,6 @@ namespace RetroWar.Services.Implementations.Updaters
             {
                 return false;
             }
-
-            sequenceService.UpdateActionSequence(playerTank, deltaTime * 1000);
 
             var keyState = Keyboard.GetState();
 

@@ -9,7 +9,7 @@
       "CurrentSequence": 0,
       "TickAccumulation": 0,
       "CurrentDirection": "Right",
-      "Action": "Idle",
+      "CurrentAction": "Idle",
       "ActionDataSetId": "tankv1",
       "TotalHealth": 10,
       "Health": 10,

@@ -56,6 +56,7 @@ namespace RetroWar
             services.AddSingleton<ITileLoader, TileLoader>();
             services.AddSingleton<IBulletLoader, BulletLoader>();
             services.AddSingleton<IContentLoader, ContentLoader>();
+            services.AddSingleton<IIllusionLoader, IllusionLoader>();
 
             // User Interface
             services.AddSingleton<IScreenService, ScreenService>();
@@ -72,6 +73,7 @@ namespace RetroWar
             services.AddSingleton<BulletTileCollisionResolver>();
             services.AddSingleton<BulletPlayerVehicleCollisionResolver>();
             services.AddSingleton<BulletEnemyVehicleCollisionResolver>();
+            services.AddSingleton<IllusionTileCollisionResolver>();
 
             services.AddSingleton<IEnumerable<ICollisionResolver>>(
                 provider => new List<ICollisionResolver>
@@ -80,6 +82,7 @@ namespace RetroWar
                     provider.GetService<BulletEnemyVehicleCollisionResolver>(),
                     provider.GetService<VehicleTileCollisionResolver>(),
                     provider.GetService<BulletTileCollisionResolver>(),
+                    provider.GetService<IllusionTileCollisionResolver>()
                 });
 
             services.AddSingleton<ICollisionResolver, CompositeCollisionResolver>();
@@ -88,6 +91,7 @@ namespace RetroWar
             services.AddSingleton<BulletUpdater>();
             services.AddSingleton<PlayerUpdater>();
             services.AddSingleton<EnemyUpdater>();
+            services.AddSingleton<IllusionUpdater>();
 
             services.AddSingleton<IEnumerable<ISpriteUpdater>>(
                 provider => new List<ISpriteUpdater>
@@ -95,6 +99,7 @@ namespace RetroWar
                     provider.GetService<BulletUpdater>(),
                     provider.GetService<PlayerUpdater>(),
                     provider.GetService<EnemyUpdater>(),
+                    provider.GetService<IllusionUpdater>()
                 });
 
             services.AddSingleton<ISpriteUpdater, SpriteUpdaterComposite>();

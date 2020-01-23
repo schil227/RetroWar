@@ -1,0 +1,19 @@
+﻿[
+  {
+    "IllusionId": "Explosion",
+    "Illusion": {
+      "X": 0,
+      "Y": 0,
+      "Name": "Explosion",
+      "SpriteId": "Explosion",
+      "CurrentSequence": 0,
+      "TickAccumulation": 0,
+      "CurrentDirection": "Right",
+      "CurrentAction": "Destroyed",
+      "ActionDataSetId": "explosion",
+      "SubjectToGravity": "true",
+      "FallSum": 0,
+      "FallRate": 10
+    }
+  }
+]

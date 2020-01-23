@@ -48,6 +48,7 @@ namespace RetroWar.Services.Implementations.UserInterface
                 DrawSprites(spriteBatch, textureDatabaseItems, box.Tiles.Values.ToArray(), screen, drawnSprites);
                 DrawSprites(spriteBatch, textureDatabaseItems, box.Bullets.Values.ToArray(), screen, drawnSprites);
                 DrawSprites(spriteBatch, textureDatabaseItems, box.EnemyVehicles.Values.ToArray(), screen, drawnSprites);
+                DrawSprites(spriteBatch, textureDatabaseItems, box.Illusions.Values.ToArray(), screen, drawnSprites);
 
                 if (playerTank == null && box.playerTank != null)
                 {
@@ -105,6 +106,11 @@ namespace RetroWar.Services.Implementations.UserInterface
             if (DebugModeEnabled)
             {
                 var currentHitBox = spriteHelper.GetCurrentHitBoxes(sprite).First();
+
+                if (currentHitBox == null)
+                {
+                    return;
+                }
 
                 Texture2D hitboxRectangle;
 

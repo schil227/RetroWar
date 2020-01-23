@@ -118,7 +118,8 @@ namespace RetroWar
                 "./Content/LoadingScripts/ActionDataLoadingScript.json",
                 "./Content/LoadingScripts/TextureLoadingScript.json",
                 "./Content/LoadingScripts/TileLoaderScript.json",
-                "./Content/LoadingScripts/BulletLoaderScript.json"
+                "./Content/LoadingScripts/BulletLoaderScript.json",
+                "./Content/LoadingScripts/IllusionLoaderScript.json"
                 );
 
             playerTank = contentDatabase.PlayerVehicles.First(i => string.Equals(i.PlayerId, "tank")).Player;
@@ -134,6 +135,7 @@ namespace RetroWar
             contentRepository.Textures = contentDatabase.Textures;
             contentRepository.Tiles = contentDatabase.Tiles;
             contentRepository.Bullets = contentDatabase.Bullets;
+            contentRepository.Illusions = contentDatabase.Illusions;
             contentRepository.CurrentStage = stage;
             contentRepository.Screen = screen;
             contentRepository.PlayerTank = playerTank;
@@ -182,7 +184,12 @@ namespace RetroWar
 
             foreach (var box in boxes)
             {
-                if (box.playerTank == null && box.Bullets.Count == 0 && box.EnemyVehicles.Count == 0)
+                if (
+                    box.playerTank == null &&
+                    box.Bullets.Count == 0 &&
+                    box.EnemyVehicles.Count == 0 &&
+                    box.Illusions.Count == 0
+                    )
                 {
                     continue;
                 }
@@ -200,6 +207,11 @@ namespace RetroWar
                 foreach (var bullet in box.Bullets)
                 {
                     sprites.Add(bullet.Value);
+                }
+
+                foreach (var illusion in box.Illusions)
+                {
+                    sprites.Add(illusion.Value);
                 }
 
                 foreach (var tile in box.Tiles)

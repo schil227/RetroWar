@@ -9,7 +9,7 @@
       "CurrentSequence": 0,
       "TickAccumulation": 0,
       "CurrentDirection": "Right",
-      "Action": "Idle",
+      "CurrentAction": "Idle",
       "ActionDataSetId": "standard_bullet",
       "Trajectory": "Straight",
       "Speed": 200,

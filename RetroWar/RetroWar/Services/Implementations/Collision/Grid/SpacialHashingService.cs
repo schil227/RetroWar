@@ -1,6 +1,7 @@
 ﻿using RetroWar.Models.Collisions.Grid;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Bullets;
+using RetroWar.Models.Sprites.Illusions;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Models.Vehicles.Vehicles.EnemyVehicle;
 using RetroWar.Models.Vehicles.Vehicles.PlayerVehicle;
@@ -32,6 +33,10 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             {
                 gridContainer.Tiles.Add(sprite.SpriteId, (Tile)sprite);
             }
+            else if (sprite is Illusion)
+            {
+                gridContainer.Illusions.Add(sprite.SpriteId, (Illusion)sprite);
+            }
         }
 
         public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int gridX, int gridY)
@@ -54,6 +59,10 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             {
                 gridContainer.Tiles.Remove(sprite.SpriteId);
             }
+            else if (sprite is Illusion)
+            {
+                gridContainer.Illusions.Remove(sprite.SpriteId);
+            }
         }
 
         public GridContainer GetGridContainer(Dictionary<Tuple<int, int>, GridContainer> gridHash, int gridX, int gridY)
@@ -67,7 +76,8 @@ namespace RetroWar.Services.Implementations.Collision.Grid
                     playerTank = null,
                     Tiles = new Dictionary<string, Tile>(),
                     Bullets = new Dictionary<string, Bullet>(),
-                    EnemyVehicles = new Dictionary<string, EnemyVehicle>()
+                    EnemyVehicles = new Dictionary<string, EnemyVehicle>(),
+                    Illusions = new Dictionary<string, Illusion>()
                 };
 
                 gridHash.Add(new Tuple<int, int>(gridX, gridY), containerValue);

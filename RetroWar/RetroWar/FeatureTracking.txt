@@ -5,8 +5,8 @@
 == Features ==
 	-Tighten up movement, feels a little off
 	-Make a larger level (1/11/2020)
-	-spawn static sprites on the screen that are not subject to gravity, etc., use for death animations (1/13/2020)
 	-change texture ordering when image is flipped: newRelativeX = Direction.Right? xOffset : (numberOfFramesWide - 1) - xOffset
+	-Write some god damn unit tests, seriously
 	
 == Bugs ==
 	-collision needs to be tweaked; if the tank (12 px tall) jumps into a tile (16 px tall), the collision wont resolve to kick them out the way they came (may actually not be a collision issue; could be that movement is being cumulative or something...)
@@ -22,6 +22,7 @@
 	-Fire artillery shells (1/5/20)
 	-Make a simple enemy tank (1/11/2020)
 	-Implement damage when shot (1/11/2020)
+	-spawn static sprites on the screen that are not subject to gravity, etc., use for death animations (1/13/2020 - 1/23/20)
 	
 = Bugs =
 	- sprites that have points in the negative region aren't getting added and removed correctly: e.g. with a 	sprite whos x values is -5 and maximum value is 8, both (when divided by 32) result in the 0 grid, when it's actually straddling the -1 and 0 grid (1/1/2020)

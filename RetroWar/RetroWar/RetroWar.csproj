@@ -48,6 +48,7 @@
     <Compile Include="Exceptions\Implementations\Collision\MultiPointCollisionResolverException.cs" />
     <Compile Include="Exceptions\Implementations\Loaders\ActionDataLoaderException.cs" />
     <Compile Include="Exceptions\Implementations\Loaders\BulletLoaderException.cs" />
+    <Compile Include="Exceptions\Implementations\Loaders\IllusionLoaderException.cs" />
     <Compile Include="Exceptions\Implementations\Loaders\SpriteLoaderException.cs" />
     <Compile Include="Exceptions\Implementations\Loaders\TileLoaderException.cs" />
     <Compile Include="MainGame.cs" />
@@ -60,9 +61,11 @@
     <Compile Include="Models\Repositories\Actions\ActionDataDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Bullets\BulletDatabaseItem.cs" />
     <Compile Include="Models\Repositories\ContentDatabase.cs" />
+    <Compile Include="Models\Repositories\Illusions\IllusionDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Vehicles\EnemyVehicle\EnemyVehicleDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Vehicles\PlayerVehicle\PlayerVehicleDatabaseItem.cs" />
     <Compile Include="Models\Sprites\Bullets\DamageDiscrimination.cs" />
+    <Compile Include="Models\Sprites\Illusions\Illusion.cs" />
     <Compile Include="Models\Sprites\Vehicles\EnemyVehicle\AIBehavior.cs" />
     <Compile Include="Models\Sprites\Vehicles\EnemyVehicle\EnemyVehicle.cs" />
     <Compile Include="Models\Sprites\Vehicles\PlayerVehicle\PlayerVehicle.cs" />
@@ -99,6 +102,7 @@
     <Compile Include="Services\Implementations\Collision\Resolvers\BulletPlayerVehicleCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\BulletTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\CompositeCollisionResolver.cs" />
+    <Compile Include="Services\Implementations\Collision\Resolvers\IllusionTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\VehicleTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Factories\SpriteFactory.cs" />
     <Compile Include="Services\Implementations\Helpers\Model\BulletHelper.cs" />
@@ -108,12 +112,14 @@
     <Compile Include="Services\Implementations\Loaders\BulletLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\ContentLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\EnemyVehicleLoader.cs" />
+    <Compile Include="Services\Implementations\Loaders\IllusionLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\PlayerVehicleLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TextureLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TileLoader.cs" />
     <Compile Include="Services\Implementations\Repositories\ContentRepository.cs" />
     <Compile Include="Services\Implementations\Updaters\BulletUpdater.cs" />
     <Compile Include="Services\Implementations\Updaters\EnemyUpdater.cs" />
+    <Compile Include="Services\Implementations\Updaters\IllusionUpdater.cs" />
     <Compile Include="Services\Implementations\Updaters\PlayerUpdater.cs" />
     <Compile Include="Services\Implementations\Updaters\SpriteUpdaterComposite.cs" />
     <Compile Include="Services\Implementations\UserInterface\DrawService.cs" />
@@ -134,6 +140,7 @@
     <Compile Include="Services\Interfaces\Helpers\Model\IBulletHelper.cs" />
     <Compile Include="Services\Interfaces\Helpers\Model\ISpriteHelper.cs" />
     <Compile Include="Services\Interfaces\Loaders\IActionDataLoader.cs" />
+    <Compile Include="Services\Interfaces\Loaders\IIllusionLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\IBulletLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\IContentLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\IEnemyVehicleLoader.cs" />
@@ -214,6 +221,9 @@
     <None Include="app.config" />
     <None Include="app.manifest" />
     <None Include="Content\LoadingScripts\ActionDataLoadingScript.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\LoadingScripts\IllusionLoaderScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\LoadingScripts\BulletLoaderScript.json">

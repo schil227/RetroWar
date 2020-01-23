@@ -9,7 +9,7 @@
       "CurrentSequence": 0,
       "TickAccumulation": 0,
       "CurrentDirection": "Right",
-      "Action": "Idle",
+      "CurrentAction": "Idle",
       "ActionDataSetId": "enemy_tankv1",
       "TotalHealth": 3,
       "Health": 3,
@@ -18,7 +18,7 @@
       "FallRate": 10,
       "VehicleSpeed": 100,
       "IsBoss": false,
-      "Behavior": "MoveLeft",
+      "Behavior": "MoveLeft"
     }
   }
 ]

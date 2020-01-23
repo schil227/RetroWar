@@ -2,6 +2,7 @@
 using RetroWar.Models.Common;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Bullets;
+using RetroWar.Models.Sprites.Illusions;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Factories;
 using RetroWar.Services.Interfaces.Repositories;
@@ -32,7 +33,7 @@ namespace RetroWar.Services.Implementations.Factories
             var masterJson = JsonConvert.SerializeObject(bulletMaster);
             var bullet = JsonConvert.DeserializeObject<Bullet>(masterJson);
 
-            bullet.SpriteId = Guid.NewGuid().ToString();
+            bullet.SpriteId = $"{Guid.NewGuid().ToString()}_{bulletId}";
             bullet.X = point.X;
             bullet.Y = point.Y;
             bullet.CurrentDirection = direction;
@@ -41,6 +42,22 @@ namespace RetroWar.Services.Implementations.Factories
             gridService.AddSpriteToGrid(contentRepository.CurrentStage.Grids, bullet);
 
             return bullet;
+        }
+
+        public Illusion CreateIllusion(string illusionId, Point point)
+        {
+            var illusionMaster = contentRepository.Illusions.First(i => string.Equals(i.IllusionId, illusionId)).Illusion;
+
+            var masterJson = JsonConvert.SerializeObject(illusionMaster);
+            var illusion = JsonConvert.DeserializeObject<Illusion>(masterJson);
+
+            illusion.SpriteId = $"{Guid.NewGuid().ToString()}_{illusionId}";
+            illusion.X = point.X;
+            illusion.Y = point.Y;
+
+            gridService.AddSpriteToGrid(contentRepository.CurrentStage.Grids, illusion);
+
+            return illusion;
         }
     }
 }

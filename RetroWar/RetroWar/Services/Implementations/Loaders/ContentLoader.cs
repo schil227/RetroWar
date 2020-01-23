@@ -13,6 +13,7 @@ namespace RetroWar.Services.Implementations.Loaders
         private readonly ITextureLoader textureLoader;
         private readonly ITileLoader tileLoader;
         private readonly IBulletLoader bulletLoader;
+        private readonly IIllusionLoader illusionLoader;
 
         public ContentLoader
             (
@@ -21,7 +22,8 @@ namespace RetroWar.Services.Implementations.Loaders
             IActionDataLoader actionDataLoader,
             ITextureLoader textureLoader,
             ITileLoader tileLoader,
-            IBulletLoader bulletLoader
+            IBulletLoader bulletLoader,
+            IIllusionLoader illusionLoader
             )
         {
             this.playerVehicleLoader = playerVehicleLoader;
@@ -30,6 +32,7 @@ namespace RetroWar.Services.Implementations.Loaders
             this.textureLoader = textureLoader;
             this.tileLoader = tileLoader;
             this.bulletLoader = bulletLoader;
+            this.illusionLoader = illusionLoader;
         }
 
         ContentDatabase IContentLoader.LoadAllData(
@@ -39,7 +42,8 @@ namespace RetroWar.Services.Implementations.Loaders
             string actionDataFileName,
             string textureFileName,
             string tileFileName,
-            string bulletFileName)
+            string bulletFileName,
+            string illusionFileName)
         {
             var contentDatabase = new ContentDatabase();
 
@@ -49,6 +53,7 @@ namespace RetroWar.Services.Implementations.Loaders
             contentDatabase.Tiles = tileLoader.LoadTiles(tileFileName);
             contentDatabase.Bullets = bulletLoader.LoadBullets(bulletFileName);
             contentDatabase.Actions = actionDataLoader.LoadActionData(actionDataFileName);
+            contentDatabase.Illusions = illusionLoader.LoadIllusions(illusionFileName);
 
             foreach (var spriteData in contentDatabase.PlayerVehicles)
             {
@@ -68,6 +73,11 @@ namespace RetroWar.Services.Implementations.Loaders
             foreach (var bulletData in contentDatabase.Bullets)
             {
                 bulletData.Bullet.ActionDataSet = contentDatabase.Actions.First(a => string.Equals(bulletData.Bullet.ActionDataSetId, a.ActionDataId)).ActionData;
+            }
+
+            foreach (var illusionData in contentDatabase.Illusions)
+            {
+                illusionData.Illusion.ActionDataSet = contentDatabase.Actions.First(a => string.Equals(illusionData.Illusion.ActionDataSetId, a.ActionDataId)).ActionData;
             }
 
             return contentDatabase;

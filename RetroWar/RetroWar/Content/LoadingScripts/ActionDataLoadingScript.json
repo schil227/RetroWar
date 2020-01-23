@@ -9,7 +9,7 @@
         "SequencesToTriggerOn": [],
         "IsContinuous": true,
         "TextureTileWidthX": 1,
-        "TextureTileLengthY":  1,
+        "TextureTileLengthY": 1,
         "ActionTextureSet": [
           {
             "TextureData": [
@@ -482,6 +482,165 @@
                 "RelativeY": 0,
                 "Width": 8,
                 "Height": 5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "ActionDataId": "explosion",
+    "ActionData": [
+      {
+        "Action": "Destroyed",
+        "TotalSequences": 12,
+        "SequenceDurations": [ 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100 ],
+        "SequencesToTriggerOn": [ 11 ],
+        "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/explosion",
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 2,
+                "RelativeY": 12,
+                "Width": 8,
+                "Height": 4
               }
             ]
           }

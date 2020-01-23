@@ -1,6 +1,7 @@
 ﻿using RetroWar.Models.Common;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Bullets;
+using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Models.Vehicles.Vehicles.PlayerVehicle;
 using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision.Grid;
@@ -60,6 +61,18 @@ namespace RetroWar.Services.Implementations.Actions
                     case Action.Destroyed:
                         {
                             gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, sprite, (int)sprite.X, (int)sprite.Y);
+
+                            if (sprite is Vehicle)
+                            {
+                                var spawnPoint = new Point
+                                {
+                                    X = sprite.X,
+                                    Y = sprite.Y
+                                };
+
+                                spriteFactory.CreateIllusion("Explosion", spawnPoint);
+                            }
+
                             break;
                         }
                 }
