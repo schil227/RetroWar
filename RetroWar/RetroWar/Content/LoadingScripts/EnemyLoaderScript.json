@@ -17,6 +17,19 @@
       "FallSum": 0,
       "FallRate": 10,
       "VehicleSpeed": 100,
+      "CurrentFiringMode": "Default",
+      "FiringData": {
+        "Default": {
+          "BulletId": "StandardBullet",
+          "XSpawningOffset": 18,
+          "YSpawningOffset": 6
+        },
+        "PartiallyCharged": {
+          "BulletId": "StandardBullet",
+          "XSpawningOffset": 18,
+          "YSpawningOffset": 0
+        }
+      },
       "IsBoss": false,
       "Behavior": "MoveLeft"
     }

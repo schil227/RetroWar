@@ -43,19 +43,21 @@ namespace RetroWar.Services.Implementations.Actions
                 {
                     case Action.FireStandard:
                         {
-                            // This bullet spawning metadata needs to be wrapped in an object and (probably)
-                            // added to a sub-class of sprite that supports firing
-                            var directionOffset = sprite.CurrentDirection == Direction.Right ? 18 : -18;
+                            var vehicle = sprite as Vehicle;
+
+                            var firingData = vehicle.FiringData[vehicle.CurrentFiringMode];
+
+                            var directionOffset = sprite.CurrentDirection == Direction.Right ? firingData.XSpawningOffset : firingData.XSpawningOffset * -1;
 
                             var spawnPoint = new Point
                             {
                                 X = sprite.X + directionOffset,
-                                Y = sprite.Y + 6
+                                Y = sprite.Y + firingData.YSpawningOffset
                             };
 
-                            var damageType = (sprite is PlayerVehicle ? DamageDiscrimination.DamagesEnemy : DamageDiscrimination.DamagesPlayer);
+                            var damageType = (vehicle is PlayerVehicle ? DamageDiscrimination.DamagesEnemy : DamageDiscrimination.DamagesPlayer);
 
-                            spriteFactory.CreateBullet("StandardBullet", spawnPoint, sprite.CurrentDirection, damageType);
+                            spriteFactory.CreateBullet(firingData.BulletId, spawnPoint, sprite.CurrentDirection, damageType);
                             break;
                         }
                     case Action.Destroyed:

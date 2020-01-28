@@ -68,6 +68,8 @@
     <Compile Include="Models\Sprites\Illusions\Illusion.cs" />
     <Compile Include="Models\Sprites\Vehicles\EnemyVehicle\AIBehavior.cs" />
     <Compile Include="Models\Sprites\Vehicles\EnemyVehicle\EnemyVehicle.cs" />
+    <Compile Include="Models\Sprites\Vehicles\FiringData.cs" />
+    <Compile Include="Models\Sprites\Vehicles\FiringMode.cs" />
     <Compile Include="Models\Sprites\Vehicles\PlayerVehicle\PlayerVehicle.cs" />
     <Compile Include="Models\Repositories\Textures\TextureDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Tiles\TileDatabaseItem.cs" />

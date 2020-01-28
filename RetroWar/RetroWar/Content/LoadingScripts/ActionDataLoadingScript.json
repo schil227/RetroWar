@@ -26,9 +26,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           }
@@ -58,9 +58,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -68,9 +68,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -78,9 +78,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -88,9 +88,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -98,9 +98,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -108,9 +108,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -118,9 +118,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -128,9 +128,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           }
@@ -160,9 +160,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -170,9 +170,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -180,9 +180,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           }
@@ -217,9 +217,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           }
@@ -249,9 +249,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           }
@@ -281,29 +281,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 0,
-                "Width": 16,
-                "Height": 16
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 0,
-                "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -321,9 +301,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -331,9 +311,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -341,9 +321,29 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
               }
             ]
           },
@@ -383,9 +383,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -393,9 +393,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           },
@@ -403,9 +403,9 @@
             "HitBoxes": [
               {
                 "RelativeX": 0,
-                "RelativeY": 0,
+                "RelativeY": 4,
                 "Width": 16,
-                "Height": 16
+                "Height": 12
               }
             ]
           }

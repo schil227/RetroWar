@@ -49,8 +49,8 @@ namespace RetroWar.Services.Implementations.Updaters
                 var oldX = (int)playerTank.X;
                 var oldY = (int)playerTank.Y;
 
-                playerTank.X = 16;
-                playerTank.Y = 180;
+                playerTank.X = 112;//16;
+                playerTank.Y = 120;
                 playerTank.FallSum = 0;
 
                 actionService.SetAction(playerTank, Action.Idle);
@@ -131,10 +131,10 @@ namespace RetroWar.Services.Implementations.Updaters
             playerTank.deltaY += playerTank.FallSum;
 
             // Collision Handling
-            playerTank.Y += (int)playerTank.deltaY;
+            playerTank.Y += playerTank.deltaY;
             playerTank.deltaY = 0;
 
-            playerTank.X += (int)playerTank.deltaX;
+            playerTank.X += playerTank.deltaX;
             playerTank.deltaX = 0;
 
             gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank, (int)previousPlayerX, (int)previousPlayerY);
