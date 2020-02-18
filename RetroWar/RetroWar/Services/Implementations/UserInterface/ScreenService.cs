@@ -43,7 +43,7 @@ namespace RetroWar.Services.Implementations.UserInterface
 
             foreach (var texture in textureData)
             {
-                if (TextureOnScreen(screen, sprite, texture))
+                if (TextureOnScreen(screen, sprite, texture.Key))
                 {
                     return true;
                 }

@@ -3,7 +3,6 @@ using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Actions;
 using RetroWar.Models.Sprites.HitBoxes;
 using RetroWar.Models.Sprites.Textures;
-using RetroWar.Models.Vehicles.Vehicles.PlayerVehicle;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using System;
 using System.Collections.Generic;
@@ -37,22 +36,18 @@ namespace RetroWar.Services.Implementations.Helpers.Model
             return hitBoxes;
         }
 
-        public IEnumerable<TextureData> GetCurrentTextureData(Sprite sprite)
+        public IDictionary<TextureData, Models.Sprites.Actions.Action> GetCurrentTextureData(Sprite sprite)
         {
-            var textureData = new List<TextureData>();
-
-            if (sprite is PlayerVehicle && sprite.CurrentActions.Contains(Models.Sprites.Actions.Action.Move))
-            {
-                Console.Write("m");
-            }
+            var textureData = new Dictionary<TextureData, Models.Sprites.Actions.Action>();
 
             foreach (var action in sprite.CurrentActions)
             {
-                textureData.AddRange(
-                        sprite.ActionDataSet
-                        .First(a => a.Action == action)
-                        .ActionTextureSet.ElementAt(0).TextureData
-                    );
+                var textures = sprite.ActionDataSet.First(a => a.Action == action).ActionTextureSet.ElementAt(0).TextureData;
+
+                foreach (var texture in textures)
+                {
+                    textureData.Add(texture, action);
+                }
             }
 
             return textureData;
@@ -91,8 +86,8 @@ namespace RetroWar.Services.Implementations.Helpers.Model
 
             foreach (var texture in textures)
             {
-                point.X = Math.Max(point.X, spriteX + (texture.RelativeX * 16) + texture.Width);
-                point.Y = Math.Max(point.Y, spriteY + (texture.RelativeY * 16) + texture.Height);
+                point.X = Math.Max(point.X, spriteX + (texture.Key.RelativeX * 16) + texture.Key.Width);
+                point.Y = Math.Max(point.Y, spriteY + (texture.Key.RelativeY * 16) + texture.Key.Height);
             }
 
             return point;

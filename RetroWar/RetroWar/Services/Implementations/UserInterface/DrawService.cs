@@ -91,19 +91,19 @@ namespace RetroWar.Services.Implementations.UserInterface
             }
         }
 
-        private void DrawSprite(SpriteBatch spriteBatch, Sprite sprite, IEnumerable<TextureDatabaseItem> textureDatabaseItems, Screen screen, TextureData texture)
+        private void DrawSprite(SpriteBatch spriteBatch, Sprite sprite, IEnumerable<TextureDatabaseItem> textureDatabaseItems, Screen screen, KeyValuePair<TextureData, RetroWar.Models.Sprites.Actions.Action> textureActionPair)
         {
-            foreach (var action in sprite.CurrentActions)
-            {
-                var position = new Vector2((sprite.X + 16 * texture.RelativeX) - screen.X, (sprite.Y + 16 * texture.RelativeY) - screen.Y);
-                var textureToDraw = textureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture;
-                var spriteEffect = sprite.CurrentDirection == Direction.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-                var rectangle = new Rectangle(16 * sprite.CurrentActionSequence[action], 0, 16, 16);
+            var texture = textureActionPair.Key;
+            var action = textureActionPair.Value;
+
+            var position = new Vector2((sprite.X + 16 * texture.RelativeX) - screen.X, (sprite.Y + 16 * texture.RelativeY) - screen.Y);
+            var textureToDraw = textureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture;
+            var spriteEffect = sprite.CurrentDirection == Direction.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+            var rectangle = new Rectangle(16 * sprite.CurrentActionSequence[action], 0, 16, 16);
 
 #pragma warning disable CS0618 // Type or member is obsolete
-                spriteBatch.Draw(textureToDraw, position: position, sourceRectangle: rectangle, color: Color.White, effects: spriteEffect);
+            spriteBatch.Draw(textureToDraw, position: position, sourceRectangle: rectangle, color: Color.White, effects: spriteEffect);
 #pragma warning restore CS0618 // Type or member is obsolete
-            }
 
             if (DebugModeEnabled)
             {

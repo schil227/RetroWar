@@ -6,13 +6,11 @@
 	-Make a larger level (1/11/2020)
 	-change texture ordering when image is flipped: newRelativeX = Direction.Right? xOffset : (numberOfFramesWide - 1) - xOffset
 	-Write some god damn unit tests, seriously (1/23/20)
-	-Move bullet spawning data to the vehicles (what bullet to spawn and where, etc.) (1/23/20)
 	-Move destruction data to the vehicles (what illusion to spawn on death, etc.) (1/23/20)
-	-Implement multiple texture overlays per sprite (1/31/20)
 	-Make a stage builder program
 
 == Bugs ==
-
+	-Illusions studder when spawned in a corner; to reproduce, blow up enemey tank when it's on the ground next to a wall. This may have been brought on by the action overhaul change (sprites can have multiple actions instead of only one)
 
 == Refactoring ==
 
@@ -26,7 +24,9 @@
 	-Make a simple enemy tank (1/11/2020)
 	-Implement damage when shot (1/11/2020)
 	-spawn static sprites on the screen that are not subject to gravity, etc., use for death animations (1/13/2020 - 1/23/20)
-
+	-Move bullet spawning data to the vehicles (what bullet to spawn and where, etc.) (1/23/20 - ?)
+	-Implement multiple texture overlays per sprite (1/31/20 - 2/17/20)
+	
 = Bugs =
 	- sprites that have points in the negative region aren't getting added and removed correctly: e.g. with a 	sprite whos x values is -5 and maximum value is 8, both (when divided by 32) result in the 0 grid, when it's actually straddling the -1 and 0 grid (1/1/2020)
 	-Flipping the sprites direction does not also flip their hitboxes (1/20/20)
@@ -37,4 +37,13 @@
 
 
 == Notes ==
-eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeewsdrfd4rdwsdrderwsdr4fws34rfdws34rft5edw34ftedws34rftdswr4ftedr4fdcgtfrdeswaqedfgtujhfdrsewaqWSEDRFTGY5RWE3Q2ASDXFCGTY65R4E3WSADXCFGVTY65REDSFVCGUJHY7T65REDWSZ54RE3WSDFGVTRYEDWSCX FGYT45RE3DWS2QXAZCFER43WSQ2
+To implement layering, the sprite class needs to change to allow for more than one action at a time. For example, a tank could be moving and shooting, therefore the CurrentAction would become a HashSet<Action> CurrentActions.
+	• When obtaining the 2d textures, both actions would be querried, and return a unioned set of their textures
+	• The dominant action (most likely Shooting/NotShooting, whatever that happens to look like) will contain the set of hitboxes. Movement will be ignored/incorporated with the Shooting hitbox
+	• Order would be introduced by obtaining sprite data sequentually, so the layering would look (front to back)
+		○ Jets (jumping)
+		○ treads (moving)
+		○ hull (shooting)
+		○ damage (injured)
+		
+		
