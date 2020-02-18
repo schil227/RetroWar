@@ -53,7 +53,13 @@ namespace RetroWar.Services.Implementations.Updaters
                 playerTank.Y = 120;
                 playerTank.FallSum = 0;
 
-                actionService.SetAction(playerTank, Action.Idle);
+                foreach (var actions in new List<Action>(playerTank.CurrentActions))
+                {
+                    actionService.RemoveAction(playerTank, actions);
+                }
+
+                actionService.SetAction(playerTank, Action.Armed);
+                actionService.SetAction(playerTank, Action.Stationary);
 
                 gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank, oldX, oldY);
 
@@ -66,7 +72,13 @@ namespace RetroWar.Services.Implementations.Updaters
                 enemy.Y = 120;
                 enemy.FallSum = 0;
 
-                actionService.SetAction(enemy, Action.Idle);
+                foreach (var actions in new List<Action>(enemy.CurrentActions))
+                {
+                    actionService.RemoveAction(enemy, actions);
+                }
+
+                actionService.SetAction(enemy, Action.Armed);
+                actionService.SetAction(enemy, Action.Stationary);
 
                 gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, enemy, oldX, oldY);
 
@@ -75,24 +87,24 @@ namespace RetroWar.Services.Implementations.Updaters
                 return true;
             }
 
-            if (keyState.IsKeyDown(Keys.W) && playerTank.CurrentAction != Action.Destroyed)
+            if (keyState.IsKeyDown(Keys.W) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
                 playerTank.deltaY -= playerTank.VehicleSpeed * deltaTime;
             }
 
-            if (keyState.IsKeyDown(Keys.A) && playerTank.CurrentAction != Action.Destroyed)
+            if (keyState.IsKeyDown(Keys.A) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
                 playerTank.deltaX -= playerTank.VehicleSpeed * deltaTime;
                 playerTank.CurrentDirection = Direction.Left;
             }
 
-            if (keyState.IsKeyDown(Keys.D) && playerTank.CurrentAction != Action.Destroyed)
+            if (keyState.IsKeyDown(Keys.D) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
                 playerTank.deltaX += playerTank.VehicleSpeed * deltaTime;
                 playerTank.CurrentDirection = Direction.Right;
             }
 
-            if (keyState.IsKeyDown(Keys.J) && playerTank.CurrentAction != Action.Destroyed)
+            if (keyState.IsKeyDown(Keys.J) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
                 if (playerTank.FallSum == 0 && playerTank.IsJumping == false)
                 {
@@ -101,26 +113,26 @@ namespace RetroWar.Services.Implementations.Updaters
                 }
             }
 
-            if (keyState.IsKeyDown(Keys.K) && playerTank.CurrentAction != Action.Destroyed)
+            if (keyState.IsKeyDown(Keys.K) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
-                if (playerTank.CurrentAction != Action.FireStandard)
+                if (playerTank.CurrentActions.Contains(Action.Armed))
                 {
-                    actionService.SetAction(playerTank, Action.FireStandard);
+                    actionService.SetAction(playerTank, Action.FireStandard, Action.Armed);
                 }
             }
 
             if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
             {
-                if (playerTank.CurrentAction == Action.Idle)
+                if (playerTank.CurrentActions.Contains(Action.Stationary))
                 {
-                    actionService.SetAction(playerTank, Action.Move);
+                    actionService.SetAction(playerTank, Action.Move, Action.Stationary);
                 }
             }
             else
             {
-                if (playerTank.CurrentAction == Action.Move)
+                if (playerTank.CurrentActions.Contains(Action.Move))
                 {
-                    actionService.SetAction(playerTank, Action.Idle);
+                    actionService.SetAction(playerTank, Action.Stationary, Action.Move);
                 }
             }
 

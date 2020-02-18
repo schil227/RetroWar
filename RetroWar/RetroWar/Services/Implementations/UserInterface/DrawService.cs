@@ -93,40 +93,48 @@ namespace RetroWar.Services.Implementations.UserInterface
 
         private void DrawSprite(SpriteBatch spriteBatch, Sprite sprite, IEnumerable<TextureDatabaseItem> textureDatabaseItems, Screen screen, TextureData texture)
         {
-            var position = new Vector2((sprite.X + 16 * texture.RelativeX) - screen.X, (sprite.Y + 16 * texture.RelativeY) - screen.Y);
-            var textureToDraw = textureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture;
-            var spriteEffect = sprite.CurrentDirection == Direction.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
-            var rectangle = new Rectangle(16 * sprite.CurrentSequence, 0, 16, 16);
+            foreach (var action in sprite.CurrentActions)
+            {
+                var position = new Vector2((sprite.X + 16 * texture.RelativeX) - screen.X, (sprite.Y + 16 * texture.RelativeY) - screen.Y);
+                var textureToDraw = textureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture;
+                var spriteEffect = sprite.CurrentDirection == Direction.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+                var rectangle = new Rectangle(16 * sprite.CurrentActionSequence[action], 0, 16, 16);
 
 #pragma warning disable CS0618 // Type or member is obsolete
-            spriteBatch.Draw(textureToDraw, position: position, sourceRectangle: rectangle, color: Color.White, effects: spriteEffect);
+                spriteBatch.Draw(textureToDraw, position: position, sourceRectangle: rectangle, color: Color.White, effects: spriteEffect);
 #pragma warning restore CS0618 // Type or member is obsolete
+            }
 
-            // Draw the HitBox outline
             if (DebugModeEnabled)
             {
-                var currentHitBox = spriteHelper.GetCurrentHitBoxes(sprite).First();
-
-                if (currentHitBox == null)
-                {
-                    return;
-                }
-
-                Texture2D hitboxRectangle;
-
-                cachedHitBoxTextures.TryGetValue(new Tuple<int, int>(currentHitBox.Width, currentHitBox.Height), out hitboxRectangle);
-
-                if (hitboxRectangle == null)
-                {
-                    hitboxRectangle = MakeHitBoxTexture(spriteBatch, sprite, currentHitBox);
-                    cachedHitBoxTextures.Add(new Tuple<int, int>(currentHitBox.Width, currentHitBox.Height), hitboxRectangle);
-                }
-
-                position.X = sprite.X + spriteHelper.GetHitboxXOffset(sprite, currentHitBox.RelativeX, currentHitBox.Width) - screen.X;
-                position.Y = sprite.Y + currentHitBox.RelativeY - screen.Y;
-
-                spriteBatch.Draw(hitboxRectangle, position, Color.Red);
+                DrawHitbox(sprite, spriteBatch, screen);
             }
+        }
+
+        private void DrawHitbox(Sprite sprite, SpriteBatch spriteBatch, Screen screen)
+        {
+            var currentHitBox = spriteHelper.GetCurrentHitBoxes(sprite).First();
+
+            if (currentHitBox == null)
+            {
+                return;
+            }
+
+            Texture2D hitboxRectangle;
+            Vector2 position;
+
+            cachedHitBoxTextures.TryGetValue(new Tuple<int, int>(currentHitBox.Width, currentHitBox.Height), out hitboxRectangle);
+
+            if (hitboxRectangle == null)
+            {
+                hitboxRectangle = MakeHitBoxTexture(spriteBatch, sprite, currentHitBox);
+                cachedHitBoxTextures.Add(new Tuple<int, int>(currentHitBox.Width, currentHitBox.Height), hitboxRectangle);
+            }
+
+            position.X = sprite.X + spriteHelper.GetHitboxXOffset(sprite, currentHitBox.RelativeX, currentHitBox.Width) - screen.X;
+            position.Y = sprite.Y + currentHitBox.RelativeY - screen.Y;
+
+            spriteBatch.Draw(hitboxRectangle, position, Color.Red);
         }
 
         private Texture2D MakeHitBoxTexture(SpriteBatch spriteBatch, Sprite sprite, HitBox currentHitBox)

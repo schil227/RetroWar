@@ -33,13 +33,13 @@ namespace RetroWar.Services.Implementations.Actions
             this.gridHandler = gridHandler;
         }
 
-        public void ProcessActionEvent(Sprite sprite)
+        public void ProcessActionEvent(Sprite sprite, Action action)
         {
-            var currentActionData = spriteHelper.GetCurrentActionData(sprite);
+            var actionData = spriteHelper.GetCurrentActionData(sprite).First(ad => ad.Action == action);
 
-            if (currentActionData.SequencesToTriggerOn.Contains(sprite.CurrentSequence))
+            if (actionData.SequencesToTriggerOn.Contains(sprite.CurrentActionSequence[actionData.Action]))
             {
-                switch (sprite.CurrentAction)
+                switch (actionData.Action)
                 {
                     case Action.FireStandard:
                         {
@@ -81,13 +81,24 @@ namespace RetroWar.Services.Implementations.Actions
             }
         }
 
-        public void SetAction(Sprite sprite, Action action)
+        public void RemoveAction(Sprite sprite, Action action)
         {
-            sprite.CurrentSequence = 0;
-            sprite.TickAccumulation = 0;
-            sprite.CurrentAction = action;
+            sprite.CurrentActionSequence[action] = 0;
+            sprite.CurrentActions.Remove(action);
+        }
 
-            ProcessActionEvent(sprite);
+        public void SetAction(Sprite sprite, Action action, Action? actionToRemove)
+        {
+            sprite.CurrentActionSequence[action] = 0;
+            sprite.ActionTickAccumulation[action] = 0;
+            sprite.CurrentActions.Add(action);
+
+            if (actionToRemove != null)
+            {
+                sprite.CurrentActions.Remove((Action)actionToRemove);
+            }
+
+            ProcessActionEvent(sprite, action);
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿[
-  "Sprites/tankv1",
-  "Sprites/tankv1_moving",
-  "Sprites/tankv1_firing_std",
+  "Sprites/tankv2",
+  "Sprites/tankv2_moving",
+  "Sprites/tankv2_firing_std",
+  "Sprites/tankv2_stationary",
   "Sprites/ground1",
   "Sprites/tankv1_bullet_std",
   "Sprites/enemy_tankv1",

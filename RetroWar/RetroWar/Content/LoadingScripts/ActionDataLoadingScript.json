@@ -3,7 +3,7 @@
     "ActionDataId": "tankv1",
     "ActionData": [
       {
-        "Action": "Idle",
+        "Action": "Stationary",
         "TotalSequences": 1,
         "SequenceDurations": [ 200 ],
         "SequencesToTriggerOn": [],
@@ -14,7 +14,33 @@
           {
             "TextureData": [
               {
-                "TextureId": "Sprites/tankv1",
+                "TextureId": "Sprites/tankv2_stationary",
+                "RelativeX": 0,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+            ]
+          }
+        ]
+      },
+      {
+        "Action": "Armed",
+        "TotalSequences": 1,
+        "SequenceDurations": [ 200 ],
+        "SequencesToTriggerOn": [],
+        "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/tankv2",
                 "RelativeX": 0,
                 "RelativeY": 0
               }
@@ -46,7 +72,7 @@
           {
             "TextureData": [
               {
-                "TextureId": "Sprites/tankv1_moving",
+                "TextureId": "Sprites/tankv2_moving",
                 "RelativeX": 0,
                 "RelativeY": 0
               }
@@ -54,86 +80,7 @@
           }
         ],
         "ActionHitBoxSet": [
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          }
+
         ]
       },
       {
@@ -148,7 +95,7 @@
           {
             "TextureData": [
               {
-                "TextureId": "Sprites/tankv1_firing_std",
+                "TextureId": "Sprites/tankv2_firing_std",
                 "RelativeX": 0,
                 "RelativeY": 0
               }
@@ -194,7 +141,28 @@
     "ActionDataId": "enemy_tankv1",
     "ActionData": [
       {
-        "Action": "Idle",
+        "Action": "Stationary",
+        "TotalSequences": 1,
+        "SequenceDurations": [ 200 ],
+        "SequencesToTriggerOn": [],
+        "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+            ]
+          }
+        ]
+      },
+      {
+        "Action": "Armed",
         "TotalSequences": 1,
         "SequenceDurations": [ 200 ],
         "SequencesToTriggerOn": [],
@@ -236,23 +204,12 @@
         "ActionTextureSet": [
           {
             "TextureData": [
-              {
-                "TextureId": "Sprites/enemy_tankv1",
-                "RelativeX": 0,
-                "RelativeY": 0
-              }
             ]
           }
         ],
         "ActionHitBoxSet": [
           {
             "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
             ]
           }
         ]
@@ -277,86 +234,6 @@
           }
         ],
         "ActionHitBoxSet": [
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          },
-          {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
-          }
         ]
       },
       {
@@ -417,7 +294,7 @@
     "ActionDataId": "ground1",
     "ActionData": [
       {
-        "Action": "Idle",
+        "Action": "Stationary",
         "TotalSequences": 1,
         "SequenceDurations": [ 200 ],
         "SequencesToTriggerOn": [],
@@ -454,7 +331,7 @@
     "ActionDataId": "standard_bullet",
     "ActionData": [
       {
-        "Action": "Idle",
+        "Action": "Stationary",
         "TotalSequences": 1,
         "SequenceDurations": [ 200 ],
         "SequencesToTriggerOn": [],

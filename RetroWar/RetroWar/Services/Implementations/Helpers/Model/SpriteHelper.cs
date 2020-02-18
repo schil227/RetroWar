@@ -3,30 +3,59 @@ using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Actions;
 using RetroWar.Models.Sprites.HitBoxes;
 using RetroWar.Models.Sprites.Textures;
+using RetroWar.Models.Vehicles.Vehicles.PlayerVehicle;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace RetroWar.Services.Implementations.Helpers.Model
 {
     public class SpriteHelper : ISpriteHelper
     {
-        public ActionData GetCurrentActionData(Sprite sprite)
+        public IEnumerable<ActionData> GetCurrentActionData(Sprite sprite)
         {
-            return sprite.ActionDataSet.First(a => a.Action == sprite.CurrentAction);
+            return sprite.ActionDataSet.Where(a => sprite.CurrentActions.Contains(a.Action));
         }
 
-        public HitBox[] GetCurrentHitBoxes(Sprite sprite)
+        public IEnumerable<HitBox> GetCurrentHitBoxes(Sprite sprite)
         {
-            return sprite.ActionDataSet.First(a => a.Action == sprite.CurrentAction)
-                .ActionHitBoxSet.ElementAt(sprite.CurrentSequence).HitBoxes.ToArray();
+            var hitBoxes = new List<HitBox>();
+
+            foreach (var action in sprite.CurrentActions)
+            {
+                var hitBoxSet = sprite.ActionDataSet.First(a => a.Action == action).ActionHitBoxSet;
+
+                if (hitBoxSet.Count() == 0)
+                {
+                    continue;
+                }
+
+                hitBoxes.AddRange(hitBoxSet.ElementAt(sprite.CurrentActionSequence[action]).HitBoxes);
+            }
+
+            return hitBoxes;
         }
 
-        public TextureData[] GetCurrentTextureData(Sprite sprite)
+        public IEnumerable<TextureData> GetCurrentTextureData(Sprite sprite)
         {
-            return sprite.ActionDataSet.First(a => a.Action == sprite.CurrentAction)
-                .ActionTextureSet.ElementAt(0).TextureData.ToArray();
-            // check out this sick hack.   ^^^
+            var textureData = new List<TextureData>();
+
+            if (sprite is PlayerVehicle && sprite.CurrentActions.Contains(Models.Sprites.Actions.Action.Move))
+            {
+                Console.Write("m");
+            }
+
+            foreach (var action in sprite.CurrentActions)
+            {
+                textureData.AddRange(
+                        sprite.ActionDataSet
+                        .First(a => a.Action == action)
+                        .ActionTextureSet.ElementAt(0).TextureData
+                    );
+            }
+
+            return textureData;
         }
 
         public int GetHitboxXOffset(Sprite sprite, int currentXOffset, int hitBoxWidth)
@@ -35,7 +64,9 @@ namespace RetroWar.Services.Implementations.Helpers.Model
             // the hitbox must be moved to fit the new graphic.
             if (sprite.CurrentDirection == Direction.Left)
             {
-                return (GetCurrentActionData(sprite).TextureTileWidthX * 16) - hitBoxWidth - currentXOffset;
+                var textureOffset = GetCurrentActionData(sprite).FirstOrDefault(a => a.TextureTileWidthX != 0)?.TextureTileWidthX ?? 0;
+
+                return (textureOffset * 16) - hitBoxWidth - currentXOffset;
             }
 
             return currentXOffset;

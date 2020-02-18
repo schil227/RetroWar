@@ -5,7 +5,8 @@ namespace RetroWar.Services.Interfaces.Actions
 {
     public interface IActionService
     {
-        void SetAction(Sprite sprite, Action action);
-        void ProcessActionEvent(Sprite sprite);
+        void RemoveAction(Sprite sprite, Action action);
+        void SetAction(Sprite sprite, Action newAction, Action? actionToRemove = null);
+        void ProcessActionEvent(Sprite sprite, Action action);
     }
 }

@@ -32,7 +32,7 @@ namespace RetroWar.Services.Implementations.AI
 
             enemy.CurrentDirection = Models.Sprites.Direction.Left;
 
-            if (enemy.CurrentAction != Models.Sprites.Actions.Action.Destroyed)
+            if (!enemy.CurrentActions.Contains(Models.Sprites.Actions.Action.Destroyed))
             {
                 enemy.X -= enemy.VehicleSpeed * deltaTime;
             }

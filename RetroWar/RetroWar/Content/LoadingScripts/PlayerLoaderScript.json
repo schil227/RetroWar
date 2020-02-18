@@ -6,10 +6,16 @@
       "Y": 120,
       "SpriteId": "tank",
       "Name": "Player Tank",
-      "CurrentSequence": 0,
-      "TickAccumulation": 0,
+      "CurrentActionSequence": {
+        "Stationary": 0,
+        "Armed": 0
+      },
+      "ActionTickAccumulation": {
+        "Stationary": 0,
+        "Armed": 0
+      },
       "CurrentDirection": "Right",
-      "CurrentAction": "Idle",
+      "CurrentActions": [ "Stationary", "Armed" ],
       "ActionDataSetId": "tankv1",
       "TotalHealth": 10,
       "Health": 10,

@@ -11,10 +11,10 @@ namespace RetroWar.Models.Sprites
         public float deltaY;
         public string SpriteId;
         public string Name;
-        public int CurrentSequence;
-        public float TickAccumulation;
+        public Dictionary<Action, int> CurrentActionSequence;
+        public Dictionary<Action, float> ActionTickAccumulation;
         public Direction CurrentDirection;
-        public Action CurrentAction;
+        public SortedSet<Action> CurrentActions;
         public string ActionDataSetId;
         public IEnumerable<ActionData> ActionDataSet;
     }
