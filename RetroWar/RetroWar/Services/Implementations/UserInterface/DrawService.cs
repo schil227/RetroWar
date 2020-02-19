@@ -149,11 +149,11 @@ namespace RetroWar.Services.Implementations.UserInterface
                     // make the a red-outlined box with a transparent middle for the hitboxes hitboxes
                     if (i == 0 || i == currentHitBox.Width - 1 || j == 0 || j == currentHitBox.Height - 1)
                     {
-                        colorData[i + j * currentHitBox.Height] = Color.Red;
+                        colorData[i + j * currentHitBox.Width] = Color.Red;
                     }
                     else
                     {
-                        colorData[i + j * currentHitBox.Height] = Color.Transparent;
+                        colorData[i + j * currentHitBox.Width] = Color.Transparent;
                     }
 
                     hitboxRectangle.SetData(colorData);
