@@ -36,7 +36,18 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
 
             var beforeY = illusion.Y;
 
-            if (Math.Abs(collisionResolution.DeltaX) < Math.Abs(collisionResolution.DeltaY))
+            if (collisionResolution.CollisionPoint == PointInCollision.TwoPoints)
+            {
+                if (collisionResolution.DeltaX != 0)
+                {
+                    illusion.X += collisionResolution.DeltaX;
+                }
+                else
+                {
+                    illusion.Y += collisionResolution.DeltaY;
+                }
+            }
+            else if (Math.Abs(collisionResolution.DeltaX) < Math.Abs(collisionResolution.DeltaY))
             {
                 if (collisionResolution.DeltaX > 0)
                 {

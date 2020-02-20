@@ -31,6 +31,17 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
 
             var beforeY = vehicle.Y;
 
+            if (collisionResolution.CollisionPoint == PointInCollision.TwoPoints)
+            {
+                if (collisionResolution.DeltaX != 0)
+                {
+                    vehicle.X += collisionResolution.DeltaX;
+                }
+                else
+                {
+                    vehicle.Y += collisionResolution.DeltaY;
+                }
+            }
             if (Math.Abs(collisionResolution.DeltaX) < Math.Abs(collisionResolution.DeltaY))
             {
                 if (collisionResolution.DeltaX > 0)
