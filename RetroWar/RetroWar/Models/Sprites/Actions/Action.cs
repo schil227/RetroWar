@@ -6,7 +6,10 @@
         Move = 1,
         Jump = 2,
         Armed = 3,
-        FireStandard = 4,
-        Destroyed = 5
+        Charging = 4,
+        Charged = 5,
+        FireStandard = 6,
+        FireCharged = 7,
+        Destroyed = 8
     }
 }

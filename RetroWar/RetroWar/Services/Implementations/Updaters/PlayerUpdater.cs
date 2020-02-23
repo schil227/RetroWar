@@ -113,12 +113,22 @@ namespace RetroWar.Services.Implementations.Updaters
                 }
             }
 
-            if (keyState.IsKeyDown(Keys.K) && !playerTank.CurrentActions.Contains(Action.Destroyed))
+            if (keyState.IsKeyDown(Keys.K) && !playerTank.CurrentActions.Contains(Action.Destroyed) && !playerTank.CurrentActions.Contains(Action.Charging))
             {
                 if (playerTank.CurrentActions.Contains(Action.Armed))
                 {
                     actionService.SetAction(playerTank, Action.FireStandard, Action.Armed);
                 }
+            }
+
+            if (keyState.IsKeyUp(Keys.K) && playerTank.CurrentActions.Contains(Action.Charging) && !playerTank.CurrentActions.Contains(Action.Destroyed))
+            {
+                actionService.SetAction(playerTank, Action.FireStandard, Action.Charging);
+            }
+
+            if (keyState.IsKeyUp(Keys.K) && playerTank.CurrentActions.Contains(Action.Charged) && !playerTank.CurrentActions.Contains(Action.Destroyed))
+            {
+                actionService.SetAction(playerTank, Action.FireStandard, Action.Charged);
             }
 
             if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))

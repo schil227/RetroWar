@@ -96,7 +96,9 @@ namespace RetroWar.Services.Implementations.UserInterface
             var texture = textureActionPair.Key;
             var action = textureActionPair.Value;
 
-            var position = new Vector2((sprite.X + 16 * texture.RelativeX) - screen.X, (sprite.Y + 16 * texture.RelativeY) - screen.Y);
+            var relativeX = sprite.CurrentDirection == Direction.Right ? texture.RelativeX : texture.RelativeX * -1;
+
+            var position = new Vector2((sprite.X + 16 * relativeX) - screen.X, (sprite.Y + 16 * texture.RelativeY) - screen.Y);
             var textureToDraw = textureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture;
             var spriteEffect = sprite.CurrentDirection == Direction.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             var rectangle = new Rectangle(16 * sprite.CurrentActionSequence[action], 0, 16, 16);

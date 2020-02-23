@@ -61,6 +61,140 @@
         ]
       },
       {
+        "Action": "Charging",
+        "TotalSequences": 6,
+        "SequenceDurations": [ 200, 200, 200, 200, 200, 200 ],
+        "SequencesToTriggerOn": [ 5 ],
+        "IsContinuous": false,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/tankv2_charging_1",
+                "RelativeX": 0,
+                "RelativeY": 0
+              },
+              {
+                "TextureId": "Sprites/tankv2_charging_2",
+                "RelativeX": 1,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Action": "Charged",
+        "TotalSequences": 2,
+        "SequenceDurations": [ 200, 200 ],
+        "SequencesToTriggerOn": [],
+        "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/tankv2_charged_1",
+                "RelativeX": 0,
+                "RelativeY": 0
+              },
+              {
+                "TextureId": "Sprites/tankv2_charged_2",
+                "RelativeX": 1,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          }
+        ]
+      },
+      {
         "Action": "Move",
         "TotalSequences": 8,
         "SequenceDurations": [ 100, 100, 100, 100, 100, 100, 100, 100 ],

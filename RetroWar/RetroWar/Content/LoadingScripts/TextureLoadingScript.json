@@ -8,5 +8,9 @@
   "Sprites/enemy_tankv1",
   "Sprites/enemy_tankv1_moving_v2",
   "Sprites/enemy_tankv1_firing_std",
-  "Sprites/explosion"
+  "Sprites/explosion",
+  "Sprites/tankv2_charged_1",
+  "Sprites/tankv2_charged_2",
+  "Sprites/tankv2_charging_1",
+  "Sprites/tankv2_charging_2"
 ]

@@ -225,22 +225,22 @@
     <None Include="Content\LoadingScripts\ActionDataLoadingScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Content\LoadingScripts\IllusionLoaderScript.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="Content\LoadingScripts\BulletLoaderScript.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\LoadingScripts\TileLoaderScript.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="Content\LoadingScripts\TextureLoadingScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\LoadingScripts\EnemyLoaderScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\LoadingScripts\IllusionLoaderScript.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Content\LoadingScripts\PlayerLoaderScript.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\LoadingScripts\TextureLoadingScript.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\LoadingScripts\TileLoaderScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\Sprites\ASE\ground1.ase" />

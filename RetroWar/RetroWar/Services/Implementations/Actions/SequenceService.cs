@@ -1,4 +1,6 @@
-﻿using RetroWar.Models.Sprites;
+﻿using Microsoft.Xna.Framework.Input;
+using RetroWar.Models.Sprites;
+using RetroWar.Models.Vehicles.Vehicles.PlayerVehicle;
 using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using System.Collections.Generic;
@@ -37,12 +39,26 @@ namespace RetroWar.Services.Implementations.Actions
                     {
                         case Action.FireStandard:
                             {
-                                actionService.SetAction(sprite, Action.Armed, action);
+                                if (sprite is PlayerVehicle && Keyboard.GetState().IsKeyDown(Keys.K))
+                                {
+                                    actionService.SetAction(sprite, Action.Charging, action);
+                                    break;
+                                }
+                                else
+                                {
+                                    actionService.SetAction(sprite, Action.Armed, action);
+                                }
+
                                 break;
                             }
                         case Action.Move:
                             {
                                 actionService.SetAction(sprite, Action.Stationary, action);
+                                break;
+                            }
+                        case Action.Charging:
+                            {
+                                actionService.SetAction(sprite, Action.Charged, action);
                                 break;
                             }
                         default:
