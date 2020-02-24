@@ -16,5 +16,23 @@
       "SpecificGravity": 10,
       "Damage": 1
     }
+  },
+  {
+    "BulletId": "ChargedBullet",
+    "Bullet": {
+      "X": 0,
+      "Y": 0,
+      "Name": "Charged Bullet",
+      "SpriteId": "ChargedBullet",
+      "CurrentActionSequence": { "Stationary": 0 },
+      "ActionTickAccumulation": { "Stationary": 0 },
+      "CurrentDirection": "Right",
+      "CurrentActions": [ "Stationary" ],
+      "ActionDataSetId": "charged_bullet",
+      "Trajectory": "Straight",
+      "Speed": 200,
+      "SpecificGravity": 10,
+      "Damage": 3
+    }
   }
 ]

@@ -4,11 +4,9 @@
 
 == Features ==
 	-Make a larger level (1/11/2020)
-
 	-Write some god damn unit tests, seriously (1/23/20)
 	-Move destruction data to the vehicles (what illusion to spawn on death, etc.) (1/23/20)
 	-Make a stage builder program
-	-Implement charged shots
 	-Implement arc shots
 
 == Bugs ==
@@ -29,6 +27,7 @@
 	-Move bullet spawning data to the vehicles (what bullet to spawn and where, etc.) (1/23/20 - 1/27/20)
 	-Implement multiple texture overlays per sprite (1/31/20 - 2/17/20)
 	-change texture ordering when image is flipped (was way easier than expected; just * -1 - 2/22/20)
+	-Implement charged shots (2/23/20)
 		
 = Bugs =
 	- sprites that have points in the negative region aren't getting added and removed correctly: e.g. with a 	sprite whos x values is -5 and maximum value is 8, both (when divided by 32) result in the 0 grid, when it's actually straddling the -1 and 0 grid (1/1/2020)

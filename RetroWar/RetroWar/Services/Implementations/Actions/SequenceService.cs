@@ -61,6 +61,11 @@ namespace RetroWar.Services.Implementations.Actions
                                 actionService.SetAction(sprite, Action.Charged, action);
                                 break;
                             }
+                        case Action.FireCharged:
+                            {
+                                actionService.SetAction(sprite, Action.Armed, action);
+                                break;
+                            }
                         default:
                             {
                                 sprite.CurrentActions.Remove(action);

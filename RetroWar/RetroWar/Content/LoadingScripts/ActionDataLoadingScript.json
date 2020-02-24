@@ -268,6 +268,103 @@
             ]
           }
         ]
+      },
+      {
+        "Action": "FireCharged",
+        "TotalSequences": 7,
+        "SequenceDurations": [ 50, 50, 50, 50, 100, 100, 100 ],
+        "SequencesToTriggerOn": [ 5 ],
+        "IsContinuous": false,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/tankv2_firing_charged_1",
+                "RelativeX": 0,
+                "RelativeY": 0
+              },
+              {
+                "TextureId": "Sprites/tankv2_firing_charged_2",
+                "RelativeX": 1,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          },
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 4,
+                "Width": 16,
+                "Height": 12
+              }
+            ]
+          }
+        ]
       }
     ]
   },
@@ -493,6 +590,45 @@
                 "RelativeY": 0,
                 "Width": 8,
                 "Height": 5
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "ActionDataId": "charged_bullet",
+    "ActionData": [
+      {
+        "Action": "Stationary",
+        "TotalSequences": 1,
+        "SequenceDurations": [ 200 ],
+        "SequencesToTriggerOn": [],
+        "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/tankv2_bullet_charged",
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 8,
+                "Height": 8
               }
             ]
           }

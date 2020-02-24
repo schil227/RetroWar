@@ -34,6 +34,11 @@
           "BulletId": "StandardBullet",
           "XSpawningOffset": 18,
           "YSpawningOffset": 0
+        },
+        "Charged": {
+          "BulletId": "ChargedBullet",
+          "XSpawningOffset": 18,
+          "YSpawningOffset": 4
         }
       },
       "NumLives": 3

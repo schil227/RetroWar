@@ -1,8 +1,6 @@
 ﻿using RetroWar.Models.Common;
 using RetroWar.Models.Sprites;
-using RetroWar.Models.Sprites.Bullets;
 using RetroWar.Models.Sprites.Vehicles;
-using RetroWar.Models.Vehicles.Vehicles.PlayerVehicle;
 using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Factories;
@@ -19,18 +17,21 @@ namespace RetroWar.Services.Implementations.Actions
         private readonly IContentRepository contentRepository;
         private readonly ISpriteFactory spriteFactory;
         private readonly IGridHandler gridHandler;
+        private readonly IBulletHelper bulletHelper;
 
         public ActionService(
             ISpriteHelper spriteHelper,
             IContentRepository contentRepository,
             ISpriteFactory spriteFactory,
-            IGridHandler gridHandler
+            IGridHandler gridHandler,
+            IBulletHelper bulletHelper
             )
         {
             this.spriteHelper = spriteHelper;
             this.contentRepository = contentRepository;
             this.spriteFactory = spriteFactory;
             this.gridHandler = gridHandler;
+            this.bulletHelper = bulletHelper;
         }
 
         public void ProcessActionEvent(Sprite sprite, Action action)
@@ -43,21 +44,12 @@ namespace RetroWar.Services.Implementations.Actions
                 {
                     case Action.FireStandard:
                         {
-                            var vehicle = sprite as Vehicle;
-
-                            var firingData = vehicle.FiringData[vehicle.CurrentFiringMode];
-
-                            var directionOffset = sprite.CurrentDirection == Direction.Right ? firingData.XSpawningOffset : firingData.XSpawningOffset * -1;
-
-                            var spawnPoint = new Point
-                            {
-                                X = sprite.X + directionOffset,
-                                Y = sprite.Y + firingData.YSpawningOffset
-                            };
-
-                            var damageType = (vehicle is PlayerVehicle ? DamageDiscrimination.DamagesEnemy : DamageDiscrimination.DamagesPlayer);
-
-                            spriteFactory.CreateBullet(firingData.BulletId, spawnPoint, sprite.CurrentDirection, damageType);
+                            bulletHelper.FireBullet(sprite as Vehicle, FiringMode.Default);
+                            break;
+                        }
+                    case Action.FireCharged:
+                        {
+                            bulletHelper.FireBullet(sprite as Vehicle, FiringMode.Charged);
                             break;
                         }
                     case Action.Destroyed:

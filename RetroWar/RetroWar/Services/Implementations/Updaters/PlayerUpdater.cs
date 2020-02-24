@@ -128,7 +128,7 @@ namespace RetroWar.Services.Implementations.Updaters
 
             if (keyState.IsKeyUp(Keys.K) && playerTank.CurrentActions.Contains(Action.Charged) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
-                actionService.SetAction(playerTank, Action.FireStandard, Action.Charged);
+                actionService.SetAction(playerTank, Action.FireCharged, Action.Charged);
             }
 
             if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
