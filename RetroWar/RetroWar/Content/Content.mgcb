@@ -109,6 +109,18 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/tankv2_bullet_charged.png
 
+#begin Sprites/tankv2_bullet_charged_v2.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Sprites/tankv2_bullet_charged_v2.png
+
 #begin Sprites/tankv2_charged_1.png
 /importer:TextureImporter
 /processor:TextureProcessor

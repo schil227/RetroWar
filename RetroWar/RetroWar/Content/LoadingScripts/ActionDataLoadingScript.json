@@ -612,7 +612,7 @@
           {
             "TextureData": [
               {
-                "TextureId": "Sprites/tankv2_bullet_charged",
+                "TextureId": "Sprites/tankv2_bullet_charged_v2",
                 "RelativeX": 0,
                 "RelativeY": 0,
                 "Width": 16,
@@ -627,8 +627,8 @@
               {
                 "RelativeX": 0,
                 "RelativeY": 0,
-                "Width": 8,
-                "Height": 8
+                "Width": 12,
+                "Height": 11
               }
             ]
           }

@@ -38,7 +38,7 @@
         "Charged": {
           "BulletId": "ChargedBullet",
           "XSpawningOffset": 18,
-          "YSpawningOffset": 4
+          "YSpawningOffset": 2
         }
       },
       "NumLives": 3

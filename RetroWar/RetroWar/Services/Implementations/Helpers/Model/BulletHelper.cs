@@ -39,6 +39,16 @@ namespace RetroWar.Services.Implementations.Helpers.Model
 
                 return nextPoint;
             }
+            else if (bullet.Trajectory == Trajectory.SmallArc)
+            {
+                var directionVector = bullet.CurrentDirection == Direction.Right ? 1.0f : -1.0f;
+
+                var distance = Math.Min(bullet.Speed * deltaTime, 10);
+
+                nextPoint.X += (distance * directionVector);
+                nextPoint.Y += (0.5f) * bullet.SpecificGravity * (float)(Math.Pow(bullet.TotalTime, 2));
+
+            }
 
             Console.WriteLine("Trajectory not implemented yet. Gonna stay right here.");
             return nextPoint;

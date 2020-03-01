@@ -48,6 +48,8 @@ namespace RetroWar.Services.Implementations.Updaters
             var oldX = (int)bullet.X;
             var oldY = (int)bullet.Y;
 
+            bullet.TotalTime += deltaTime;
+
             var newPoint = bulletHelper.FindNextPointInTrajectory(bullet, deltaTime);
 
             bullet.X = newPoint.X;

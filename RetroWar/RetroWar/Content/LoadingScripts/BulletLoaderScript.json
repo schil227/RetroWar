@@ -11,8 +11,9 @@
       "CurrentDirection": "Right",
       "CurrentActions": [ "Stationary" ],
       "ActionDataSetId": "standard_bullet",
-      "Trajectory": "Straight",
+      "Trajectory": "SmallArc",
       "Speed": 200,
+      "TotalTime": 0,
       "SpecificGravity": 10,
       "Damage": 1
     }
@@ -31,6 +32,7 @@
       "ActionDataSetId": "charged_bullet",
       "Trajectory": "Straight",
       "Speed": 200,
+      "TotalTime": 0,
       "SpecificGravity": 10,
       "Damage": 3
     }
