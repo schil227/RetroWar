@@ -61,6 +61,7 @@ namespace RetroWar
             // User Interface
             services.AddSingleton<IScreenService, ScreenService>();
             services.AddSingleton<IDrawService, DrawService>();
+            services.AddSingleton<IInputService, InputService>();
 
             // Collision
             services.AddSingleton<ICollisionFinder, CollisionFinder>();

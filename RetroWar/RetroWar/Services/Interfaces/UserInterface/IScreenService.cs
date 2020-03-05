@@ -1,12 +1,11 @@
 ﻿using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
-using RetroWar.Models.Sprites.Vehicles;
 
 namespace RetroWar.Services.Interfaces.UserInterface
 {
     public interface IScreenService
     {
-        void ScrollScreen(Screen screen, Vehicle playerTank);
+        void ScrollScreen(Screen screen, Sprite focusedSprite);
         bool IsOnScreen(Screen screen, Sprite sprite);
     }
 }

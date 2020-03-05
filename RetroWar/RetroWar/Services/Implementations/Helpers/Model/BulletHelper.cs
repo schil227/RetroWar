@@ -50,7 +50,6 @@ namespace RetroWar.Services.Implementations.Helpers.Model
 
             }
 
-            Console.WriteLine("Trajectory not implemented yet. Gonna stay right here.");
             return nextPoint;
         }
 

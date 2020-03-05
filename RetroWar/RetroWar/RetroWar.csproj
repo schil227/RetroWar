@@ -125,6 +125,7 @@
     <Compile Include="Services\Implementations\Updaters\PlayerUpdater.cs" />
     <Compile Include="Services\Implementations\Updaters\SpriteUpdaterComposite.cs" />
     <Compile Include="Services\Implementations\UserInterface\DrawService.cs" />
+    <Compile Include="Services\Implementations\UserInterface\InputService.cs" />
     <Compile Include="Services\Implementations\UserInterface\ScreenService.cs" />
     <Compile Include="Services\Interfaces\Actions\IActionService.cs" />
     <Compile Include="Services\Interfaces\Actions\ISequenceService.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="Services\Interfaces\Repositories\IContentRepository.cs" />
     <Compile Include="Services\Interfaces\Updaters\ISpriteUpdater.cs" />
     <Compile Include="Services\Interfaces\UserInterface\IDrawService.cs" />
+    <Compile Include="Services\Interfaces\UserInterface\IInputService.cs" />
     <Compile Include="Services\Interfaces\UserInterface\IScreenService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -254,12 +256,28 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Content\Sprites\cursor.png" />
+    <Content Include="Content\Sprites\enemy_tankv1.png" />
+    <Content Include="Content\Sprites\enemy_tankv1_firing_std.png" />
+    <Content Include="Content\Sprites\enemy_tankv1_moving_v2.png" />
+    <Content Include="Content\Sprites\explosion.png" />
     <Content Include="Content\Sprites\ground1.png" />
     <Content Include="Content\Sprites\tankv1.png" />
     <Content Include="Content\Sprites\tankv1_bullet_std.png" />
     <Content Include="Content\Sprites\tankv1_firing_std.png" />
     <Content Include="Content\Sprites\tankv1_moving.png" />
     <Content Include="Content\Sprites\tankv2.png" />
+    <Content Include="Content\Sprites\tankv2_bullet_charged.png" />
+    <Content Include="Content\Sprites\tankv2_bullet_charged_v2.png" />
+    <Content Include="Content\Sprites\tankv2_charged_1.png" />
+    <Content Include="Content\Sprites\tankv2_charged_2.png" />
+    <Content Include="Content\Sprites\tankv2_charging_1.png" />
+    <Content Include="Content\Sprites\tankv2_charging_2.png" />
+    <Content Include="Content\Sprites\tankv2_firing_charged_1.png" />
+    <Content Include="Content\Sprites\tankv2_firing_charged_2.png" />
+    <Content Include="Content\Sprites\tankv2_firing_std.png" />
+    <Content Include="Content\Sprites\tankv2_moving.png" />
+    <Content Include="Content\Sprites\tankv2_stationary.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

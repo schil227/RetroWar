@@ -637,6 +637,35 @@
     ]
   },
   {
+    "ActionDataId": "cursor",
+    "ActionData": [
+      {
+        "Action": "Stationary",
+        "TotalSequences": 1,
+        "SequenceDurations": [ 200 ],
+        "SequencesToTriggerOn": [],
+        "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/cursor",
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+        ]
+      }
+    ]
+  },
+  {
     "ActionDataId": "explosion",
     "ActionData": [
       {

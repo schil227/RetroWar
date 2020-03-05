@@ -1,5 +1,22 @@
 ﻿[
   {
+    "IllusionId": "Cursor",
+    "Illusion": {
+      "X": 0,
+      "Y": 0,
+      "Name": "Cursor",
+      "SpriteId": "Cursor",
+      "CurrentActionSequence": { "Stationary": 0 },
+      "ActionTickAccumulation": { "Stationary": 0 },
+      "CurrentDirection": "Right",
+      "CurrentActions": [ "Stationary" ],
+      "ActionDataSetId": "cursor",
+      "SubjectToGravity": "false",
+      "FallSum": 0,
+      "FallRate": 0
+    }
+  },
+  {
     "IllusionId": "Explosion",
     "Illusion": {
       "X": 0,
