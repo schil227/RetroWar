@@ -1,0 +1,38 @@
+﻿[
+  {
+    "TileId": "ground1",
+    "Tile": {
+      "X": 0,
+      "Y": 0,
+      "Name": "Ground #1",
+      "SpriteId": "ground1",
+      "CurrentActionSequence": { "Stationary": 0 },
+      "ActionTickAccumulation": { "Stationary": 0 },
+      "CurrentDirection": "Right",
+      "CurrentActions": [ "Stationary" ],
+      "ActionDataSetId": "ground1",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": false,
+      "HasTileToRight": false
+    }
+  },
+  {
+    "TileId": "ground2",
+    "Tile": {
+      "X": 0,
+      "Y": 0,
+      "Name": "Ground #2",
+      "SpriteId": "ground2",
+      "CurrentActionSequence": { "Stationary": 0 },
+      "ActionTickAccumulation": { "Stationary": 0 },
+      "CurrentDirection": "Right",
+      "CurrentActions": [ "Stationary" ],
+      "ActionDataSetId": "ground2",
+      "HasTileAbove": false,
+      "HasTileBelow": false,
+      "HasTileToLeft": false,
+      "HasTileToRight": false
+    }
+  }
+]

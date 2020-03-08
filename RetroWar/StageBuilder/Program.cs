@@ -1,5 +1,4 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RetroWar;
 using System;
 
 namespace StageBuilder
@@ -17,8 +16,8 @@ namespace StageBuilder
         {
             var serviceCollection = new ServiceCollection();
 
-            CompositionRoot.AddServices(serviceCollection);
-            serviceCollection.AddSingleton<StageBuilder>();
+            RetroWar.CompositionRoot.AddServices(serviceCollection);
+            CompositionRoot.RegisterStageBuilderServices(serviceCollection);
 
             var serviceProvider = serviceCollection.BuildServiceProvider();
 

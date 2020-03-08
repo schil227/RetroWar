@@ -8,12 +8,11 @@
 	-Move destruction data to the vehicles (what illusion to spawn on death, etc.) (1/23/20)
 	-Make a stage builder program
 	
-
 == Bugs ==
 
 
 == Refactoring ==
-
+	- make use of the IInputService to check for cases where the key's just been pressed, specifically with player update.
 
 ====== DONE ======
 = Features =

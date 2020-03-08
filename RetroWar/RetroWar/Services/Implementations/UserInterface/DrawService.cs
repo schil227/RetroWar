@@ -33,7 +33,7 @@ namespace RetroWar.Services.Implementations.UserInterface
             this.spriteHelper = spriteHelper;
 
             cachedHitBoxTextures = new Dictionary<Tuple<int, int>, Texture2D>();
-            DebugModeEnabled = true;
+            DebugModeEnabled = false;
         }
 
         public void DrawScreen(SpriteBatch spriteBatch, Stage stage, Screen screen, IEnumerable<TextureDatabaseItem> textureDatabaseItems)
@@ -67,7 +67,7 @@ namespace RetroWar.Services.Implementations.UserInterface
 
             foreach (var texture in playerTextures)
             {
-                DrawSprite(spriteBatch, playerTank, textureDatabaseItems, screen, texture);
+                DrawSprite(spriteBatch, playerTank, textureDatabaseItems, screen, texture, false);
             }
         }
 
@@ -84,21 +84,28 @@ namespace RetroWar.Services.Implementations.UserInterface
 
                 foreach (var texture in textures)
                 {
-                    DrawSprite(spriteBatch, sprite, textureDatabaseItems, screen, texture);
+                    DrawSprite(spriteBatch, sprite, textureDatabaseItems, screen, texture, false);
                 }
 
                 drawnSprites.Add(sprite.SpriteId, "drawn");
             }
         }
 
-        private void DrawSprite(SpriteBatch spriteBatch, Sprite sprite, IEnumerable<TextureDatabaseItem> textureDatabaseItems, Screen screen, KeyValuePair<TextureData, RetroWar.Models.Sprites.Actions.Action> textureActionPair)
+        public void DrawSprite(SpriteBatch spriteBatch, Sprite sprite, IEnumerable<TextureDatabaseItem> textureDatabaseItems, Screen screen, KeyValuePair<TextureData, RetroWar.Models.Sprites.Actions.Action> textureActionPair, bool screenLocked)
         {
             var texture = textureActionPair.Key;
             var action = textureActionPair.Value;
 
             var relativeX = sprite.CurrentDirection == Direction.Right ? texture.RelativeX : texture.RelativeX * -1;
 
-            var position = new Vector2((sprite.X + 16 * relativeX) - screen.X, (sprite.Y + 16 * texture.RelativeY) - screen.Y);
+            var position = new Vector2(sprite.X + 16 * relativeX, sprite.Y + 16 * texture.RelativeY);
+
+            if (!screenLocked)
+            {
+                position.X -= screen.X;
+                position.Y -= screen.Y;
+            }
+
             var textureToDraw = textureDatabaseItems.First(t => string.Equals(t.TextureId, texture.TextureId)).Texture;
             var spriteEffect = sprite.CurrentDirection == Direction.Left ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
             var rectangle = new Rectangle(16 * sprite.CurrentActionSequence[action], 0, 16, 16);
@@ -109,11 +116,11 @@ namespace RetroWar.Services.Implementations.UserInterface
 
             if (DebugModeEnabled)
             {
-                DrawHitbox(sprite, spriteBatch, screen);
+                DrawHitbox(sprite, spriteBatch, screen, screenLocked);
             }
         }
 
-        private void DrawHitbox(Sprite sprite, SpriteBatch spriteBatch, Screen screen)
+        private void DrawHitbox(Sprite sprite, SpriteBatch spriteBatch, Screen screen, bool screenLocked)
         {
             var currentHitBox = spriteHelper.GetCurrentHitBoxes(sprite).FirstOrDefault();
 
@@ -133,8 +140,14 @@ namespace RetroWar.Services.Implementations.UserInterface
                 cachedHitBoxTextures.Add(new Tuple<int, int>(currentHitBox.Width, currentHitBox.Height), hitboxRectangle);
             }
 
-            position.X = sprite.X + spriteHelper.GetHitboxXOffset(sprite, currentHitBox.RelativeX, currentHitBox.Width) - screen.X;
-            position.Y = sprite.Y + currentHitBox.RelativeY - screen.Y;
+            position.X = sprite.X + spriteHelper.GetHitboxXOffset(sprite, currentHitBox.RelativeX, currentHitBox.Width);
+            position.Y = sprite.Y + currentHitBox.RelativeY;
+
+            if (!screenLocked)
+            {
+                position.X -= screen.X;
+                position.Y -= screen.Y;
+            }
 
             spriteBatch.Draw(hitboxRectangle, position, Color.Red);
         }

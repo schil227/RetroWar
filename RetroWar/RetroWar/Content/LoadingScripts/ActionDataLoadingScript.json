@@ -559,6 +559,43 @@
     ]
   },
   {
+    "ActionDataId": "ground2",
+    "ActionData": [
+      {
+        "Action": "Stationary",
+        "TotalSequences": 1,
+        "SequenceDurations": [ 200 ],
+        "SequencesToTriggerOn": [],
+        "IsContinuous": true,
+        "TextureTileWidthX": 1,
+        "TextureTileLengthY": 1,
+        "ActionTextureSet": [
+          {
+            "TextureData": [
+              {
+                "TextureId": "Sprites/ground2",
+                "RelativeX": 0,
+                "RelativeY": 0
+              }
+            ]
+          }
+        ],
+        "ActionHitBoxSet": [
+          {
+            "HitBoxes": [
+              {
+                "RelativeX": 0,
+                "RelativeY": 0,
+                "Width": 16,
+                "Height": 16
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
     "ActionDataId": "standard_bullet",
     "ActionData": [
       {

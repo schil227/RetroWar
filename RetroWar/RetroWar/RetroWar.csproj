@@ -242,6 +242,9 @@
     <None Include="Content\LoadingScripts\TextureLoadingScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Content\LoadingScripts\UniqueTileLoaderScript.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Content\LoadingScripts\TileLoaderScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

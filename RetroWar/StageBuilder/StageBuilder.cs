@@ -4,12 +4,15 @@ using Microsoft.Xna.Framework.Input;
 using RetroWar.Models.Level;
 using RetroWar.Models.Repositories;
 using RetroWar.Models.Screen;
-using RetroWar.Models.Sprites.Illusions;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Loaders;
 using RetroWar.Services.Interfaces.Repositories;
 using RetroWar.Services.Interfaces.UserInterface;
+using StageBuilder.Model.UI;
+using StageBuilder.Services.Interfaces.Building;
+using StageBuilder.Services.Interfaces.UI;
+using StageBuilder.Services.Interfaces.Updaters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,15 +30,16 @@ namespace StageBuilder
         private readonly IGridHandler gridHandler;
         private readonly IScreenService screenService;
         private readonly IInputService inputService;
+        private readonly ICursorUpdater cursorUpdater;
+        private readonly IStageBuilderDrawingService stageBuilderDrawingService;
+        private readonly IBuilderService builderService;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         ContentDatabase contentDatabase;
-        Stage stage;
         Screen screen;
-        List<Tile> tiles;
-        Illusion Cursor;
+        ConstructionData constructionData;
 
         float imageScaleX = 1.0f;
         float imageScaleY = 1.0f;
@@ -46,7 +50,10 @@ namespace StageBuilder
             IDrawService drawService,
             IGridHandler gridHandler,
             IScreenService screenService,
-            IInputService inputService
+            IStageBuilderDrawingService stageBuilderDrawingService,
+            IInputService inputService,
+            ICursorUpdater cursorUpdater,
+            IBuilderService builderService
             )
         {
             this.contentLoader = contentLoader;
@@ -54,7 +61,10 @@ namespace StageBuilder
             this.drawService = drawService;
             this.gridHandler = gridHandler;
             this.screenService = screenService;
+            this.stageBuilderDrawingService = stageBuilderDrawingService;
+            this.cursorUpdater = cursorUpdater;
             this.inputService = inputService;
+            this.builderService = builderService;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = @"C:\Users\Adrian\source\repos\RetroWar\RetroWar\RetroWar\Content\bin\DesktopGL\Content";
@@ -102,19 +112,21 @@ namespace StageBuilder
                 "./Content/LoadingScripts/EnemyLoaderScript.json",
                 "./Content/LoadingScripts/ActionDataLoadingScript.json",
                 "./Content/LoadingScripts/TextureLoadingScript.json",
-                "./Content/LoadingScripts/TileLoaderScript.json",
+                "./Content/LoadingScripts/UniqueTileLoaderScript.json",
                 "./Content/LoadingScripts/BulletLoaderScript.json",
                 "./Content/LoadingScripts/IllusionLoaderScript.json"
                 );
 
-            tiles = contentDatabase.Tiles.Where(i => i.TileId.Contains("ground"))?.Select(s => s.Tile).ToList();
+            constructionData = new ConstructionData();
+            constructionData.Tiles = contentDatabase.Tiles.Where(i => i.TileId.Contains("ground"))?.Select(s => s.Tile).ToList();
+            constructionData.TileIndex = 0;
 
-            Cursor = contentDatabase.Illusions.First(i => i.IllusionId == "Cursor").Illusion;
+            constructionData.Cursor = contentDatabase.Illusions.First(i => i.IllusionId == "Cursor").Illusion;
 
-            stage = new Stage();
-            stage.Grids = gridHandler.InitializeGrid(contentDatabase.PlayerVehicles.First().Player, contentDatabase.EnemyVehicles.Select(e => e.Enemy), tiles);
+            constructionData.Stage = new Stage();
+            constructionData.Stage.Grids = gridHandler.InitializeGrid(contentDatabase.PlayerVehicles.First().Player, contentDatabase.EnemyVehicles.Select(e => e.Enemy), new List<Tile>());
 
-            gridHandler.MoveSprite(stage.Grids, Cursor, 0, 0);
+            gridHandler.MoveSprite(constructionData.Stage.Grids, constructionData.Cursor, 0, 0);
 
             contentRepository.Actions = contentDatabase.Actions;
             contentRepository.PlayerVehicles = contentDatabase.PlayerVehicles;
@@ -123,7 +135,7 @@ namespace StageBuilder
             contentRepository.Tiles = contentDatabase.Tiles;
             contentRepository.Bullets = contentDatabase.Bullets;
             contentRepository.Illusions = contentDatabase.Illusions;
-            contentRepository.CurrentStage = stage;
+            contentRepository.CurrentStage = constructionData.Stage;
             contentRepository.Screen = screen;
 
             base.Initialize();
@@ -165,43 +177,39 @@ namespace StageBuilder
                 Exit();
             }
 
-            if (inputService.KeyJustPressed(Keys.W))
+            cursorUpdater.UpdateCursor(constructionData.Cursor, constructionData.Stage);
+
+            if (inputService.KeyJustPressed(Keys.Left))
             {
-                Cursor.deltaY -= 16;
+                constructionData.TileIndex = (constructionData.TileIndex == 0 ? constructionData.Tiles.Count - 1 : constructionData.TileIndex - 1);
             }
 
-            if (inputService.KeyJustPressed(Keys.S))
+            if (inputService.KeyJustPressed(Keys.Right))
             {
-                Cursor.deltaY += 16;
+                constructionData.TileIndex = (constructionData.TileIndex == constructionData.Tiles.Count - 1 ? 0 : constructionData.TileIndex + 1);
             }
 
-            if (inputService.KeyJustPressed(Keys.A))
+            if (inputService.KeyJustPressed(Keys.Down) &&
+                (inputService.KeyPressed(Keys.LeftShift) || inputService.KeyPressed(Keys.RightShift)))
             {
-                Cursor.deltaX -= 16;
+                builderService.RemoveTileFromStage(constructionData);
+            }
+            else if (inputService.KeyJustPressed(Keys.Down))
+            {
+                builderService.AddTileToStage(constructionData);
             }
 
-            if (inputService.KeyJustPressed(Keys.D))
+            if (inputService.KeyJustPressed(Keys.Up))
             {
-                Cursor.deltaX += 16;
+                builderService.RemoveTileFromStage(constructionData);
             }
 
-            if (Cursor.deltaX != 0 || Cursor.deltaY != 0)
+            if (inputService.KeyJustPressed(Keys.E))
             {
-                var previousX = Cursor.X;
-                var previousY = Cursor.Y;
-
-                Cursor.X += Cursor.deltaX;
-                Cursor.Y += Cursor.deltaY;
-
-                Cursor.deltaX = 0;
-                Cursor.deltaY = 0;
-
-                gridHandler.MoveSprite(stage.Grids, Cursor, (int)previousX, (int)previousY);
+                // Export...
             }
 
-            screenService.ScrollScreen(screen, Cursor);
-
-            // TODO: Add your update logic here
+            screenService.ScrollScreen(screen, constructionData.Cursor);
 
             base.Update(gameTime);
         }
@@ -218,7 +226,9 @@ namespace StageBuilder
             spriteBatch.Begin(SpriteSortMode.Immediate, samplerState: SamplerState.PointClamp, transformMatrix: Matrix.CreateScale(imageScaleX, imageScaleY, 1.0f));
 
             // TODO: Add your drawing code here
-            drawService.DrawScreen(spriteBatch, stage, screen, contentDatabase.Textures);
+            drawService.DrawScreen(spriteBatch, constructionData.Stage, screen, contentDatabase.Textures);
+
+            stageBuilderDrawingService.DrawStageBuilderUI(spriteBatch, constructionData.Stage, screen, contentDatabase.Textures, constructionData);
 
             spriteBatch.End();
 
