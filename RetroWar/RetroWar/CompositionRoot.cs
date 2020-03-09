@@ -57,6 +57,7 @@ namespace RetroWar
             services.AddSingleton<IBulletLoader, BulletLoader>();
             services.AddSingleton<IContentLoader, ContentLoader>();
             services.AddSingleton<IIllusionLoader, IllusionLoader>();
+            services.AddSingleton<IStageLoader, StageLoader>();
 
             // User Interface
             services.AddSingleton<IScreenService, ScreenService>();

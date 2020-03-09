@@ -46,9 +46,11 @@
     <Compile Include="CompositionRoot.cs" />
     <Compile Include="Model\UI\ConstructionData.cs" />
     <Compile Include="Services\Implementations\Building\BuilderService.cs" />
+    <Compile Include="Services\Implementations\Exporters\StageExporter.cs" />
     <Compile Include="Services\Implementations\UI\StageBuilderDrawingService.cs" />
     <Compile Include="Services\Implementations\Updaters\CursorUpdater.cs" />
     <Compile Include="Services\Interfaces\Building\IBuilderService.cs" />
+    <Compile Include="Services\Interfaces\Exporters\IStageExporter.cs" />
     <Compile Include="Services\Interfaces\UI\IStageBuilderDrawingService.cs" />
     <Compile Include="Services\Interfaces\Updaters\ICursorUpdater.cs" />
     <Compile Include="StageBuilder.cs" />

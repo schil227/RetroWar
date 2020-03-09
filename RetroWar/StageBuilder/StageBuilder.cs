@@ -4,17 +4,16 @@ using Microsoft.Xna.Framework.Input;
 using RetroWar.Models.Level;
 using RetroWar.Models.Repositories;
 using RetroWar.Models.Screen;
-using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Loaders;
 using RetroWar.Services.Interfaces.Repositories;
 using RetroWar.Services.Interfaces.UserInterface;
 using StageBuilder.Model.UI;
 using StageBuilder.Services.Interfaces.Building;
+using StageBuilder.Services.Interfaces.Exporters;
 using StageBuilder.Services.Interfaces.UI;
 using StageBuilder.Services.Interfaces.Updaters;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace StageBuilder
@@ -33,6 +32,7 @@ namespace StageBuilder
         private readonly ICursorUpdater cursorUpdater;
         private readonly IStageBuilderDrawingService stageBuilderDrawingService;
         private readonly IBuilderService builderService;
+        public readonly IStageExporter stageExporter;
 
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -53,7 +53,8 @@ namespace StageBuilder
             IStageBuilderDrawingService stageBuilderDrawingService,
             IInputService inputService,
             ICursorUpdater cursorUpdater,
-            IBuilderService builderService
+            IBuilderService builderService,
+            IStageExporter stageExporter
             )
         {
             this.contentLoader = contentLoader;
@@ -65,6 +66,7 @@ namespace StageBuilder
             this.cursorUpdater = cursorUpdater;
             this.inputService = inputService;
             this.builderService = builderService;
+            this.stageExporter = stageExporter;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = @"C:\Users\Adrian\source\repos\RetroWar\RetroWar\RetroWar\Content\bin\DesktopGL\Content";
@@ -114,7 +116,9 @@ namespace StageBuilder
                 "./Content/LoadingScripts/TextureLoadingScript.json",
                 "./Content/LoadingScripts/UniqueTileLoaderScript.json",
                 "./Content/LoadingScripts/BulletLoaderScript.json",
-                "./Content/LoadingScripts/IllusionLoaderScript.json"
+                "./Content/LoadingScripts/IllusionLoaderScript.json",
+                "./Content/LoadingScripts/Stages/StageLoaderScript.json",
+                "./Content/LoadingScripts/Stages/"
                 );
 
             constructionData = new ConstructionData();
@@ -124,7 +128,7 @@ namespace StageBuilder
             constructionData.Cursor = contentDatabase.Illusions.First(i => i.IllusionId == "Cursor").Illusion;
 
             constructionData.Stage = new Stage();
-            constructionData.Stage.Grids = gridHandler.InitializeGrid(contentDatabase.PlayerVehicles.First().Player, contentDatabase.EnemyVehicles.Select(e => e.Enemy), new List<Tile>());
+            gridHandler.InitializeGrid(constructionData.Stage, contentDatabase.PlayerVehicles.First().Player, contentDatabase.EnemyVehicles.Select(e => e.Enemy));
 
             gridHandler.MoveSprite(constructionData.Stage.Grids, constructionData.Cursor, 0, 0);
 
@@ -206,7 +210,7 @@ namespace StageBuilder
 
             if (inputService.KeyJustPressed(Keys.E))
             {
-                // Export...
+                stageExporter.ExportStageJson(constructionData.Stage, "STAGE_OUTPUT.json");
             }
 
             screenService.ScrollScreen(screen, constructionData.Cursor);

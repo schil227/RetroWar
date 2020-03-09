@@ -41,7 +41,6 @@ namespace RetroWar
         Stage stage;
         Screen screen;
         Vehicle playerTank;
-        List<Tile> tiles;
 
         float imageScaleX = 1.0f;
         float imageScaleY = 1.0f;
@@ -119,15 +118,16 @@ namespace RetroWar
                 "./Content/LoadingScripts/TextureLoadingScript.json",
                 "./Content/LoadingScripts/TileLoaderScript.json",
                 "./Content/LoadingScripts/BulletLoaderScript.json",
-                "./Content/LoadingScripts/IllusionLoaderScript.json"
+                "./Content/LoadingScripts/IllusionLoaderScript.json",
+                "./Content/LoadingScripts/Stages/StageLoaderScript.json",
+                "./Content/LoadingScripts/Stages/"
                 );
 
             playerTank = contentDatabase.PlayerVehicles.First(i => string.Equals(i.PlayerId, "tank")).Player;
-            tiles = contentDatabase.Tiles.Where(i => i.TileId.Contains("ground"))?.Select(s => s.Tile).ToList();
 
-            stage = new Stage();
+            stage = contentDatabase.Stages.First().Stage;
 
-            stage.Grids = gridHandler.InitializeGrid(playerTank, contentDatabase.EnemyVehicles.Select(e => e.Enemy), tiles);
+            gridHandler.InitializeGrid(stage, playerTank, contentDatabase.EnemyVehicles.Select(e => e.Enemy));
 
             contentRepository.Actions = contentDatabase.Actions;
             contentRepository.PlayerVehicles = contentDatabase.PlayerVehicles;

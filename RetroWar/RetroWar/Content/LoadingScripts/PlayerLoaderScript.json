@@ -2,8 +2,8 @@
   {
     "PlayerId": "tank",
     "Player": {
-      "X": 112, //16,
-      "Y": 120,
+      "X": 16,
+      "Y": -16,
       "SpriteId": "tank",
       "Name": "Player Tank",
       "CurrentActionSequence": {

@@ -13,7 +13,9 @@ namespace RetroWar.Services.Interfaces.Loaders
             string textureFileName,
             string tileFileName,
             string bulletFileName,
-            string illusionFileName
+            string illusionFileName,
+            string stageFileName,
+            string stageFolder
             );
     }
 }

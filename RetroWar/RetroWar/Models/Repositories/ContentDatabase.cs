@@ -1,6 +1,7 @@
 ﻿using RetroWar.Models.Repositories.Actions;
 using RetroWar.Models.Repositories.Bullets;
 using RetroWar.Models.Repositories.Illusions;
+using RetroWar.Models.Repositories.Level;
 using RetroWar.Models.Repositories.Textures;
 using RetroWar.Models.Repositories.Tiles;
 using RetroWar.Models.Repositories.Vehicles;
@@ -17,5 +18,6 @@ namespace RetroWar.Models.Repositories
         public IEnumerable<TileDatabaseItem> Tiles { get; set; }
         public IEnumerable<BulletDatabaseItem> Bullets { get; set; }
         public IEnumerable<IllusionDatabaseItem> Illusions { get; set; }
+        public IEnumerable<StageDatabaseItem> Stages { get; set; }
     }
 }

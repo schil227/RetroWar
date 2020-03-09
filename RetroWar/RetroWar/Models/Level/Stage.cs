@@ -1,4 +1,5 @@
-﻿using RetroWar.Models.Collisions.Grid;
+﻿using Newtonsoft.Json;
+using RetroWar.Models.Collisions.Grid;
 using RetroWar.Models.Common;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Models.Vehicles.Vehicles.EnemyVehicle;
@@ -15,8 +16,10 @@ namespace RetroWar.Models.Level
         public bool IsCompleted { get; set; }
         public Point PlayerSpawnLocation { get; set; }
         public Point ScreenSpawnLocation { get; set; }
-        public Dictionary<Tuple<int, int>, GridContainer> Grids { get; set; }
         public List<Tile> Tiles { get; set; } = new List<Tile>();
         public List<EnemyVehicle> EnemyVehicles { get; set; } = new List<EnemyVehicle>();
+
+        [JsonIgnoreAttribute]
+        public Dictionary<Tuple<int, int>, GridContainer> Grids { get; set; }
     }
 }

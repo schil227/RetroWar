@@ -14,6 +14,7 @@ namespace RetroWar.Services.Implementations.Loaders
         private readonly ITileLoader tileLoader;
         private readonly IBulletLoader bulletLoader;
         private readonly IIllusionLoader illusionLoader;
+        private readonly IStageLoader stageLoader;
 
         public ContentLoader
             (
@@ -23,7 +24,8 @@ namespace RetroWar.Services.Implementations.Loaders
             ITextureLoader textureLoader,
             ITileLoader tileLoader,
             IBulletLoader bulletLoader,
-            IIllusionLoader illusionLoader
+            IIllusionLoader illusionLoader,
+            IStageLoader stageLoader
             )
         {
             this.playerVehicleLoader = playerVehicleLoader;
@@ -33,9 +35,10 @@ namespace RetroWar.Services.Implementations.Loaders
             this.tileLoader = tileLoader;
             this.bulletLoader = bulletLoader;
             this.illusionLoader = illusionLoader;
+            this.stageLoader = stageLoader;
         }
 
-        ContentDatabase IContentLoader.LoadAllData(
+        public ContentDatabase LoadAllData(
             ContentManager content,
             string playerVehicleFileName,
             string enemyVehicleFileName,
@@ -43,7 +46,10 @@ namespace RetroWar.Services.Implementations.Loaders
             string textureFileName,
             string tileFileName,
             string bulletFileName,
-            string illusionFileName)
+            string illusionFileName,
+            string stageFileName,
+            string stageFolder
+            )
         {
             var contentDatabase = new ContentDatabase();
 
@@ -54,6 +60,7 @@ namespace RetroWar.Services.Implementations.Loaders
             contentDatabase.Bullets = bulletLoader.LoadBullets(bulletFileName);
             contentDatabase.Actions = actionDataLoader.LoadActionData(actionDataFileName);
             contentDatabase.Illusions = illusionLoader.LoadIllusions(illusionFileName);
+            contentDatabase.Stages = stageLoader.LoadAllStages(stageFileName, stageFolder);
 
             foreach (var spriteData in contentDatabase.PlayerVehicles)
             {

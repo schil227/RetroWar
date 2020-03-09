@@ -1,6 +1,6 @@
 ﻿using RetroWar.Models.Collisions.Grid;
+using RetroWar.Models.Level;
 using RetroWar.Models.Sprites;
-using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Models.Vehicles.Vehicles.EnemyVehicle;
 using RetroWar.Services.Interfaces.Collision.Grid;
@@ -18,23 +18,21 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             this.gridService = gridService;
         }
 
-        public Dictionary<Tuple<int, int>, GridContainer> InitializeGrid(Vehicle playerTank, IEnumerable<EnemyVehicle> enemyVehicles, IEnumerable<Tile> tiles)
+        public void InitializeGrid(Stage stage, Vehicle playerTank, IEnumerable<EnemyVehicle> enemyVehicles)
         {
-            var gridHash = new Dictionary<Tuple<int, int>, GridContainer>();
+            stage.Grids = new Dictionary<Tuple<int, int>, GridContainer>();
 
-            gridService.AddSpriteToGrid(gridHash, playerTank);
+            gridService.AddSpriteToGrid(stage.Grids, playerTank);
 
-            foreach (var tile in tiles)
+            foreach (var tile in stage.Tiles)
             {
-                gridService.AddSpriteToGrid(gridHash, tile);
+                gridService.AddSpriteToGrid(stage.Grids, tile);
             }
 
             foreach (var enemy in enemyVehicles)
             {
-                gridService.AddSpriteToGrid(gridHash, enemy);
+                gridService.AddSpriteToGrid(stage.Grids, enemy);
             }
-
-            return gridHash;
         }
 
         public void MoveSprite(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int oldX, int oldY)

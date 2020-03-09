@@ -49,8 +49,8 @@ namespace RetroWar.Services.Implementations.Updaters
                 var oldX = (int)playerTank.X;
                 var oldY = (int)playerTank.Y;
 
-                playerTank.X = 112;//16;
-                playerTank.Y = 120;
+                playerTank.X = 16;
+                playerTank.Y = -16;
                 playerTank.FallSum = 0;
 
                 foreach (var actions in new List<Action>(playerTank.CurrentActions))

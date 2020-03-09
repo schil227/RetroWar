@@ -50,6 +50,7 @@
     <Compile Include="Exceptions\Implementations\Loaders\BulletLoaderException.cs" />
     <Compile Include="Exceptions\Implementations\Loaders\IllusionLoaderException.cs" />
     <Compile Include="Exceptions\Implementations\Loaders\SpriteLoaderException.cs" />
+    <Compile Include="Exceptions\Implementations\Loaders\StageLoaderException.cs" />
     <Compile Include="Exceptions\Implementations\Loaders\TileLoaderException.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Models\Collisions\CollisionResolution.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Models\Repositories\Bullets\BulletDatabaseItem.cs" />
     <Compile Include="Models\Repositories\ContentDatabase.cs" />
     <Compile Include="Models\Repositories\Illusions\IllusionDatabaseItem.cs" />
+    <Compile Include="Models\Repositories\Level\StageDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Vehicles\EnemyVehicle\EnemyVehicleDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Vehicles\PlayerVehicle\PlayerVehicleDatabaseItem.cs" />
     <Compile Include="Models\Sprites\Bullets\DamageDiscrimination.cs" />
@@ -116,6 +118,7 @@
     <Compile Include="Services\Implementations\Loaders\EnemyVehicleLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\IllusionLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\PlayerVehicleLoader.cs" />
+    <Compile Include="Services\Implementations\Loaders\StageLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TextureLoader.cs" />
     <Compile Include="Services\Implementations\Loaders\TileLoader.cs" />
     <Compile Include="Services\Implementations\Repositories\ContentRepository.cs" />
@@ -148,6 +151,7 @@
     <Compile Include="Services\Interfaces\Loaders\IContentLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\IEnemyVehicleLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\IPlayerVehicleLoader.cs" />
+    <Compile Include="Services\Interfaces\Loaders\IStageLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\ITextureLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\ITileLoader.cs" />
     <Compile Include="Services\Interfaces\Repositories\IContentRepository.cs" />
@@ -237,6 +241,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\LoadingScripts\PlayerLoaderScript.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\LoadingScripts\Stages\Stage1.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\LoadingScripts\Stages\StageLoaderScript.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Content\LoadingScripts\TextureLoadingScript.json">
