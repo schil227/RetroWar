@@ -122,7 +122,7 @@ namespace RetroWar.Services.Implementations.UserInterface
 
         private void DrawHitbox(Sprite sprite, SpriteBatch spriteBatch, Screen screen, bool screenLocked)
         {
-            var currentHitBox = spriteHelper.GetCurrentHitBoxes(sprite).FirstOrDefault();
+            var currentHitBox = spriteHelper.GetHitBox(sprite);
 
             if (currentHitBox == null)
             {

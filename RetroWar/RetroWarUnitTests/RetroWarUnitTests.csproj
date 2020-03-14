@@ -67,7 +67,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\Implementations\Collision\CollisionFinderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -78,6 +77,9 @@
       <Project>{A5733544-0936-4805-AE60-1C59E7A7564B}</Project>
       <Name>RetroWar</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Services\Implementations\Collision\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

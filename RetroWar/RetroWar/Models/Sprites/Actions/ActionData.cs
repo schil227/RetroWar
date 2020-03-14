@@ -29,7 +29,7 @@ namespace RetroWar.Models.Sprites.Actions
         public IEnumerable<TextureDataCollection> ActionTextureSet { get; private set; }
 
         [JsonProperty]
-        public IEnumerable<HitBoxCollection> ActionHitBoxSet { get; private set; }
+        public IEnumerable<HitBox> ActionHitBoxSet { get; private set; }
 
         [JsonProperty]
         public IEnumerable<int> SequencesToTriggerOn { get; private set; }

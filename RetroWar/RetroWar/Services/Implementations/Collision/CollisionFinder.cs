@@ -16,7 +16,7 @@ namespace RetroWar.Services.Implementations.Collision
             this.spriteHelper = spriteHelper;
         }
 
-        public List<CollisionResolution> FindCollisions(Sprite normal, Sprite based, HitBox normalHitBox, HitBox basedHitBox)
+        public List<CollisionResolution> FindCollisions(Sprite normal, Sprite based, HitBox normalHitBox, HitBox basedHitBox, bool withRespectToNormal)
         {
             var collisionsFound = new List<CollisionResolution>();
 
@@ -52,7 +52,8 @@ namespace RetroWar.Services.Implementations.Collision
                     {
                         CollisionPoint = PointInCollision.BottomRight,
                         DeltaX = bX - nMaxX,
-                        DeltaY = bY - nMaxY
+                        DeltaY = bY - nMaxY,
+                        WithRespectToNormal = withRespectToNormal
                     });
             }
 
@@ -71,7 +72,8 @@ namespace RetroWar.Services.Implementations.Collision
                     {
                         CollisionPoint = PointInCollision.BottomLeft,
                         DeltaX = bMaxX - nX,
-                        DeltaY = bY - nMaxY
+                        DeltaY = bY - nMaxY,
+                        WithRespectToNormal = withRespectToNormal
                     });
             }
 
@@ -90,7 +92,8 @@ namespace RetroWar.Services.Implementations.Collision
                 {
                     CollisionPoint = PointInCollision.TopLeft,
                     DeltaX = bMaxX - nX,
-                    DeltaY = bMaxY - nY
+                    DeltaY = bMaxY - nY,
+                    WithRespectToNormal = withRespectToNormal
                 });
             }
             /*
@@ -107,7 +110,8 @@ namespace RetroWar.Services.Implementations.Collision
                 {
                     CollisionPoint = PointInCollision.TopRight,
                     DeltaX = bX - nMaxX,
-                    DeltaY = bMaxY - nY
+                    DeltaY = bMaxY - nY,
+                    WithRespectToNormal = withRespectToNormal
                 });
             }
 

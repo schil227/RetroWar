@@ -12,6 +12,14 @@ namespace RetroWar.Models.Sprites.HitBoxes
             this.Height = Height;
         }
 
+        public bool IsEmptyHitbox
+        {
+            get
+            {
+                return this.Width == 0 || this.Height == 0;
+            }
+        }
+
         [JsonProperty]
         public int RelativeX { get; private set; }
 

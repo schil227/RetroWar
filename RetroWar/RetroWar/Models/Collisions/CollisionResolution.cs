@@ -5,5 +5,6 @@
         public PointInCollision CollisionPoint;
         public float DeltaX;
         public float DeltaY;
+        public bool WithRespectToNormal;
     }
 }

@@ -30,11 +30,11 @@ namespace RetroWar.Services.Implementations.Collision
             // if none, return null
             // throw exception (basically, for 3)
 
-            var collisions = collisionFinder.FindCollisions(normal, based, normalBox, basedBox);
+            var collisions = collisionFinder.FindCollisions(normal, based, normalBox, basedBox, true);
 
             if (collisions.Count == 0)
             {
-                var collisionsInBase = collisionFinder.FindCollisions(based, normal, basedBox, normalBox);
+                var collisionsInBase = collisionFinder.FindCollisions(based, normal, basedBox, normalBox, false);
 
                 if (collisions.Count == 0)
                 {
@@ -108,17 +108,6 @@ namespace RetroWar.Services.Implementations.Collision
             }
 
             throw new FoundCollisionFilterException($"Illegal number of collisions found. Number of collisions: {collisions.Count}");
-        }
-
-        public CollisionResolution FindBestCollision(CollisionResolution[] collisions)
-        {
-            // perfect.
-            if (collisions.Length == 0)
-            {
-                return null;
-            }
-
-            return collisions.First();
         }
 
         private CollisionResolution NegateResolutionDeltas(CollisionResolution collision)

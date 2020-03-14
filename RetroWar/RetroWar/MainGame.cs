@@ -243,11 +243,11 @@ namespace RetroWar
                         continue;
                     }
 
-                    var collisions = collisionService.GetCollisions(normal, based);
+                    var collision = collisionService.GetCollision(normal, based);
 
-                    if (collisions.Length > 0)
+                    if (collision != null)
                     {
-                        collisionService.ResolveCollision(normal, based, collisions);
+                        collisionService.ResolveCollision(normal, based, collision);
                     }
                 }
             }

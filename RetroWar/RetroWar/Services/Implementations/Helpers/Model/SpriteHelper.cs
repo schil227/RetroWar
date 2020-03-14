@@ -17,23 +17,21 @@ namespace RetroWar.Services.Implementations.Helpers.Model
             return sprite.ActionDataSet.Where(a => sprite.CurrentActions.Contains(a.Action));
         }
 
-        public IEnumerable<HitBox> GetCurrentHitBoxes(Sprite sprite)
+        public HitBox GetHitBox(Sprite sprite)
         {
-            var hitBoxes = new List<HitBox>();
-
             foreach (var action in sprite.CurrentActions)
             {
                 var hitBoxSet = sprite.ActionDataSet.First(a => a.Action == action).ActionHitBoxSet;
 
-                if (hitBoxSet.Count() == 0)
+                if (hitBoxSet.Count() == 0 || hitBoxSet.First().IsEmptyHitbox)
                 {
                     continue;
                 }
 
-                hitBoxes.AddRange(hitBoxSet.ElementAt(sprite.CurrentActionSequence[action]).HitBoxes);
+                return hitBoxSet.ElementAt(sprite.CurrentActionSequence[action]);
             }
 
-            return hitBoxes;
+            return null;
         }
 
         public IDictionary<TextureData, Models.Sprites.Actions.Action> GetCurrentTextureData(Sprite sprite)
@@ -75,13 +73,13 @@ namespace RetroWar.Services.Implementations.Helpers.Model
                 Y = int.MinValue
             };
 
-            var hitBoxes = GetCurrentHitBoxes(sprite);
+            var hitBox = GetHitBox(sprite);
             var textures = GetCurrentTextureData(sprite);
 
-            foreach (var hitbox in hitBoxes)
+            if (hitBox != null)
             {
-                point.X = Math.Max(point.X, spriteX + (hitbox.RelativeX) + hitbox.Width);
-                point.Y = Math.Max(point.Y, spriteY + (hitbox.RelativeY) + hitbox.Height);
+                point.X = Math.Max(point.X, spriteX + (hitBox.RelativeX) + hitBox.Width);
+                point.Y = Math.Max(point.Y, spriteY + (hitBox.RelativeY) + hitBox.Height);
             }
 
             foreach (var texture in textures)

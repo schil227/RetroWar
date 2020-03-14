@@ -3,13 +3,13 @@
 	Remember:  Make it a game, make it fun
 
 == Features ==
-	-Make a larger level (1/11/2020)
+	-Rewrite collision detection (3/10/20)
 	-Write some god damn unit tests, seriously (1/23/20)
 	-Move destruction data to the vehicles (what illusion to spawn on death, etc.) (1/23/20)
 	-Make a stage builder program
 	
 == Bugs ==
-
+	- Order of normal vs/ based collision resolution matteres; e.g. when the tile vs player is normal vs. based, the resolution is for the normal to move; however since the movement is transposed to the tile (the normal), the player tank is moved in the wrong direction since it's what's actually being moved.
 
 == Refactoring ==
 	- make use of the IInputService to check for cases where the key's just been pressed, specifically with player update.
@@ -28,7 +28,8 @@
 	-change texture ordering when image is flipped (was way easier than expected; just * -1 - 2/22/20)
 	-Implement charged shots (2/23/20)
 	-Implement arc shots (2/29/20)
-		
+	-Make a larger level (1/11/2020 - 3/8/20)
+	
 = Bugs =
 	- sprites that have points in the negative region aren't getting added and removed correctly: e.g. with a 	sprite whos x values is -5 and maximum value is 8, both (when divided by 32) result in the 0 grid, when it's actually straddling the -1 and 0 grid (1/1/2020)
 	-Flipping the sprites direction does not also flip their hitboxes (1/20/20)

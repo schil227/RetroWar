@@ -11,7 +11,7 @@ namespace RetroWar.Services.Interfaces.Helpers.Model
     {
         Point GetMaximumPoints(Sprite sprite, int spriteX, int spriteY);
         IEnumerable<ActionData> GetCurrentActionData(Sprite sprite);
-        IEnumerable<HitBox> GetCurrentHitBoxes(Sprite sprite);
+        HitBox GetHitBox(Sprite sprite);
         IDictionary<TextureData, Action> GetCurrentTextureData(Sprite sprite);
         int GetHitboxXOffset(Sprite sprite, int currentXOffset, int hitBoxWidth);
     }

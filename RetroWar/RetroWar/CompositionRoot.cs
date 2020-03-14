@@ -47,6 +47,7 @@ namespace RetroWar
             services.AddSingleton<IBulletHelper, BulletHelper>();
             services.AddSingleton<IStreamReader, StreamReader>();
             services.AddSingleton<ISpriteHelper, SpriteHelper>();
+            services.AddSingleton<ICollisionResolutionHelper, CollisionResolutionHelper>();
 
             // Loaders
             services.AddSingleton<IActionDataLoader, ActionDataLoader>();

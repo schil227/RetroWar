@@ -1,4 +1,4 @@
-{
+﻿{
   "StageId": null,
   "Name": null,
   "IsUnlocked": false,
@@ -7,11 +7,11 @@
   "ScreenSpawnLocation": null,
   "Tiles": [
     {
-      "X": -16.0,
-      "Y": 16.0,
+      "X": 0.0,
+      "Y": 0.0,
       "deltaX": 0.0,
       "deltaY": 0.0,
-      "SpriteId": "44789a44-f267-4047-b1c5-2ccb9c1a6052_ground1",
+      "SpriteId": "d8b8b2f1-47af-48a4-a71d-a2afae4b4042_ground1",
       "Name": "Ground #1",
       "CurrentActionSequence": {
         "Stationary": 0
@@ -49,14 +49,11 @@
           ],
           "ActionHitBoxSet": [
             {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
             }
           ],
           "SequencesToTriggerOn": []
@@ -64,6 +61,180 @@
       ],
       "HasTileAbove": false,
       "HasTileBelow": true,
+      "HasTileToLeft": false,
+      "HasTileToRight": false
+    },
+    {
+      "X": 0.0,
+      "Y": 16.0,
+      "deltaX": 0.0,
+      "deltaY": 0.0,
+      "SpriteId": "357b1c8d-a1a1-47c0-afe4-1358aad3a9fd_ground1",
+      "Name": "Ground #1",
+      "CurrentActionSequence": {
+        "Stationary": 0
+      },
+      "ActionTickAccumulation": {
+        "Stationary": 0.0
+      },
+      "CurrentDirection": 3,
+      "CurrentActions": [
+        0
+      ],
+      "ActionDataSetId": "ground1",
+      "ActionDataSet": [
+        {
+          "Action": 0,
+          "TotalSequences": 1,
+          "IsContinuous": true,
+          "TextureTileWidthX": 1,
+          "TextureTileLengthY": 1,
+          "SequenceDurations": [
+            200
+          ],
+          "ActionTextureSet": [
+            {
+              "TextureData": [
+                {
+                  "TextureId": "Sprites/ground1",
+                  "RelativeX": 0,
+                  "RelativeY": 0,
+                  "Width": 0,
+                  "Height": 0
+                }
+              ]
+            }
+          ],
+          "ActionHitBoxSet": [
+            {
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
+            }
+          ],
+          "SequencesToTriggerOn": []
+        }
+      ],
+      "HasTileAbove": true,
+      "HasTileBelow": true,
+      "HasTileToLeft": false,
+      "HasTileToRight": false
+    },
+    {
+      "X": 0.0,
+      "Y": 32.0,
+      "deltaX": 0.0,
+      "deltaY": 0.0,
+      "SpriteId": "4c77f1d6-4b1b-4e58-81a5-fabe31f5be22_ground1",
+      "Name": "Ground #1",
+      "CurrentActionSequence": {
+        "Stationary": 0
+      },
+      "ActionTickAccumulation": {
+        "Stationary": 0.0
+      },
+      "CurrentDirection": 3,
+      "CurrentActions": [
+        0
+      ],
+      "ActionDataSetId": "ground1",
+      "ActionDataSet": [
+        {
+          "Action": 0,
+          "TotalSequences": 1,
+          "IsContinuous": true,
+          "TextureTileWidthX": 1,
+          "TextureTileLengthY": 1,
+          "SequenceDurations": [
+            200
+          ],
+          "ActionTextureSet": [
+            {
+              "TextureData": [
+                {
+                  "TextureId": "Sprites/ground1",
+                  "RelativeX": 0,
+                  "RelativeY": 0,
+                  "Width": 0,
+                  "Height": 0
+                }
+              ]
+            }
+          ],
+          "ActionHitBoxSet": [
+            {
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
+            }
+          ],
+          "SequencesToTriggerOn": []
+        }
+      ],
+      "HasTileAbove": true,
+      "HasTileBelow": true,
+      "HasTileToLeft": true,
+      "HasTileToRight": false
+    },
+    {
+      "X": 0.0,
+      "Y": 48.0,
+      "deltaX": 0.0,
+      "deltaY": 0.0,
+      "SpriteId": "cf3701cc-5373-4972-a48f-a9462ecec9b5_ground1",
+      "Name": "Ground #1",
+      "CurrentActionSequence": {
+        "Stationary": 0
+      },
+      "ActionTickAccumulation": {
+        "Stationary": 0.0
+      },
+      "CurrentDirection": 3,
+      "CurrentActions": [
+        0
+      ],
+      "ActionDataSetId": "ground1",
+      "ActionDataSet": [
+        {
+          "Action": 0,
+          "TotalSequences": 1,
+          "IsContinuous": true,
+          "TextureTileWidthX": 1,
+          "TextureTileLengthY": 1,
+          "SequenceDurations": [
+            200
+          ],
+          "ActionTextureSet": [
+            {
+              "TextureData": [
+                {
+                  "TextureId": "Sprites/ground1",
+                  "RelativeX": 0,
+                  "RelativeY": 0,
+                  "Width": 0,
+                  "Height": 0
+                }
+              ]
+            }
+          ],
+          "ActionHitBoxSet": [
+            {
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
+            }
+          ],
+          "SequencesToTriggerOn": []
+        }
+      ],
+      "HasTileAbove": true,
+      "HasTileBelow": false,
       "HasTileToLeft": false,
       "HasTileToRight": false
     },
@@ -72,7 +243,7 @@
       "Y": 32.0,
       "deltaX": 0.0,
       "deltaY": 0.0,
-      "SpriteId": "414f9222-6dd0-4f9c-bb96-3044fd5c87cc_ground1",
+      "SpriteId": "0106b18b-207c-4666-a202-4881059febe0_ground1",
       "Name": "Ground #1",
       "CurrentActionSequence": {
         "Stationary": 0
@@ -110,152 +281,27 @@
           ],
           "ActionHitBoxSet": [
             {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
             }
           ],
           "SequencesToTriggerOn": []
         }
       ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
+      "HasTileAbove": false,
+      "HasTileBelow": false,
       "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": -16.0,
-      "Y": 48.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "419d62b8-4b5c-4493-a00f-48d4a714f350_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": -16.0,
-      "Y": 64.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "feeefd61-701a-45ae-81d5-306b1bf1efce_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
+      "HasTileToRight": true
     },
     {
       "X": -16.0,
       "Y": 80.0,
       "deltaX": 0.0,
       "deltaY": 0.0,
-      "SpriteId": "cadeaaea-eaf6-40b2-b43f-47cf20081ee2_ground1",
+      "SpriteId": "a7d4e885-c529-4ee4-8ddb-385521e8a3bb_ground1",
       "Name": "Ground #1",
       "CurrentActionSequence": {
         "Stationary": 0
@@ -293,258 +339,11 @@
           ],
           "ActionHitBoxSet": [
             {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": -16.0,
-      "Y": 96.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "f9fd8117-e7fb-4ad0-9e9a-b7565099b1b2_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": -16.0,
-      "Y": 112.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "b1f2d8cb-5446-4e47-82ad-db855094938e_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": true,
-      "HasTileToRight": false
-    },
-    {
-      "X": -16.0,
-      "Y": 128.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "6d4340a3-cff4-414f-a7fc-0e0b67c8f236_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": false,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": -32.0,
-      "Y": 112.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "b05f84a8-bddc-4dfb-b5b6-a0aafb731497_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
             }
           ],
           "SequencesToTriggerOn": []
@@ -553,258 +352,14 @@
       "HasTileAbove": false,
       "HasTileBelow": false,
       "HasTileToLeft": false,
-      "HasTileToRight": true
-    },
-    {
-      "X": -48.0,
-      "Y": 96.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "8900c064-0008-4049-bf4d-2c513a52431e_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": -48.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "190f7827-842d-4d90-aabc-68a5926a7aad_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": false,
-      "HasTileToRight": true
-    },
-    {
-      "X": -32.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "6950d931-d981-4a57-aae3-7da60725cfa5_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": -16.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "924e6105-c88f-47f3-8137-b913e41d7804_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
       "HasTileToRight": true
     },
     {
       "X": 0.0,
-      "Y": 176.0,
+      "Y": 80.0,
       "deltaX": 0.0,
       "deltaY": 0.0,
-      "SpriteId": "3722f876-cfbf-42ca-8082-ec44efdec56a_ground1",
+      "SpriteId": "ed9fa3bc-0caf-4093-b72f-6905b748b573_ground1",
       "Name": "Ground #1",
       "CurrentActionSequence": {
         "Stationary": 0
@@ -842,14 +397,11 @@
           ],
           "ActionHitBoxSet": [
             {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
             }
           ],
           "SequencesToTriggerOn": []
@@ -862,10 +414,10 @@
     },
     {
       "X": 16.0,
-      "Y": 176.0,
+      "Y": 80.0,
       "deltaX": 0.0,
       "deltaY": 0.0,
-      "SpriteId": "da49bdef-8b45-4883-908e-88fd54a53489_ground1",
+      "SpriteId": "cd6fe7ac-e425-4105-91ac-4f519ba30ed9_ground1",
       "Name": "Ground #1",
       "CurrentActionSequence": {
         "Stationary": 0
@@ -903,14 +455,11 @@
           ],
           "ActionHitBoxSet": [
             {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
             }
           ],
           "SequencesToTriggerOn": []
@@ -923,10 +472,10 @@
     },
     {
       "X": 32.0,
-      "Y": 176.0,
+      "Y": 80.0,
       "deltaX": 0.0,
       "deltaY": 0.0,
-      "SpriteId": "dbbc51a8-fa92-4152-b9da-7170d0d62dfe_ground1",
+      "SpriteId": "80ff2bb7-9fd7-4b2c-927f-be3fa8b8dac2_ground1",
       "Name": "Ground #1",
       "CurrentActionSequence": {
         "Stationary": 0
@@ -964,75 +513,11 @@
           ],
           "ActionHitBoxSet": [
             {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 64.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "3d95a602-e8a5-4123-9cf0-60f30d479cae_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
             }
           ],
           "SequencesToTriggerOn": []
@@ -1045,10 +530,10 @@
     },
     {
       "X": 48.0,
-      "Y": 176.0,
+      "Y": 80.0,
       "deltaX": 0.0,
       "deltaY": 0.0,
-      "SpriteId": "7efff4cd-c311-48b2-a4f7-744c82f4e562_ground1",
+      "SpriteId": "6ef9ee49-a9df-4009-8715-a28a588e1514_ground1",
       "Name": "Ground #1",
       "CurrentActionSequence": {
         "Stationary": 0
@@ -1086,14 +571,11 @@
           ],
           "ActionHitBoxSet": [
             {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
             }
           ],
           "SequencesToTriggerOn": []
@@ -1103,867 +585,13 @@
       "HasTileBelow": false,
       "HasTileToLeft": true,
       "HasTileToRight": true
-    },
-    {
-      "X": 80.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "d8504d28-a7e4-4b6d-8756-01c889032247_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 96.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "5a5c3755-7957-4408-a5c2-6395cc39ebe2_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 112.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "e0a79e6b-1527-4ab7-a5d4-60a5499110b6_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 128.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "8d69ffb0-5955-4591-a062-119b097d1c61_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 144.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "9c277375-3cc5-4c46-9376-fa2a619f118a_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 160.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "2dc0abcb-7acc-4980-babe-44aeda29bc7b_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 176.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "f96c0a52-8b46-4552-a6fc-98a64ad0cd63_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 192.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "d7247532-96f1-41d7-9de1-ab99ab3e002c_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 240.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "a43fdc5e-9d1a-488a-92e9-eea42a45af5d_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": false
-    },
-    {
-      "X": 224.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "24f68ab0-5e8c-493f-96e6-996bde7ea0fc_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 208.0,
-      "Y": 176.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "24939add-7ca8-4c22-8123-9404791f4abf_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": true
-    },
-    {
-      "X": 64.0,
-      "Y": 128.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "7ea6e645-c197-4352-aa6b-b635497028ff_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": false,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": 64.0,
-      "Y": 112.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "f4c348cc-6254-46b2-a485-5ab9ba83dcb0_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": 64.0,
-      "Y": 96.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "bfbb57df-99c2-405c-80df-2bd720b7e99e_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
     },
     {
       "X": 64.0,
       "Y": 80.0,
       "deltaX": 0.0,
       "deltaY": 0.0,
-      "SpriteId": "e211172a-42f3-47e4-900d-4f9058d86435_ground1",
+      "SpriteId": "3210a4e1-68a9-4c27-b15e-5ffe91d3719c_ground1",
       "Name": "Ground #1",
       "CurrentActionSequence": {
         "Stationary": 0
@@ -2001,874 +629,17 @@
           ],
           "ActionHitBoxSet": [
             {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": 64.0,
-      "Y": 64.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "9f077678-eeb4-4388-bf95-70a8380721e5_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": 64.0,
-      "Y": 48.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "ecbea8d6-0a23-49aa-b9f8-a6456f03e4d0_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": 64.0,
-      "Y": 32.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "cd45d6f4-a12f-4a06-8fd2-9ebe659a94d0_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": true
-    },
-    {
-      "X": 64.0,
-      "Y": 16.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "f3b9c592-f1b6-473e-9e18-f2aff6ea8eba_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
+              "RelativeX": 0,
+              "RelativeY": 0,
+              "Width": 16,
+              "Height": 16
+
             }
           ],
           "SequencesToTriggerOn": []
         }
       ],
       "HasTileAbove": false,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": 80.0,
-      "Y": 32.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "cdbeabdc-a794-44fe-966e-ca138dee408b_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": false
-    },
-    {
-      "X": 96.0,
-      "Y": 48.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "761f2fbf-4175-49ff-96a8-5aae3ca3de13_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": false,
-      "HasTileToLeft": false,
-      "HasTileToRight": false
-    },
-    {
-      "X": 208.0,
-      "Y": 128.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "b5a8da47-57bb-4d18-9751-fd487aa67ecd_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": false,
-      "HasTileToLeft": false,
-      "HasTileToRight": true
-    },
-    {
-      "X": 208.0,
-      "Y": 112.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "bb884c8e-7662-4d02-9040-3f53b10e7e34_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": true
-    },
-    {
-      "X": 224.0,
-      "Y": 128.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "0fb8b77a-5412-481f-9c9b-fade593f4e6d_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": false,
-      "HasTileToLeft": true,
-      "HasTileToRight": false
-    },
-    {
-      "X": 224.0,
-      "Y": 112.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "39e1fec7-d875-486d-b08b-acd3e7522d23_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": true,
-      "HasTileToLeft": true,
-      "HasTileToRight": false
-    },
-    {
-      "X": 144.0,
-      "Y": 112.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "512b22b1-8b0f-476d-8889-38a017fea037_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": true,
-      "HasTileToLeft": false,
-      "HasTileToRight": true
-    },
-    {
-      "X": 144.0,
-      "Y": 128.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "0e590288-6aca-4b1c-a140-8edded4a58f1_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
-      "HasTileBelow": false,
-      "HasTileToLeft": false,
-      "HasTileToRight": true
-    },
-    {
-      "X": 160.0,
-      "Y": 112.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "ed6f2f08-48ff-4b28-a2ba-9672066bb0b4_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": false,
-      "HasTileBelow": true,
-      "HasTileToLeft": true,
-      "HasTileToRight": false
-    },
-    {
-      "X": 160.0,
-      "Y": 128.0,
-      "deltaX": 0.0,
-      "deltaY": 0.0,
-      "SpriteId": "69f75d09-0495-448b-a296-5f7eee22bc92_ground1",
-      "Name": "Ground #1",
-      "CurrentActionSequence": {
-        "Stationary": 0
-      },
-      "ActionTickAccumulation": {
-        "Stationary": 0.0
-      },
-      "CurrentDirection": 3,
-      "CurrentActions": [
-        0
-      ],
-      "ActionDataSetId": "ground1",
-      "ActionDataSet": [
-        {
-          "Action": 0,
-          "TotalSequences": 1,
-          "IsContinuous": true,
-          "TextureTileWidthX": 1,
-          "TextureTileLengthY": 1,
-          "SequenceDurations": [
-            200
-          ],
-          "ActionTextureSet": [
-            {
-              "TextureData": [
-                {
-                  "TextureId": "Sprites/ground1",
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 0,
-                  "Height": 0
-                }
-              ]
-            }
-          ],
-          "ActionHitBoxSet": [
-            {
-              "HitBoxes": [
-                {
-                  "RelativeX": 0,
-                  "RelativeY": 0,
-                  "Width": 16,
-                  "Height": 16
-                }
-              ]
-            }
-          ],
-          "SequencesToTriggerOn": []
-        }
-      ],
-      "HasTileAbove": true,
       "HasTileBelow": false,
       "HasTileToLeft": true,
       "HasTileToRight": false

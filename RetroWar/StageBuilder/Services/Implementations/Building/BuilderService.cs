@@ -74,10 +74,10 @@ namespace StageBuilder.Services.Implementations.Building
                 return;
             }
 
-            var tileAbove = GetNeighboringTile(stage, tile.X + 8, tile.Y - 8);
-            var tileBelow = GetNeighboringTile(stage, tile.X + 8, tile.Y + 24);
-            var tileToLeft = GetNeighboringTile(stage, tile.X - 8, tile.Y + 8);
-            var tileToRight = GetNeighboringTile(stage, tile.X + 24, tile.Y + 8);
+            var tileAbove = GetNeighboringTile(stage, tile.X, tile.Y - 16);
+            var tileBelow = GetNeighboringTile(stage, tile.X, tile.Y + 16);
+            var tileToLeft = GetNeighboringTile(stage, tile.X - 16, tile.Y);
+            var tileToRight = GetNeighboringTile(stage, tile.X + 16, tile.Y);
 
             tile.HasTileAbove = tileAbove != null;
             tile.HasTileBelow = tileBelow != null;
@@ -100,14 +100,19 @@ namespace StageBuilder.Services.Implementations.Building
         {
             foreach (var tile in stage.Tiles)
             {
-                var bX = tile.X;
-                var bMaxX = tile.X + 16;
+                //var bX = tile.X;
+                //var bMaxX = tile.X + 16;
 
-                var bY = tile.Y;
-                var bMaxY = tile.Y + 16;
+                //var bY = tile.Y;
+                //var bMaxY = tile.Y + 16;
 
-                if (bX <= x && x < bMaxX &&
-                    bY <= y && y < bMaxY)
+                //if (bX <= x && x < bMaxX &&
+                //    bY <= y && y < bMaxY)
+                //{
+                //    return tile;
+                //}
+
+                if (tile.X == x && tile.Y == y)
                 {
                     return tile;
                 }

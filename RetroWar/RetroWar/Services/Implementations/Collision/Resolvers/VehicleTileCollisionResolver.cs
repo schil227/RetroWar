@@ -3,12 +3,23 @@ using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
+using RetroWar.Services.Interfaces.Helpers.Model;
 using System;
 
 namespace RetroWar.Services.Implementations.Collision.Resolvers
 {
     public class VehicleTileCollisionResolver : ICollisionResolver
     {
+        private readonly ICollisionResolutionHelper collisionResolutionHelper;
+
+        public VehicleTileCollisionResolver
+            (
+                ICollisionResolutionHelper collisionResolutionHelper
+            )
+        {
+            this.collisionResolutionHelper = collisionResolutionHelper;
+        }
+
         public bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution collisionResolution)
         {
             Vehicle vehicle = null;
@@ -18,11 +29,21 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
             {
                 vehicle = (Vehicle)normal;
                 tile = (Tile)based;
+
+                if (!collisionResolution.WithRespectToNormal)
+                {
+                    collisionResolutionHelper.InvertCollisionResolution(collisionResolution);
+                }
             }
             else if (normal is Tile && based is Vehicle)
             {
                 vehicle = (Vehicle)based;
                 tile = (Tile)normal;
+
+                if (collisionResolution.WithRespectToNormal)
+                {
+                    collisionResolutionHelper.InvertCollisionResolution(collisionResolution);
+                }
             }
             else
             {

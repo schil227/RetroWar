@@ -67,6 +67,7 @@
     <Compile Include="Models\Repositories\Vehicles\EnemyVehicle\EnemyVehicleDatabaseItem.cs" />
     <Compile Include="Models\Repositories\Vehicles\PlayerVehicle\PlayerVehicleDatabaseItem.cs" />
     <Compile Include="Models\Sprites\Bullets\DamageDiscrimination.cs" />
+    <Compile Include="Models\Sprites\Face.cs" />
     <Compile Include="Models\Sprites\Illusions\Illusion.cs" />
     <Compile Include="Models\Sprites\Vehicles\EnemyVehicle\AIBehavior.cs" />
     <Compile Include="Models\Sprites\Vehicles\EnemyVehicle\EnemyVehicle.cs" />
@@ -84,7 +85,6 @@
     <Compile Include="Models\Sprites\Actions\Action.cs" />
     <Compile Include="Models\Sprites\Actions\ActionData.cs" />
     <Compile Include="Models\Sprites\HitBoxes\HitBox.cs" />
-    <Compile Include="Models\Sprites\HitBoxes\HitBoxCollection.cs" />
     <Compile Include="Models\Sprites\Sprite.cs" />
     <Compile Include="Models\Sprites\Textures\TextureData.cs" />
     <Compile Include="Models\Sprites\Textures\TextureDataCollection.cs" />
@@ -110,6 +110,8 @@
     <Compile Include="Services\Implementations\Collision\Resolvers\VehicleTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Factories\SpriteFactory.cs" />
     <Compile Include="Services\Implementations\Helpers\Model\BulletHelper.cs" />
+    <Compile Include="Services\Implementations\Helpers\Model\CollisionResolutionHelper.cs" />
+    <Compile Include="Services\Implementations\Helpers\Model\FaceHelper.cs" />
     <Compile Include="Services\Implementations\Helpers\Model\SpriteHelper.cs" />
     <Compile Include="Services\Implementations\Helpers\StreamReader.cs" />
     <Compile Include="Services\Implementations\Loaders\ActionDataLoader.cs" />
@@ -144,6 +146,8 @@
     <Compile Include="Services\Interfaces\Factories\ISpriteFactory.cs" />
     <Compile Include="Services\Interfaces\Helpers\IStreamReader.cs" />
     <Compile Include="Services\Interfaces\Helpers\Model\IBulletHelper.cs" />
+    <Compile Include="Services\Interfaces\Helpers\Model\ICollisionResolutionHelper.cs" />
+    <Compile Include="Services\Interfaces\Helpers\Model\IFaceHelper.cs" />
     <Compile Include="Services\Interfaces\Helpers\Model\ISpriteHelper.cs" />
     <Compile Include="Services\Interfaces\Loaders\IActionDataLoader.cs" />
     <Compile Include="Services\Interfaces\Loaders\IIllusionLoader.cs" />

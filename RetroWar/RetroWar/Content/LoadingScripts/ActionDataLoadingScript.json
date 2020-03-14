@@ -49,14 +49,10 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           }
         ]
       },
@@ -86,64 +82,40 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           }
         ]
       },
@@ -173,24 +145,16 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           }
         ]
       },
@@ -238,34 +202,22 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           }
         ]
       },
@@ -295,74 +247,46 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           }
         ]
       }
@@ -413,14 +337,10 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           }
         ]
       },
@@ -488,34 +408,22 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 4,
-                "Width": 16,
-                "Height": 12
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 4,
+            "Width": 16,
+            "Height": 12
           }
         ]
       }
@@ -545,14 +453,10 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 0,
-                "Width": 16,
-                "Height": 16
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 0,
+            "Width": 16,
+            "Height": 16
           }
         ]
       }
@@ -582,14 +486,10 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 0,
-                "Width": 16,
-                "Height": 16
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 0,
+            "Width": 16,
+            "Height": 16
           }
         ]
       }
@@ -621,14 +521,10 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 0,
-                "Width": 8,
-                "Height": 5
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 0,
+            "Width": 8,
+            "Height": 5
           }
         ]
       }
@@ -660,14 +556,10 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 0,
-                "RelativeY": 0,
-                "Width": 12,
-                "Height": 11
-              }
-            ]
+            "RelativeX": 0,
+            "RelativeY": 0,
+            "Width": 12,
+            "Height": 11
           }
         ]
       }
@@ -728,134 +620,82 @@
         ],
         "ActionHitBoxSet": [
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           },
           {
-            "HitBoxes": [
-              {
-                "RelativeX": 2,
-                "RelativeY": 12,
-                "Width": 8,
-                "Height": 4
-              }
-            ]
+            "RelativeX": 2,
+            "RelativeY": 12,
+            "Width": 8,
+            "Height": 4
           }
         ]
       }

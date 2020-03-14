@@ -25,38 +25,29 @@ namespace RetroWar.Services.Implementations.Collision
             this.collisionResolver = collisionResolver;
         }
 
-        public CollisionResolution[] GetCollisions(Sprite normal, Sprite based)
+        public CollisionResolution GetCollision(Sprite normal, Sprite based)
         {
-            var normalHitBoxes = spriteHelper.GetCurrentHitBoxes(normal);
-            var basedHitBoxes = spriteHelper.GetCurrentHitBoxes(based);
+            var normalHitBox = spriteHelper.GetHitBox(normal);
+            var basedHitBox = spriteHelper.GetHitBox(based);
 
             var collisionResolutions = new List<CollisionResolution>();
 
-            foreach (var normalBox in normalHitBoxes)
+            if (normalHitBox == null || basedHitBox == null)
             {
-                foreach (var basedBox in basedHitBoxes)
-                {
-                    var filteredCollision = foundCollisionFilter.FilterCollisionsFound(normal, based, normalBox, basedBox);
-
-                    if (filteredCollision != null)
-                    {
-                        collisionResolutions.Add(filteredCollision);
-                    }
-                }
+                return null;
             }
 
-            return collisionResolutions.ToArray();
+            return foundCollisionFilter.FilterCollisionsFound(normal, based, normalHitBox, basedHitBox);
         }
 
-        public bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution[] collisions)
+        public bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution collision)
         {
-            if (collisions.Length == 0)
+            if (collision == null)
             {
                 return false;
             }
 
-            var bestCollisionResolution = foundCollisionFilter.FindBestCollision(collisions);
-            return collisionResolver.ResolveCollision(normal, based, bestCollisionResolution);
+            return collisionResolver.ResolveCollision(normal, based, collision);
         }
     }
 }
