@@ -1,51 +1,35 @@
-﻿using RetroWar.Models.Collisions;
-using RetroWar.Models.Sprites;
+﻿using RetroWar.Models.Sprites;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
-using RetroWar.Services.Interfaces.Helpers.Model;
-using System.Collections.Generic;
 
 namespace RetroWar.Services.Implementations.Collision
 {
     public class CollisionService : ICollisionService
     {
-        private readonly ISpriteHelper spriteHelper;
-        private readonly IFoundCollisionFilter foundCollisionFilter;
         private readonly ICollisionResolver collisionResolver;
+        private readonly ICollisionChecker collisionChecker;
+        private readonly ICollisionFinder collisionFinder;
 
         public CollisionService
             (
-                ISpriteHelper spriteHelper,
-                IFoundCollisionFilter foundCollisionFilter,
-                ICollisionResolver collisionResolver
+                ICollisionResolver collisionResolver,
+                ICollisionChecker collisionChecker,
+                ICollisionFinder collisionFinder
             )
         {
-            this.spriteHelper = spriteHelper;
-            this.foundCollisionFilter = foundCollisionFilter;
             this.collisionResolver = collisionResolver;
+            this.collisionChecker = collisionChecker;
+            this.collisionFinder = collisionFinder;
         }
 
-        public CollisionResolution GetCollision(Sprite normal, Sprite based)
+        public bool HandleCollision(Sprite normal, Sprite based, float deltaTime)
         {
-            var normalHitBox = spriteHelper.GetHitBox(normal);
-            var basedHitBox = spriteHelper.GetHitBox(based);
-
-            var collisionResolutions = new List<CollisionResolution>();
-
-            if (normalHitBox == null || basedHitBox == null)
+            if (!collisionChecker.AreColliding(normal, based))
             {
-                return null;
+                return true;
             }
 
-            return foundCollisionFilter.FilterCollisionsFound(normal, based, normalHitBox, basedHitBox);
-        }
-
-        public bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution collision)
-        {
-            if (collision == null)
-            {
-                return false;
-            }
+            var collision = collisionFinder.FindCollisionResolutionFace(normal, based, deltaTime);
 
             return collisionResolver.ResolveCollision(normal, based, collision);
         }

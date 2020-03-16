@@ -27,8 +27,8 @@ namespace RetroWar.Services.Implementations.AI
                 return false;
             }
 
-            var oldX = (int)enemy.X;
-            var oldY = (int)enemy.Y;
+            enemy.oldX = (int)enemy.X;
+            enemy.oldY = (int)enemy.Y;
 
             enemy.CurrentDirection = Models.Sprites.Direction.Left;
 
@@ -40,7 +40,7 @@ namespace RetroWar.Services.Implementations.AI
             enemy.FallSum += System.Math.Min(enemy.FallRate * deltaTime, 10);
             enemy.Y += enemy.FallSum;
 
-            gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, enemy, oldX, oldY);
+            gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, enemy, (int)enemy.oldX, (int)enemy.oldY);
 
             return true;
         }

@@ -3,21 +3,20 @@ using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
-using RetroWar.Services.Interfaces.Helpers.Model;
-using System;
+using RetroWar.Services.Interfaces.Helpers.Collision;
 
 namespace RetroWar.Services.Implementations.Collision.Resolvers
 {
     public class VehicleTileCollisionResolver : ICollisionResolver
     {
-        private readonly ICollisionResolutionHelper collisionResolutionHelper;
+        private readonly IResolverHelper resolverHelper;
 
         public VehicleTileCollisionResolver
             (
-                ICollisionResolutionHelper collisionResolutionHelper
+                IResolverHelper resolverHelper
             )
         {
-            this.collisionResolutionHelper = collisionResolutionHelper;
+            this.resolverHelper = resolverHelper;
         }
 
         public bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution collisionResolution)
@@ -29,21 +28,6 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
             {
                 vehicle = (Vehicle)normal;
                 tile = (Tile)based;
-
-                if (!collisionResolution.WithRespectToNormal)
-                {
-                    collisionResolutionHelper.InvertCollisionResolution(collisionResolution);
-                }
-            }
-            else if (normal is Tile && based is Vehicle)
-            {
-                vehicle = (Vehicle)based;
-                tile = (Tile)normal;
-
-                if (collisionResolution.WithRespectToNormal)
-                {
-                    collisionResolutionHelper.InvertCollisionResolution(collisionResolution);
-                }
             }
             else
             {
@@ -52,65 +36,18 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
 
             var beforeY = vehicle.Y;
 
-            if (collisionResolution.CollisionPoint == PointInCollision.TwoPoints)
+            // vehicle is "stuck" in tile, nothing to do.
+            if (collisionResolution.PrimaryFace == null && collisionResolution.SecondaryFace == null)
             {
-                if (collisionResolution.DeltaX != 0)
-                {
-                    vehicle.X += collisionResolution.DeltaX;
-                }
-                else
-                {
-                    vehicle.Y += collisionResolution.DeltaY;
-                }
+                return true;
             }
-            if (Math.Abs(collisionResolution.DeltaX) < Math.Abs(collisionResolution.DeltaY))
+
+            // Check Primary face first. If face is blocked, try secondary.
+            if (!resolverHelper.TryResolveByFace(vehicle, tile, collisionResolution.PrimaryFace))
             {
-                if (collisionResolution.DeltaX > 0)
+                if (!resolverHelper.TryResolveByFace(vehicle, tile, collisionResolution.SecondaryFace))
                 {
-                    if (!tile.HasTileToRight)
-                    {
-                        vehicle.X += collisionResolution.DeltaX;
-                    }
-                    else
-                    {
-                        vehicle.Y += collisionResolution.DeltaY;
-                    }
-                }
-                else
-                {
-                    if (!tile.HasTileToLeft)
-                    {
-                        vehicle.X += collisionResolution.DeltaX;
-                    }
-                    else
-                    {
-                        vehicle.Y += collisionResolution.DeltaY;
-                    }
-                }
-            }
-            else
-            {
-                if (collisionResolution.DeltaY > 0)
-                {
-                    if (!tile.HasTileBelow)
-                    {
-                        vehicle.Y += collisionResolution.DeltaY;
-                    }
-                    else
-                    {
-                        vehicle.X += collisionResolution.DeltaX;
-                    }
-                }
-                else
-                {
-                    if (!tile.HasTileAbove)
-                    {
-                        vehicle.Y += collisionResolution.DeltaY;
-                    }
-                    else
-                    {
-                        vehicle.X += collisionResolution.DeltaX;
-                    }
+                    return true;
                 }
             }
 

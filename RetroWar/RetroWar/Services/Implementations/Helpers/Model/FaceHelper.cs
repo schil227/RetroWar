@@ -1,4 +1,5 @@
-﻿using RetroWar.Models.Sprites;
+﻿using RetroWar.Exceptions.Implementations.Helpers.Model;
+using RetroWar.Models.Sprites;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using System;
 
@@ -13,29 +14,43 @@ namespace RetroWar.Services.Implementations.Helpers.Model
             this.spriteHelper = spriteHelper;
         }
 
-        public int GetFaceAxis(Sprite sprite, Face face)
+        public float GetFaceAxis(Sprite sprite, Face face)
         {
             var hitbox = spriteHelper.GetHitBox(sprite);
 
             switch (face)
             {
                 case Face.Top:
-                    //return sprite.X
-                    break;
+                    return sprite.Y + hitbox.RelativeY;
                 case Face.Bottom:
-                    break;
+                    return sprite.Y + hitbox.RelativeY + hitbox.Height;
                 case Face.Left:
-                    break;
+                    return sprite.X + hitbox.RelativeX;
                 case Face.Right:
-                    break;
+                    return sprite.X + hitbox.RelativeX + hitbox.Width;
             }
 
-            return 0;
+            throw new FaceHelperException("Illegal face specified. What the hell are you doing?");
         }
 
-        public int GetFaceDifference(Sprite normal, Face normalFace, Sprite based)
+        // Gets the difference between the normal and based. In the context of collision detection,
+        // the based face is always the opposite of the normal (e.g. we want to move normal such that
+        // it's top face is adjcent to based's bottom face)
+        public float GetFaceDifference(Sprite normal, Face normalFace, Sprite based)
         {
-            throw new NotImplementedException();
+            switch (normalFace)
+            {
+                case Face.Top:
+                    return Math.Abs(GetFaceAxis(normal, normalFace) - GetFaceAxis(based, Face.Bottom));
+                case Face.Bottom:
+                    return Math.Abs(GetFaceAxis(normal, normalFace) - GetFaceAxis(based, Face.Top));
+                case Face.Left:
+                    return Math.Abs(GetFaceAxis(normal, normalFace) - GetFaceAxis(based, Face.Right));
+                case Face.Right:
+                    return Math.Abs(GetFaceAxis(normal, normalFace) - GetFaceAxis(based, Face.Left));
+            }
+
+            throw new FaceHelperException("Illegal face specified. What the hell are you doing?");
         }
     }
 }

@@ -3,12 +3,22 @@ using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Illusions;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
-using System;
+using RetroWar.Services.Interfaces.Helpers.Collision;
 
 namespace RetroWar.Services.Implementations.Collision.Resolvers
 {
     public class IllusionTileCollisionResolver : ICollisionResolver
     {
+        private readonly IResolverHelper resolverHelper;
+
+        public IllusionTileCollisionResolver
+            (
+                IResolverHelper resolverHelper
+            )
+        {
+            this.resolverHelper = resolverHelper;
+        }
+
         public bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution collisionResolution)
         {
             Illusion illusion = null;
@@ -36,65 +46,18 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
 
             var beforeY = illusion.Y;
 
-            if (collisionResolution.CollisionPoint == PointInCollision.TwoPoints)
+            // vehicle is "stuck" in tile, nothing to do.
+            if (collisionResolution.PrimaryFace == null && collisionResolution.SecondaryFace == null)
             {
-                if (collisionResolution.DeltaX != 0)
-                {
-                    illusion.X += collisionResolution.DeltaX;
-                }
-                else
-                {
-                    illusion.Y += collisionResolution.DeltaY;
-                }
+                return true;
             }
-            else if (Math.Abs(collisionResolution.DeltaX) < Math.Abs(collisionResolution.DeltaY))
+
+            // Check Primary face first. If face is blocked, try secondary.
+            if (!resolverHelper.TryResolveByFace(illusion, tile, collisionResolution.PrimaryFace))
             {
-                if (collisionResolution.DeltaX > 0)
+                if (!resolverHelper.TryResolveByFace(illusion, tile, collisionResolution.SecondaryFace))
                 {
-                    if (!tile.HasTileToRight)
-                    {
-                        illusion.X += collisionResolution.DeltaX;
-                    }
-                    else
-                    {
-                        illusion.Y += collisionResolution.DeltaY;
-                    }
-                }
-                else
-                {
-                    if (!tile.HasTileToLeft)
-                    {
-                        illusion.X += collisionResolution.DeltaX;
-                    }
-                    else
-                    {
-                        illusion.Y += collisionResolution.DeltaY;
-                    }
-                }
-            }
-            else
-            {
-                if (collisionResolution.DeltaY > 0)
-                {
-                    if (!tile.HasTileBelow)
-                    {
-                        illusion.Y += collisionResolution.DeltaY;
-                    }
-                    else
-                    {
-                        illusion.X += collisionResolution.DeltaX;
-                    }
-                }
-                else
-                {
-                    if (!tile.HasTileAbove)
-                    {
-                        illusion.Y += collisionResolution.DeltaY;
-                    }
-                    else
-                    {
-                        illusion.X += collisionResolution.DeltaX;
-                    }
+                    return true;
                 }
             }
 

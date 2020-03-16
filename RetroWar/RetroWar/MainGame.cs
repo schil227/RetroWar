@@ -183,6 +183,7 @@ namespace RetroWar
             var boxes = gridHandler.GetGridsFromPoints(stage.Grids, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
 
             var sprites = new HashSet<Sprite>();
+            var movingSprites = new HashSet<Sprite>();
 
             foreach (var box in boxes)
             {
@@ -199,21 +200,25 @@ namespace RetroWar
                 if (box.playerTank != null)
                 {
                     sprites.Add(box.playerTank);
+                    movingSprites.Add(box.playerTank);
                 }
 
                 foreach (var enemy in box.EnemyVehicles)
                 {
                     sprites.Add(enemy.Value);
+                    movingSprites.Add(enemy.Value);
                 }
 
                 foreach (var bullet in box.Bullets)
                 {
                     sprites.Add(bullet.Value);
+                    movingSprites.Add(bullet.Value);
                 }
 
                 foreach (var illusion in box.Illusions)
                 {
                     sprites.Add(illusion.Value);
+                    movingSprites.Add(illusion.Value);
                 }
 
                 foreach (var tile in box.Tiles)
@@ -231,7 +236,7 @@ namespace RetroWar
 
             var collidedSprites = new Dictionary<string, string>();
 
-            foreach (var normal in sprites)
+            foreach (var normal in movingSprites)
             {
                 foreach (var based in sprites)
                 {
@@ -243,12 +248,17 @@ namespace RetroWar
                         continue;
                     }
 
-                    var collision = collisionService.GetCollision(normal, based);
-
-                    if (collision != null)
+                    if (collisionService.HandleCollision(normal, based, deltaT))
                     {
-                        collisionService.ResolveCollision(normal, based, collision);
+                        collidedSprites.Add(normal.SpriteId + based.SpriteId, "collided");
                     }
+
+                    //var collision = collisionService.GetCollision(normal, based);
+
+                    //if (collision != null)
+                    //{
+                    //    collisionService.ResolveCollision(normal, based, collision);
+                    //}
                 }
             }
 

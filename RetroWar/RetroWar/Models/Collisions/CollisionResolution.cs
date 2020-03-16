@@ -1,4 +1,6 @@
-﻿namespace RetroWar.Models.Collisions
+﻿using RetroWar.Models.Sprites;
+
+namespace RetroWar.Models.Collisions
 {
     public class CollisionResolution
     {
@@ -6,5 +8,7 @@
         public float DeltaX;
         public float DeltaY;
         public bool WithRespectToNormal;
+        public Face? PrimaryFace;
+        public Face? SecondaryFace;
     }
 }

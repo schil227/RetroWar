@@ -1,9 +1,8 @@
 ﻿using RetroWar.Models.Collisions;
 using RetroWar.Models.Sprites;
-using RetroWar.Models.Sprites.HitBoxes;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Helpers.Model;
-using System.Collections.Generic;
+using System;
 
 namespace RetroWar.Services.Implementations.Collision
 {
@@ -11,111 +10,92 @@ namespace RetroWar.Services.Implementations.Collision
     {
         private readonly ISpriteHelper spriteHelper;
 
-        public CollisionFinder(ISpriteHelper spriteHelper)
+        private readonly IFaceHelper faceHelper;
+
+        public CollisionFinder(
+            ISpriteHelper spriteHelper,
+            IFaceHelper faceHelper
+            )
         {
             this.spriteHelper = spriteHelper;
+            this.faceHelper = faceHelper;
         }
 
-        public List<CollisionResolution> FindCollisions(Sprite normal, Sprite based, HitBox normalHitBox, HitBox basedHitBox, bool withRespectToNormal)
+        public CollisionResolution FindCollisionResolutionFace(Sprite normal, Sprite based, float deltaTime)
         {
-            var collisionsFound = new List<CollisionResolution>();
+            Face? xBasedFace = null;
+            Face? yBasedFace = null;
 
-            var normalXOffset = spriteHelper.GetHitboxXOffset(normal, normalHitBox.RelativeX, normalHitBox.Width);
-            var baseXOffset = spriteHelper.GetHitboxXOffset(based, basedHitBox.RelativeX, basedHitBox.Width);
+            Face? xNormalFace = null;
+            Face? yNormalFace = null;
 
-            var nX = normal.X + normalXOffset;
-            var nMaxX = normal.X + normalXOffset + normalHitBox.Width;
+            var xNormalDistance = normal.X - normal.oldX;
+            var yNormalDistance = normal.Y - normal.oldY;
 
-            var nY = normal.Y + normalHitBox.RelativeY;
-            var nMaxY = normal.Y + normalHitBox.RelativeY + normalHitBox.Height;
-
-            var bX = based.X + baseXOffset;
-            var bMaxX = based.X + baseXOffset + basedHitBox.Width;
-
-            var bY = based.Y + basedHitBox.RelativeY;
-            var bMaxY = based.Y + basedHitBox.RelativeY + basedHitBox.Height;
-
-            /*
-             * (nX,nY)   nMaxX
-             *  └─> ┌────┐
-             *      | N ┌┼───┐
-             *nMaxY └───┼* B |
-             *          └────┘
-             * 
-             * Bottom right corner of normal in base
-             */
-            if (bX <= nMaxX && nMaxX < bMaxX &&
-                bY <= nMaxY && nMaxY < bMaxY)
+            // if normal is heading right, move it to based's left face (etc.)
+            if (xNormalDistance > 0)
             {
-                collisionsFound.Add(
-                    new CollisionResolution
-                    {
-                        CollisionPoint = PointInCollision.BottomRight,
-                        DeltaX = bX - nMaxX,
-                        DeltaY = bY - nMaxY,
-                        WithRespectToNormal = withRespectToNormal
-                    });
+                xNormalFace = Face.Right;
+                xBasedFace = Face.Left;
+            }
+            else if (xNormalDistance < 0)
+            {
+                xNormalFace = Face.Left;
+                xBasedFace = Face.Right;
             }
 
-            /*
-             *     ┌────┐
-             * ┌───┼┐ N |
-             * | B *┼───┘
-             * └────┘
-             * Bottom left corner of normal in base
-             */
-            if (bX <= nX && nX < bMaxX &&
-               bY <= nMaxY && nMaxY < bMaxY)
+            // if normal is heading down, move it to based's top face (etc.)
+            if (yNormalDistance > 0)
             {
-                collisionsFound.Add(
-                    new CollisionResolution
-                    {
-                        CollisionPoint = PointInCollision.BottomLeft,
-                        DeltaX = bMaxX - nX,
-                        DeltaY = bY - nMaxY,
-                        WithRespectToNormal = withRespectToNormal
-                    });
+                yNormalFace = Face.Bottom;
+                yBasedFace = Face.Top;
+            }
+            else if (yNormalDistance < 0)
+            {
+                yNormalFace = Face.Top;
+                yBasedFace = Face.Bottom;
             }
 
-            /*
-             * ┌────┐
-             * | B *┼───┐
-             * └───┼┘ N |
-             *     └────┘
-             * 
-             * Top left corner of normal in base
-             */
-            if (bX <= nX && nX < bMaxX &&
-              bY <= nY && nY < bMaxY)
+            if (xBasedFace == null && yBasedFace == null)
             {
-                collisionsFound.Add(new CollisionResolution
+                return new CollisionResolution();
+            }
+            else if (xBasedFace == null)
+            {
+                return new CollisionResolution { PrimaryFace = yBasedFace };
+            }
+            else if (yBasedFace == null)
+            {
+                return new CollisionResolution { PrimaryFace = xBasedFace };
+            }
+
+            // Determine which face collided first by 
+
+            var xNormalSpeed = Math.Abs(xNormalDistance) / deltaTime;
+            var yNormalSpeed = Math.Abs(yNormalDistance) / deltaTime;
+
+            var xFaceDelta = faceHelper.GetFaceDifference(normal, xNormalFace.Value, based);
+            var yFaceDelta = faceHelper.GetFaceDifference(normal, yNormalFace.Value, based);
+
+            var xTimeOfImpact = xFaceDelta / xNormalSpeed;
+            var yTimeOfImpact = yFaceDelta / yNormalSpeed;
+
+            if (xTimeOfImpact <= yTimeOfImpact)
+            {
+                return new CollisionResolution
                 {
-                    CollisionPoint = PointInCollision.TopLeft,
-                    DeltaX = bMaxX - nX,
-                    DeltaY = bMaxY - nY,
-                    WithRespectToNormal = withRespectToNormal
-                });
+                    PrimaryFace = xBasedFace,
+                    SecondaryFace = yBasedFace
+                };
             }
-            /*
-            *     ┌────┐
-            * ┌───┼* B |
-            * | N └┼───┘
-            * └────┘
-            * Top right corner of normal in base
-            */
-            if (bX <= nMaxX && nMaxX < bMaxX &&
-               bY <= nY && nY < bMaxY)
+            else
             {
-                collisionsFound.Add(new CollisionResolution
+                return new CollisionResolution
                 {
-                    CollisionPoint = PointInCollision.TopRight,
-                    DeltaX = bX - nMaxX,
-                    DeltaY = bMaxY - nY,
-                    WithRespectToNormal = withRespectToNormal
-                });
+                    PrimaryFace = yBasedFace,
+                    SecondaryFace = xBasedFace
+                };
             }
-
-            return collisionsFound;
         }
     }
 }

@@ -4,7 +4,7 @@ namespace RetroWar.Services.Interfaces.Helpers.Model
 {
     public interface IFaceHelper
     {
-        int GetFaceAxis(Sprite sprite, Face face);
-        int GetFaceDifference(Sprite normal, Face normalFace, Sprite based);
+        float GetFaceAxis(Sprite sprite, Face face);
+        float GetFaceDifference(Sprite normal, Face normalFace, Sprite based);
     }
 }

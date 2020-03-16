@@ -146,8 +146,8 @@ namespace RetroWar.Services.Implementations.Updaters
                 }
             }
 
-            var previousPlayerX = playerTank.X;
-            var previousPlayerY = playerTank.Y;
+            playerTank.oldX = playerTank.X;
+            playerTank.oldY = playerTank.Y;
 
             playerTank.FallSum += System.Math.Min(playerTank.FallRate * deltaTime, 10);
             playerTank.deltaY += playerTank.FallSum;
@@ -159,7 +159,7 @@ namespace RetroWar.Services.Implementations.Updaters
             playerTank.X += playerTank.deltaX;
             playerTank.deltaX = 0;
 
-            gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank, (int)previousPlayerX, (int)previousPlayerY);
+            gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank, (int)playerTank.oldX, (int)playerTank.oldY);
 
             processedSprites.Add(playerTank.SpriteId, "processed");
 

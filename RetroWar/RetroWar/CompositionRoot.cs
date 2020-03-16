@@ -6,6 +6,7 @@ using RetroWar.Services.Implementations.Collision.Grid;
 using RetroWar.Services.Implementations.Collision.Resolvers;
 using RetroWar.Services.Implementations.Factories;
 using RetroWar.Services.Implementations.Helpers;
+using RetroWar.Services.Implementations.Helpers.Collision;
 using RetroWar.Services.Implementations.Helpers.Model;
 using RetroWar.Services.Implementations.Loaders;
 using RetroWar.Services.Implementations.Repositories;
@@ -18,6 +19,7 @@ using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
 using RetroWar.Services.Interfaces.Factories;
 using RetroWar.Services.Interfaces.Helpers;
+using RetroWar.Services.Interfaces.Helpers.Collision;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using RetroWar.Services.Interfaces.Loaders;
 using RetroWar.Services.Interfaces.Repositories;
@@ -48,6 +50,8 @@ namespace RetroWar
             services.AddSingleton<IStreamReader, StreamReader>();
             services.AddSingleton<ISpriteHelper, SpriteHelper>();
             services.AddSingleton<ICollisionResolutionHelper, CollisionResolutionHelper>();
+            services.AddSingleton<IFaceHelper, FaceHelper>();
+            services.AddSingleton<IResolverHelper, ResolverHelper>();
 
             // Loaders
             services.AddSingleton<IActionDataLoader, ActionDataLoader>();
@@ -68,8 +72,7 @@ namespace RetroWar
             // Collision
             services.AddSingleton<ICollisionFinder, CollisionFinder>();
             services.AddSingleton<ICollisionService, CollisionService>();
-            services.AddSingleton<IFoundCollisionFilter, FoundCollisionFilter>();
-            services.AddSingleton<IMultiPointCollisionResolver, MultiPointCollisionResolver>();
+            services.AddSingleton<ICollisionChecker, CollisionChecker>();
 
             // Collision Resolvers
             services.AddSingleton<VehicleTileCollisionResolver>();
