@@ -25,9 +25,9 @@ namespace RetroWar.Services.Implementations.Helpers.Model
                 case Face.Bottom:
                     return sprite.Y + hitbox.RelativeY + hitbox.Height;
                 case Face.Left:
-                    return sprite.X + hitbox.RelativeX;
+                    return sprite.X + spriteHelper.GetHitboxXOffset(sprite, hitbox.RelativeX, hitbox.Width);
                 case Face.Right:
-                    return sprite.X + hitbox.RelativeX + hitbox.Width;
+                    return sprite.X + hitbox.Width + spriteHelper.GetHitboxXOffset(sprite, hitbox.RelativeX, hitbox.Width); ;
             }
 
             throw new FaceHelperException("Illegal face specified. What the hell are you doing?");
