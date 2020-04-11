@@ -8,6 +8,10 @@ namespace RetroWar.Services.Implementations.UserInterface
 {
     public class ScreenService : IScreenService
     {
+
+        private const double ScreenLowerBound = 0.3;
+        private const double ScreenUpperBound = 0.7;
+
         private readonly ISpriteHelper spriteHelper;
 
         public ScreenService(ISpriteHelper spriteHelper)
@@ -17,22 +21,22 @@ namespace RetroWar.Services.Implementations.UserInterface
 
         public void ScrollScreen(Screen screen, Sprite focusedSprite)
         {
-            if (focusedSprite.X - screen.X < screen.Width * 0.2)
+            if (focusedSprite.X - screen.X < screen.Width * ScreenLowerBound)
             {
-                screen.X -= (int)((screen.Width * 0.2) - (focusedSprite.X - screen.X));
+                screen.X -= (int)((screen.Width * ScreenLowerBound) - (focusedSprite.X - screen.X));
             }
-            else if (focusedSprite.X - screen.X > screen.Width * 0.8)
+            else if (focusedSprite.X - screen.X > screen.Width * ScreenUpperBound)
             {
-                screen.X += (int)((focusedSprite.X - screen.X) - screen.Width * 0.8);
+                screen.X += (int)((focusedSprite.X - screen.X) - screen.Width * ScreenUpperBound);
             }
 
-            if (focusedSprite.Y - screen.Y < screen.Height * 0.2)
+            if (focusedSprite.Y - screen.Y < screen.Height * ScreenLowerBound)
             {
-                screen.Y -= (int)((screen.Height * 0.2) - (focusedSprite.Y - screen.Y));
+                screen.Y -= (int)((screen.Height * ScreenLowerBound) - (focusedSprite.Y - screen.Y));
             }
-            else if (focusedSprite.Y - screen.Y > screen.Height * 0.8)
+            else if (focusedSprite.Y - screen.Y > screen.Height * ScreenUpperBound)
             {
-                screen.Y += (int)((focusedSprite.Y - screen.Y) - screen.Height * 0.8);
+                screen.Y += (int)((focusedSprite.Y - screen.Y) - screen.Height * ScreenUpperBound);
             }
         }
 
