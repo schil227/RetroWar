@@ -37,7 +37,7 @@
         }
       },
       "IsBoss": false,
-      "Behavior": "MoveLeft"
+      "Behavior": "MoveLeftAndRight"
     }
   }
 ]

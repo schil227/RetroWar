@@ -21,25 +21,6 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             this.spriteHelper = spriteHelper;
         }
 
-        public void AddSpriteToGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite)
-        {
-            var maximumPoint = spriteHelper.GetMaximumPoints(sprite, (int)sprite.X, (int)sprite.Y);
-
-            int startX = GetBoxCoord((int)sprite.X);
-            int startY = GetBoxCoord((int)sprite.Y);
-
-            int endX = GetBoxCoord(maximumPoint.X);
-            int endY = GetBoxCoord(maximumPoint.Y);
-
-            for (int i = startX; i <= endX; i++)
-            {
-                for (int j = startY; j <= endY; j++)
-                {
-                    spacialHashingService.AddSpriteToGrid(gridHash, sprite, i, j);
-                }
-            }
-        }
-
         public IEnumerable<GridContainer> GetGridsFromPoints(Dictionary<Tuple<int, int>, GridContainer> gridHash, int x, int y, int maxX, int maxY)
         {
             int startX = GetBoxCoord(x);
@@ -61,12 +42,34 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             return grids;
         }
 
-        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int oldX, int oldY)
+        public void AddSpriteToGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite)
         {
-            var maximumPoint = spriteHelper.GetMaximumPoints(sprite, oldX, oldY);
+            var maximumPoint = spriteHelper.GetMaximumPoints(sprite, (int)sprite.X, (int)sprite.Y);
 
-            int startX = GetBoxCoord(oldX);
-            int startY = GetBoxCoord(oldY);
+            int startX = GetBoxCoord((int)sprite.X);
+            int startY = GetBoxCoord((int)sprite.Y);
+
+            int endX = GetBoxCoord(maximumPoint.X);
+            int endY = GetBoxCoord(maximumPoint.Y);
+
+            for (int i = startX; i <= endX; i++)
+            {
+                for (int j = startY; j <= endY; j++)
+                {
+                    spacialHashingService.AddSpriteToGrid(gridHash, sprite, i, j);
+                }
+            }
+
+            sprite.previousXGridPoint = (int)sprite.X;
+            sprite.previousYGridPoint = (int)sprite.Y;
+        }
+
+        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite)
+        {
+            var maximumPoint = spriteHelper.GetMaximumPoints(sprite, sprite.previousXGridPoint, sprite.previousYGridPoint);
+
+            int startX = GetBoxCoord(sprite.previousXGridPoint);
+            int startY = GetBoxCoord(sprite.previousYGridPoint);
 
             int endX = GetBoxCoord(maximumPoint.X);
             int endY = GetBoxCoord(maximumPoint.Y);

@@ -43,7 +43,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 return false;
             }
 
-            gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, bullet, (int)bullet.X, (int)bullet.Y);
+            gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, bullet);
 
             return true;
         }

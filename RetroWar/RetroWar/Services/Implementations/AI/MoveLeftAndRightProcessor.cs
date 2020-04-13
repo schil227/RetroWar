@@ -5,12 +5,12 @@ using RetroWar.Services.Interfaces.Repositories;
 
 namespace RetroWar.Services.Implementations.AI
 {
-    public class MoveLeftProcessor : IBehaviorProcessor
+    public class MoveLeftAndRightProcessor : IBehaviorProcessor
     {
         private readonly IContentRepository contentRepository;
         private readonly IGridHandler gridHandler;
 
-        public MoveLeftProcessor
+        public MoveLeftAndRightProcessor
             (
                 IContentRepository contentRepository,
                 IGridHandler gridHandler
@@ -22,7 +22,7 @@ namespace RetroWar.Services.Implementations.AI
 
         public bool ProcessBehavior(EnemyVehicle enemy, float deltaTime)
         {
-            if (enemy.Behavior != AIBehavior.MoveLeft)
+            if (enemy.Behavior != AIBehavior.MoveLeftAndRight)
             {
                 return false;
             }
@@ -30,11 +30,11 @@ namespace RetroWar.Services.Implementations.AI
             enemy.OldX = (int)enemy.X;
             enemy.OldY = (int)enemy.Y;
 
-            enemy.CurrentDirection = Models.Sprites.Direction.Left;
-
             if (!enemy.CurrentActions.Contains(Models.Sprites.Actions.Action.Destroyed))
             {
-                enemy.X -= enemy.VehicleSpeed * deltaTime;
+                var directionVector = enemy.CurrentDirection == Models.Sprites.Direction.Left ? -1 : 1;
+
+                enemy.X += enemy.VehicleSpeed * deltaTime * directionVector;
             }
 
             enemy.FallSum += System.Math.Min(enemy.FallRate * deltaTime, 10);

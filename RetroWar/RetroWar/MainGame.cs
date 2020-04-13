@@ -1,6 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using RetroWar.Extensions;
+using RetroWar.Models.Collisions.Grid;
 using RetroWar.Models.Level;
 using RetroWar.Models.Repositories;
 using RetroWar.Models.Screen;
@@ -32,7 +34,7 @@ namespace RetroWar
         private readonly IGridHandler gridHandler;
         private readonly IContentLoader contentLoader;
         private readonly IDrawService drawService;
-
+        private readonly IGridContainerHelper gridContainerHelper;
         private readonly IActionService actionService;
         private readonly IContentRepository contentRepository;
         private readonly ISpriteUpdater spriteUpdaterComposite;
@@ -55,7 +57,8 @@ namespace RetroWar
             IActionService actionService,
             IContentRepository contentRepository,
             IBulletHelper bulletHelper,
-            ISpriteUpdater spriteUpdaterComposite
+            ISpriteUpdater spriteUpdaterComposite,
+            IGridContainerHelper gridContainerHelper
             )
         {
             this.contentLoader = contentLoader;
@@ -67,6 +70,7 @@ namespace RetroWar
             this.actionService = actionService;
             this.contentRepository = contentRepository;
             this.spriteUpdaterComposite = spriteUpdaterComposite;
+            this.gridContainerHelper = gridContainerHelper;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -182,49 +186,62 @@ namespace RetroWar
 
             var boxes = gridHandler.GetGridsFromPoints(stage.Grids, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
 
+            UpdateSprites(boxes, deltaT);
+
+            var spritesToMove = CollideSprites(boxes, deltaT);
+
+            // if sprites are updated by collisions, their boxes must be updated.
+            foreach (var sprite in spritesToMove)
+            {
+                //gridHandler.MoveSprite(stage.Grids, sprite, (int)sprite.oldX, (int)sprite.oldY);
+            }
+
+            screenService.ScrollScreen(screen, playerTank);
+
+            base.Update(gameTime);
+        }
+
+        private HashSet<Sprite> CollideSprites(IEnumerable<GridContainer> boxes, float deltaT)
+        {
+            var collidedSprites = new Dictionary<string, string>();
+            var spritesToMove = new HashSet<Sprite>();
+            foreach (var box in boxes)
+            {
+                var sprites = gridContainerHelper.GetActionableGridSprites(box);
+                var movingSprites = sprites.Where(s => !(s is Tile));
+
+                foreach (var normal in movingSprites)
+                {
+                    foreach (var based in sprites)
+                    {
+                        if (normal == based
+                            || (normal is Tile && based is Tile)
+                            || collidedSprites.ContainsKey(normal.SpriteId + based.SpriteId)
+                            || collidedSprites.ContainsKey(based.SpriteId + normal.SpriteId))
+                        {
+                            continue;
+                        }
+
+                        if (collisionService.HandleCollision(normal, based, deltaT))
+                        {
+                            spritesToMove.Add(normal);
+                            collidedSprites.Add(normal.SpriteId + based.SpriteId, "collided");
+                        }
+                    }
+                }
+            }
+
+            return spritesToMove;
+        }
+
+        private void UpdateSprites(IEnumerable<GridContainer> boxes, float deltaT)
+        {
             var sprites = new HashSet<Sprite>();
             var movingSprites = new HashSet<Sprite>();
 
             foreach (var box in boxes)
             {
-                if (
-                    box.playerTank == null &&
-                    box.Bullets.Count == 0 &&
-                    box.EnemyVehicles.Count == 0 &&
-                    box.Illusions.Count == 0
-                    )
-                {
-                    continue;
-                }
-
-                if (box.playerTank != null)
-                {
-                    sprites.Add(box.playerTank);
-                    movingSprites.Add(box.playerTank);
-                }
-
-                foreach (var enemy in box.EnemyVehicles)
-                {
-                    sprites.Add(enemy.Value);
-                    movingSprites.Add(enemy.Value);
-                }
-
-                foreach (var bullet in box.Bullets)
-                {
-                    sprites.Add(bullet.Value);
-                    movingSprites.Add(bullet.Value);
-                }
-
-                foreach (var illusion in box.Illusions)
-                {
-                    sprites.Add(illusion.Value);
-                    movingSprites.Add(illusion.Value);
-                }
-
-                foreach (var tile in box.Tiles)
-                {
-                    sprites.Add(tile.Value);
-                }
+                sprites.AddRange(gridContainerHelper.GetActionableGridSprites(box));
             }
 
             var updatedSprites = new Dictionary<string, string>();
@@ -233,38 +250,6 @@ namespace RetroWar
             {
                 spriteUpdaterComposite.UpdateSprite(sprite, deltaT, updatedSprites);
             }
-
-            var collidedSprites = new Dictionary<string, string>();
-
-            foreach (var normal in movingSprites)
-            {
-                foreach (var based in sprites)
-                {
-                    if (normal == based
-                        || (normal is Tile && based is Tile)
-                        || collidedSprites.ContainsKey(normal.SpriteId + based.SpriteId)
-                        || collidedSprites.ContainsKey(based.SpriteId + normal.SpriteId))
-                    {
-                        continue;
-                    }
-
-                    if (collisionService.HandleCollision(normal, based, deltaT))
-                    {
-                        collidedSprites.Add(normal.SpriteId + based.SpriteId, "collided");
-                    }
-
-                    //var collision = collisionService.GetCollision(normal, based);
-
-                    //if (collision != null)
-                    //{
-                    //    collisionService.ResolveCollision(normal, based, collision);
-                    //}
-                }
-            }
-
-            screenService.ScrollScreen(screen, playerTank);
-
-            base.Update(gameTime);
         }
 
         /// <summary>

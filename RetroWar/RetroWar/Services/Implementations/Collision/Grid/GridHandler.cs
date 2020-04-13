@@ -35,9 +35,9 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             }
         }
 
-        public void MoveSprite(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int oldX, int oldY)
+        public void MoveSprite(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite)
         {
-            gridService.RemoveSpriteFromGrid(gridHash, sprite, oldX, oldY);
+            gridService.RemoveSpriteFromGrid(gridHash, sprite);
             gridService.AddSpriteToGrid(gridHash, sprite);
         }
 
@@ -46,9 +46,9 @@ namespace RetroWar.Services.Implementations.Collision.Grid
             return gridService.GetGridsFromPoints(gridHash, x, y, maxX, maxY);
         }
 
-        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int oldX, int oldY)
+        public void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite)
         {
-            gridService.RemoveSpriteFromGrid(gridHash, sprite, oldX, oldY);
+            gridService.RemoveSpriteFromGrid(gridHash, sprite);
         }
     }
 }

@@ -40,7 +40,7 @@ namespace StageBuilder.Services.Implementations.Building
             if (existingTile != null)
             {
                 constructionData.Stage.Tiles.Remove(existingTile);
-                gridService.RemoveSpriteFromGrid(constructionData.Stage.Grids, existingTile, (int)existingTile.X, (int)existingTile.Y);
+                gridService.RemoveSpriteFromGrid(constructionData.Stage.Grids, existingTile);
                 ExistingTiles.Remove(new Tuple<int, int>((int)existingTile.X, (int)existingTile.Y));
             }
 
@@ -60,7 +60,7 @@ namespace StageBuilder.Services.Implementations.Building
             if (existingTile != null)
             {
                 constructionData.Stage.Tiles.Remove(existingTile);
-                gridService.RemoveSpriteFromGrid(constructionData.Stage.Grids, existingTile, (int)existingTile.X, (int)existingTile.Y);
+                gridService.RemoveSpriteFromGrid(constructionData.Stage.Grids, existingTile);
                 ExistingTiles.Remove(new Tuple<int, int>((int)existingTile.X, (int)existingTile.Y));
 
                 UpdateTileRelations(constructionData.Stage, existingTile, true);

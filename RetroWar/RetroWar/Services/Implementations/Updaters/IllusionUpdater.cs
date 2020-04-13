@@ -43,12 +43,12 @@ namespace RetroWar.Services.Implementations.Updaters
             var screen = contentRepository.Screen;
             var stage = contentRepository.CurrentStage;
 
-            illusion.oldX = (int)illusion.X;
-            illusion.oldY = (int)illusion.Y;
+            illusion.OldX = (int)illusion.X;
+            illusion.OldY = (int)illusion.Y;
 
             if (!screenService.IsOnScreen(screen, illusion))
             {
-                gridHandler.RemoveSpriteFromGrid(stage.Grids, illusion, (int)illusion.oldX, (int)illusion.oldY);
+                gridHandler.RemoveSpriteFromGrid(stage.Grids, illusion);
                 processedSprites.Add(illusion.SpriteId, "Processed");
                 return true;
             }
@@ -62,7 +62,7 @@ namespace RetroWar.Services.Implementations.Updaters
             illusion.FallSum += Math.Min(illusion.FallRate * deltaTime, 10);
             illusion.Y += illusion.FallSum;
 
-            gridHandler.MoveSprite(stage.Grids, illusion, (int)illusion.oldX, (int)illusion.oldY);
+            gridHandler.MoveSprite(stage.Grids, illusion);
 
             processedSprites.Add(illusion.SpriteId, "Processed");
             return true;

@@ -29,8 +29,8 @@ namespace RetroWar.Services.Implementations.Collision
             Face? xNormalFace = null;
             Face? yNormalFace = null;
 
-            var xNormalDistance = normal.X - normal.oldX;
-            var yNormalDistance = normal.Y - normal.oldY;
+            var xNormalDistance = normal.X - normal.OldX;
+            var yNormalDistance = normal.Y - normal.OldY;
 
             // if normal is heading right, move it to based's left face (etc.)
             if (xNormalDistance > 0)

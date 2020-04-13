@@ -54,7 +54,7 @@ namespace RetroWar.Services.Implementations.Actions
                         }
                     case Action.Destroyed:
                         {
-                            gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, sprite, (int)sprite.X, (int)sprite.Y);
+                            gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, sprite);
 
                             if (sprite is Vehicle)
                             {

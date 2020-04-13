@@ -130,7 +130,7 @@ namespace StageBuilder
             constructionData.Stage = new Stage();
             gridHandler.InitializeGrid(constructionData.Stage, contentDatabase.PlayerVehicles.First().Player, contentDatabase.EnemyVehicles.Select(e => e.Enemy));
 
-            gridHandler.MoveSprite(constructionData.Stage.Grids, constructionData.Cursor, 0, 0);
+            gridHandler.MoveSprite(constructionData.Stage.Grids, constructionData.Cursor);
 
             contentRepository.Actions = contentDatabase.Actions;
             contentRepository.PlayerVehicles = contentDatabase.PlayerVehicles;

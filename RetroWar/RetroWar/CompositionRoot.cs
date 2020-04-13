@@ -52,6 +52,7 @@ namespace RetroWar
             services.AddSingleton<ICollisionResolutionHelper, CollisionResolutionHelper>();
             services.AddSingleton<IFaceHelper, FaceHelper>();
             services.AddSingleton<IResolverHelper, ResolverHelper>();
+            services.AddSingleton<IGridContainerHelper, GridContainerHelper>();
 
             // Loaders
             services.AddSingleton<IActionDataLoader, ActionDataLoader>();
@@ -75,7 +76,8 @@ namespace RetroWar
             services.AddSingleton<ICollisionChecker, CollisionChecker>();
 
             // Collision Resolvers
-            services.AddSingleton<VehicleTileCollisionResolver>();
+            services.AddSingleton<PlayerVehicleTileCollisionResolver>();
+            services.AddSingleton<EnemyVehicleTileCollisionResolver>();
             services.AddSingleton<BulletTileCollisionResolver>();
             services.AddSingleton<BulletPlayerVehicleCollisionResolver>();
             services.AddSingleton<BulletEnemyVehicleCollisionResolver>();
@@ -85,8 +87,9 @@ namespace RetroWar
                 provider => new List<ICollisionResolver>
                 {
                     provider.GetService<BulletPlayerVehicleCollisionResolver>(),
+                    provider.GetService<EnemyVehicleTileCollisionResolver>(),
                     provider.GetService<BulletEnemyVehicleCollisionResolver>(),
-                    provider.GetService<VehicleTileCollisionResolver>(),
+                    provider.GetService<PlayerVehicleTileCollisionResolver>(),
                     provider.GetService<BulletTileCollisionResolver>(),
                     provider.GetService<IllusionTileCollisionResolver>()
                 });
@@ -112,11 +115,13 @@ namespace RetroWar
 
             // AI Behavior Processors
             services.AddSingleton<MoveLeftProcessor>();
+            services.AddSingleton<MoveLeftAndRightProcessor>();
 
             services.AddSingleton<IEnumerable<IBehaviorProcessor>>(
                 provider => new List<IBehaviorProcessor>
                 {
-                    provider.GetService<MoveLeftProcessor>()
+                    provider.GetService<MoveLeftProcessor>(),
+                    provider.GetService<MoveLeftAndRightProcessor>()
                 });
 
             services.AddSingleton<IBehaviorProcessor, BehaviorProcessorComposite>();

@@ -7,8 +7,10 @@ namespace RetroWar.Models.Sprites
     {
         public float X;
         public float Y;
-        public float oldX;
-        public float oldY;
+        public float OldX;
+        public float OldY;
+        public int previousXGridPoint;
+        public int previousYGridPoint;
         public float deltaX;
         public float deltaY;
         public string SpriteId;

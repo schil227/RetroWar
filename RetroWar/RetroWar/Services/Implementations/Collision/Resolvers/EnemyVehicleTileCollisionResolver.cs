@@ -1,17 +1,17 @@
 ﻿using RetroWar.Models.Collisions;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Tiles;
-using RetroWar.Models.Sprites.Vehicles;
+using RetroWar.Models.Vehicles.Vehicles.EnemyVehicle;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
 using RetroWar.Services.Interfaces.Helpers.Collision;
 
 namespace RetroWar.Services.Implementations.Collision.Resolvers
 {
-    public class VehicleTileCollisionResolver : ICollisionResolver
+    public class EnemyVehicleTileCollisionResolver : ICollisionResolver
     {
         private readonly IResolverHelper resolverHelper;
 
-        public VehicleTileCollisionResolver
+        public EnemyVehicleTileCollisionResolver
             (
                 IResolverHelper resolverHelper
             )
@@ -21,12 +21,12 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
 
         public bool ResolveCollision(Sprite normal, Sprite based, CollisionResolution collisionResolution)
         {
-            Vehicle vehicle = null;
+            EnemyVehicle vehicle = null;
             Tile tile = null;
 
-            if (normal is Vehicle && based is Tile)
+            if (normal is EnemyVehicle && based is Tile)
             {
-                vehicle = (Vehicle)normal;
+                vehicle = (EnemyVehicle)normal;
                 tile = (Tile)based;
             }
             else
@@ -34,6 +34,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 return false;
             }
 
+            var beforeX = vehicle.X;
             var beforeY = vehicle.Y;
 
             // vehicle is "stuck" in tile, nothing to do.
@@ -47,6 +48,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
             {
                 if (!resolverHelper.TryResolveByFace(vehicle, tile, collisionResolution.SecondaryFace))
                 {
+                    // Resolution impossible with this vehicle/tile combination; continue to next.
                     return true;
                 }
             }
@@ -57,6 +59,22 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 vehicle.FallSum = 0;
                 vehicle.IsJumping = false;
             }
+
+            // TODO: introduce composite pattern here for new enemy types
+            if (vehicle.Behavior == AIBehavior.MoveLeftAndRight)
+            {
+                // "Bounce" to other direction when horizontal impact occurs
+                if (vehicle.X < beforeX && vehicle.CurrentDirection == Direction.Right)
+                {
+                    vehicle.CurrentDirection = Direction.Left;
+                }
+                else if (vehicle.X > beforeX && vehicle.CurrentDirection == Direction.Left)
+                {
+                    vehicle.CurrentDirection = Direction.Right;
+                }
+            }
+
+
 
             return true;
         }

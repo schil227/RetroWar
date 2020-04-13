@@ -61,7 +61,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 actionService.SetAction(enemyTank, Action.Destroyed);
             }
 
-            gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, bullet, (int)bullet.X, (int)bullet.Y);
+            gridHandler.RemoveSpriteFromGrid(contentRepository.CurrentStage.Grids, bullet);
 
             return true;
         }

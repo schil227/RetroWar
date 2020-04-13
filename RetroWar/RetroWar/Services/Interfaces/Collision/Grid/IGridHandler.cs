@@ -11,8 +11,8 @@ namespace RetroWar.Services.Interfaces.Collision.Grid
     public interface IGridHandler
     {
         void InitializeGrid(Stage stage, Vehicle playerTank, IEnumerable<EnemyVehicle> enemyVehicles);
-        void MoveSprite(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int oldX, int oldY);
-        void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite, int oldX, int oldY);
+        void MoveSprite(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite);
+        void RemoveSpriteFromGrid(Dictionary<Tuple<int, int>, GridContainer> gridHash, Sprite sprite);
         IEnumerable<GridContainer> GetGridsFromPoints(Dictionary<Tuple<int, int>, GridContainer> gridHash, int x, int y, int maxX, int maxY);
     }
 }

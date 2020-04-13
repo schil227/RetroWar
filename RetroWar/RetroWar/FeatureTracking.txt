@@ -3,16 +3,25 @@
 	Remember:  Make it a game, make it fun
 
 == Features ==
-	-Adjust collision detection for left offset hitboxes (1/15/20)
+	
 	-Write some god damn unit tests, seriously (1/23/20)
 	-Move destruction data to the vehicles (what illusion to spawn on death, etc.) (1/23/20)
 	
 == Bugs ==
-	- Order of normal vs/ based collision resolution matteres; e.g. when the tile vs player is normal vs. based, the resolution is for the normal to move; however since the movement is transposed to the tile (the normal), the player tank is moved in the wrong direction since it's what's actually being moved.
 
 == Refactoring ==
 	- make use of the IInputService to check for cases where the key's just been pressed, specifically with player update.
 
+== Ideas ==
+	-Add RPG mechanics: Player tank has a reactor (e.g. FTL) where they can allocate points to Armor, Agility, and Firepower. 
+		-Armor: Adds more hit points to tank (e.g. 1 point: mouse, 4 points: elephant )
+		-Agility: increases tank movement and jump speed (e.g. 1 point:  elephant, 4 points cheetah)
+		-Firepower: Stronger shots and quicker charge time (e.g. 1 point: sloth, 4 points gorilla)
+	-some stages will have 'stations' to change point allocation (e.g. when platforming is tight, they can crank Agility) This way stages are not
+		beholden to the lowest common demonimator (e.g. anyone can be agile)
+	-reactor upgrades are awarded from boss fights
+	-final boss strips reactor points?
+	
 ====== DONE ======
 = Features =
 	-Make it so the tank faces the correct direction when moving left and right (12/26/19)
@@ -30,13 +39,13 @@
 	-Make a larger level (1/11/2020 - 3/8/20)
 	-Make a stage builder program (3/10/20)
 	-Rewrite collision detection (3/10/20 - 3/15/20)
-	
+	-Adjust collision detection for left offset hitboxes (1/15/20 - 3/15/20)
 = Bugs =
 	- sprites that have points in the negative region aren't getting added and removed correctly: e.g. with a 	sprite whos x values is -5 and maximum value is 8, both (when divided by 32) result in the 0 grid, when it's actually straddling the -1 and 0 grid (1/1/2020)
 	-Flipping the sprites direction does not also flip their hitboxes (1/20/20)
 	-collision needs to be tweaked; if the tank (12 px tall) jumps into a tile (16 px tall), the collision wont resolve to kick them out the way they came (may actually not be a collision issue; could be that movement is being cumulative or something...) (Unable to Reproduce, 1/23/20) (Fixed! see below)
 	-Illusions studder when spawned in a corner; to reproduce, blow up enemey tank when it's on the ground next to a wall. This may have been brought on by the action overhaul change (sprites can have multiple actions instead of only one) (Was ignoring two-point collsion senarios, easy fix (2/19/20))
-	
+	- Order of normal vs/ based collision resolution matteres; e.g. when the tile vs player is normal vs. based, the resolution is for the normal to move; however since the movement is transposed to the tile (the normal), the player tank is moved in the wrong direction since it's what's actually being moved. (3/15/20)
 = Refactoring =
 	- Move collision handling/grid lookup logic out of MainGame.Update (1/11/2020)
 

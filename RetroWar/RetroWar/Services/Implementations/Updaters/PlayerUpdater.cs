@@ -61,7 +61,7 @@ namespace RetroWar.Services.Implementations.Updaters
                 actionService.SetAction(playerTank, Action.Armed);
                 actionService.SetAction(playerTank, Action.Stationary);
 
-                gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank, oldX, oldY);
+                gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank);
 
                 var enemy = contentRepository.EnemyVehicles.First().Enemy;
 
@@ -80,7 +80,7 @@ namespace RetroWar.Services.Implementations.Updaters
                 actionService.SetAction(enemy, Action.Armed);
                 actionService.SetAction(enemy, Action.Stationary);
 
-                gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, enemy, oldX, oldY);
+                gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, enemy);
 
                 processedSprites.Add(playerTank.SpriteId, "processed");
 
@@ -146,8 +146,8 @@ namespace RetroWar.Services.Implementations.Updaters
                 }
             }
 
-            playerTank.oldX = playerTank.X;
-            playerTank.oldY = playerTank.Y;
+            playerTank.OldX = playerTank.X;
+            playerTank.OldY = playerTank.Y;
 
             playerTank.FallSum += System.Math.Min(playerTank.FallRate * deltaTime, 10);
             playerTank.deltaY += playerTank.FallSum;
@@ -159,7 +159,7 @@ namespace RetroWar.Services.Implementations.Updaters
             playerTank.X += playerTank.deltaX;
             playerTank.deltaX = 0;
 
-            gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank, (int)playerTank.oldX, (int)playerTank.oldY);
+            gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, playerTank);
 
             processedSprites.Add(playerTank.SpriteId, "processed");
 

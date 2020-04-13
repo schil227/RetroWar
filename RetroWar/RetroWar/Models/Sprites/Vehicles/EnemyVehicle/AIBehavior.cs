@@ -2,6 +2,7 @@
 {
     public enum AIBehavior
     {
-        MoveLeft = 0
+        MoveLeft = 0,
+        MoveLeftAndRight = 1
     }
 }

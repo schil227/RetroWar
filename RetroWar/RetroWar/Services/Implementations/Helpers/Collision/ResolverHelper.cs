@@ -61,10 +61,12 @@ namespace RetroWar.Services.Implementations.Helpers.Collision
             // move the vehicle (normal) face adjecent to the tile (based)
             if (basedFace == Face.Top || basedFace == Face.Bottom)
             {
+                normal.OldY = normal.Y;
                 normal.Y += difference;
             }
             else
             {
+                normal.OldX = normal.X;
                 normal.X += difference;
             }
         }

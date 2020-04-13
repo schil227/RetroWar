@@ -45,16 +45,13 @@ namespace StageBuilder.Services.Implementations.Updaters
 
             if (cursor.deltaX != 0 || cursor.deltaY != 0)
             {
-                var previousX = cursor.X;
-                var previousY = cursor.Y;
-
                 cursor.X += cursor.deltaX;
                 cursor.Y += cursor.deltaY;
 
                 cursor.deltaX = 0;
                 cursor.deltaY = 0;
 
-                gridHandler.MoveSprite(stage.Grids, cursor, (int)previousX, (int)previousY);
+                gridHandler.MoveSprite(stage.Grids, cursor);
             }
         }
     }

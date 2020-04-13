@@ -45,8 +45,8 @@ namespace RetroWar.Services.Implementations.Updaters
             var stage = contentRepository.CurrentStage;
             var screen = contentRepository.Screen;
 
-            bullet.oldX = (int)bullet.X;
-            bullet.oldY = (int)bullet.Y;
+            bullet.OldX = (int)bullet.X;
+            bullet.OldY = (int)bullet.Y;
 
             bullet.TotalTime += deltaTime;
 
@@ -57,12 +57,12 @@ namespace RetroWar.Services.Implementations.Updaters
 
             if (!screenService.IsOnScreen(screen, bullet))
             {
-                gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet, (int)bullet.oldX, (int)bullet.oldY);
+                gridHandler.RemoveSpriteFromGrid(stage.Grids, bullet);
                 processedSprites.Add(bullet.SpriteId, "Processed");
                 return true;
             }
 
-            gridHandler.MoveSprite(stage.Grids, bullet, (int)bullet.oldX, (int)bullet.oldY);
+            gridHandler.MoveSprite(stage.Grids, bullet);
 
             processedSprites.Add(bullet.SpriteId, "Processed");
 
