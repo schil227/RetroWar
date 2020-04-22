@@ -58,15 +58,15 @@ namespace RetroWar.Services.Implementations.Collision
 
             if (xBasedFace == null && yBasedFace == null)
             {
-                return new CollisionResolution();
+                return new CollisionResolution { DeltaTime = deltaTime };
             }
             else if (xBasedFace == null)
             {
-                return new CollisionResolution { PrimaryFace = yBasedFace };
+                return new CollisionResolution { PrimaryFace = yBasedFace, DeltaTime = deltaTime };
             }
             else if (yBasedFace == null)
             {
-                return new CollisionResolution { PrimaryFace = xBasedFace };
+                return new CollisionResolution { PrimaryFace = xBasedFace, DeltaTime = deltaTime };
             }
 
             // Determine which face collided first by 
@@ -85,7 +85,8 @@ namespace RetroWar.Services.Implementations.Collision
                 return new CollisionResolution
                 {
                     PrimaryFace = xBasedFace,
-                    SecondaryFace = yBasedFace
+                    SecondaryFace = yBasedFace,
+                    DeltaTime = deltaTime
                 };
             }
             else
@@ -93,9 +94,24 @@ namespace RetroWar.Services.Implementations.Collision
                 return new CollisionResolution
                 {
                     PrimaryFace = yBasedFace,
-                    SecondaryFace = xBasedFace
+                    SecondaryFace = xBasedFace,
+                    DeltaTime = deltaTime
                 };
             }
+        }
+
+        public bool IsOnTopOf(Sprite normal, Sprite based)
+        {
+            var normalPreviousBottom = faceHelper.GetFaceAxis(normal, normal.OldY, Face.Bottom);
+            var normalCurrentBottom = faceHelper.GetFaceAxis(normal, Face.Bottom);
+            var basedCurrentTop = faceHelper.GetFaceAxis(based, Face.Top);
+
+            if (normalPreviousBottom <= basedCurrentTop && basedCurrentTop < normalCurrentBottom)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

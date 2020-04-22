@@ -1,4 +1,5 @@
-﻿using RetroWar.Models.Sprites;
+﻿using RetroWar.Exceptions.Implementations.Helpers.Collision;
+using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Services.Interfaces.Helpers.Collision;
 using RetroWar.Services.Interfaces.Helpers.Model;
@@ -69,6 +70,59 @@ namespace RetroWar.Services.Implementations.Helpers.Collision
                 normal.OldX = normal.X;
                 normal.X += difference;
             }
+        }
+
+        public Direction DirectionToResolveIn(Face basedFace, bool isNormalSprite)
+        {
+            switch (basedFace)
+            {
+                case Face.Left:
+                    {
+                        if (isNormalSprite)
+                        {
+                            return Direction.Left;
+                        }
+                        else
+                        {
+                            return Direction.Right;
+                        }
+                    }
+                case Face.Right:
+                    {
+                        if (isNormalSprite)
+                        {
+                            return Direction.Right;
+                        }
+                        else
+                        {
+                            return Direction.Left;
+                        }
+                    }
+                case Face.Top:
+                    {
+                        if (isNormalSprite)
+                        {
+                            return Direction.Up;
+                        }
+                        else
+                        {
+                            return Direction.Down;
+                        }
+                    }
+                case Face.Bottom:
+                    {
+                        if (isNormalSprite)
+                        {
+                            return Direction.Down;
+                        }
+                        else
+                        {
+                            return Direction.Up;
+                        }
+                    }
+            }
+
+            throw new ResolverHelperException("Couldn't figure out which direction to go in.");
         }
     }
 }

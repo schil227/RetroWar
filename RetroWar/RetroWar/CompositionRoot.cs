@@ -4,6 +4,7 @@ using RetroWar.Services.Implementations.AI;
 using RetroWar.Services.Implementations.Collision;
 using RetroWar.Services.Implementations.Collision.Grid;
 using RetroWar.Services.Implementations.Collision.Resolvers;
+using RetroWar.Services.Implementations.Collision.Resolvers.Helpers;
 using RetroWar.Services.Implementations.Factories;
 using RetroWar.Services.Implementations.Helpers;
 using RetroWar.Services.Implementations.Helpers.Collision;
@@ -17,6 +18,7 @@ using RetroWar.Services.Interfaces.AI;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
+using RetroWar.Services.Interfaces.Collision.Resolvers.Helpers;
 using RetroWar.Services.Interfaces.Factories;
 using RetroWar.Services.Interfaces.Helpers;
 using RetroWar.Services.Interfaces.Helpers.Collision;
@@ -49,7 +51,6 @@ namespace RetroWar
             services.AddSingleton<IBulletHelper, BulletHelper>();
             services.AddSingleton<IStreamReader, StreamReader>();
             services.AddSingleton<ISpriteHelper, SpriteHelper>();
-            services.AddSingleton<ICollisionResolutionHelper, CollisionResolutionHelper>();
             services.AddSingleton<IFaceHelper, FaceHelper>();
             services.AddSingleton<IResolverHelper, ResolverHelper>();
             services.AddSingleton<IGridContainerHelper, GridContainerHelper>();
@@ -82,6 +83,7 @@ namespace RetroWar
             services.AddSingleton<BulletPlayerVehicleCollisionResolver>();
             services.AddSingleton<BulletEnemyVehicleCollisionResolver>();
             services.AddSingleton<IllusionTileCollisionResolver>();
+            services.AddSingleton<VehicleVehicleCollisionResolver>();
 
             services.AddSingleton<IEnumerable<ICollisionResolver>>(
                 provider => new List<ICollisionResolver>
@@ -91,10 +93,12 @@ namespace RetroWar
                     provider.GetService<BulletEnemyVehicleCollisionResolver>(),
                     provider.GetService<PlayerVehicleTileCollisionResolver>(),
                     provider.GetService<BulletTileCollisionResolver>(),
-                    provider.GetService<IllusionTileCollisionResolver>()
+                    provider.GetService<IllusionTileCollisionResolver>(),
+                    provider.GetService<VehicleVehicleCollisionResolver>()
                 });
 
             services.AddSingleton<ICollisionResolver, CompositeCollisionResolver>();
+            services.AddSingleton<ICarrierRiderResolver, CarrierRiderResolver>();
 
             // Sprite Updaters
             services.AddSingleton<BulletUpdater>();

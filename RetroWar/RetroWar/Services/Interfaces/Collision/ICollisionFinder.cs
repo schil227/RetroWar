@@ -6,5 +6,6 @@ namespace RetroWar.Services.Interfaces.Collision
     public interface ICollisionFinder
     {
         CollisionResolution FindCollisionResolutionFace(Sprite normal, Sprite based, float deltaTime);
+        bool IsOnTopOf(Sprite normal, Sprite based);
     }
 }

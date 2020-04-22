@@ -43,8 +43,8 @@ namespace RetroWar.Services.Implementations.Updaters
             var screen = contentRepository.Screen;
             var stage = contentRepository.CurrentStage;
 
-            illusion.OldX = (int)illusion.X;
-            illusion.OldY = (int)illusion.Y;
+            illusion.OldX = illusion.X;
+            illusion.OldY = illusion.Y;
 
             if (!screenService.IsOnScreen(screen, illusion))
             {

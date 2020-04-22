@@ -46,11 +46,10 @@ namespace RetroWar.Services.Implementations.Updaters
 
             if (keyState.IsKeyDown(Keys.R))
             {
-                var oldX = (int)playerTank.X;
-                var oldY = (int)playerTank.Y;
-
                 playerTank.X = 16;
                 playerTank.Y = -16;
+                playerTank.OldX = 16;
+                playerTank.OldY = -16;
                 playerTank.FallSum = 0;
 
                 foreach (var actions in new List<Action>(playerTank.CurrentActions))
@@ -65,11 +64,10 @@ namespace RetroWar.Services.Implementations.Updaters
 
                 var enemy = contentRepository.EnemyVehicles.First().Enemy;
 
-                oldX = (int)enemy.X;
-                oldY = (int)enemy.Y;
-
                 enemy.X = 112;
                 enemy.Y = 120;
+                enemy.OldX = 112;
+                enemy.OldY = 120;
                 enemy.FallSum = 0;
 
                 foreach (var actions in new List<Action>(enemy.CurrentActions))

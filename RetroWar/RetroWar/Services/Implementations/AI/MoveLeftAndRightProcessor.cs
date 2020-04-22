@@ -27,8 +27,8 @@ namespace RetroWar.Services.Implementations.AI
                 return false;
             }
 
-            enemy.OldX = (int)enemy.X;
-            enemy.OldY = (int)enemy.Y;
+            enemy.OldX = enemy.X;
+            enemy.OldY = enemy.Y;
 
             if (!enemy.CurrentActions.Contains(Models.Sprites.Actions.Action.Destroyed))
             {

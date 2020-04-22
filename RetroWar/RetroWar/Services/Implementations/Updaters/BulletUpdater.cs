@@ -45,8 +45,8 @@ namespace RetroWar.Services.Implementations.Updaters
             var stage = contentRepository.CurrentStage;
             var screen = contentRepository.Screen;
 
-            bullet.OldX = (int)bullet.X;
-            bullet.OldY = (int)bullet.Y;
+            bullet.OldX = bullet.X;
+            bullet.OldY = bullet.Y;
 
             bullet.TotalTime += deltaTime;
 

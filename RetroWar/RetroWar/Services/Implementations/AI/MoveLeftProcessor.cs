@@ -27,8 +27,8 @@ namespace RetroWar.Services.Implementations.AI
                 return false;
             }
 
-            enemy.OldX = (int)enemy.X;
-            enemy.OldY = (int)enemy.Y;
+            enemy.OldX = enemy.X;
+            enemy.OldY = enemy.Y;
 
             enemy.CurrentDirection = Models.Sprites.Direction.Left;
 

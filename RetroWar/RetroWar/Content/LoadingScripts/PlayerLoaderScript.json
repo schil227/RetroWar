@@ -22,7 +22,7 @@
       "IsJumping": false,
       "FallSum": 0,
       "FallRate": 10,
-      "VehicleSpeed": 100,
+      "VehicleSpeed": 40,
       "CurrentFiringMode": "Default",
       "FiringData": {
         "Default": {

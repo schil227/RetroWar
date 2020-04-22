@@ -44,8 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CompositionRoot.cs" />
-    <Compile Include="Exceptions\Implementations\Collision\FoundCollisionFilterException.cs" />
-    <Compile Include="Exceptions\Implementations\Collision\MultiPointCollisionResolverException.cs" />
+    <Compile Include="Exceptions\Implementations\Helpers\Collision\ResolverHelperException.cs" />
     <Compile Include="Exceptions\Implementations\Helpers\Model\FaceHelperException.cs" />
     <Compile Include="Exceptions\Implementations\Loaders\ActionDataLoaderException.cs" />
     <Compile Include="Exceptions\Implementations\Loaders\BulletLoaderException.cs" />
@@ -59,6 +58,7 @@
     <Compile Include="Models\Collisions\Grid\GridContainer.cs" />
     <Compile Include="Models\Collisions\PointInCollision.cs" />
     <Compile Include="Models\Collisions\Resolution.cs" />
+    <Compile Include="Models\Collisions\Resolvers\ResolutionVector.cs" />
     <Compile Include="Models\Common\Point.cs" />
     <Compile Include="Models\Level\Stage.cs" />
     <Compile Include="Models\Repositories\Actions\ActionDataDatabaseItem.cs" />
@@ -108,13 +108,14 @@
     <Compile Include="Services\Implementations\Collision\Resolvers\BulletPlayerVehicleCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\BulletTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\CompositeCollisionResolver.cs" />
+    <Compile Include="Services\Implementations\Collision\Resolvers\Helpers\CarrierRiderResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\IllusionTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\EnemyVehicleTileCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Collision\Resolvers\PlayerVehicleTileCollisionResolver.cs" />
+    <Compile Include="Services\Implementations\Collision\Resolvers\VehicleVehicleCollisionResolver.cs" />
     <Compile Include="Services\Implementations\Factories\SpriteFactory.cs" />
     <Compile Include="Services\Implementations\Helpers\Collision\ResolverHelper.cs" />
     <Compile Include="Services\Implementations\Helpers\Model\BulletHelper.cs" />
-    <Compile Include="Services\Implementations\Helpers\Model\CollisionResolutionHelper.cs" />
     <Compile Include="Services\Implementations\Helpers\Model\FaceHelper.cs" />
     <Compile Include="Services\Implementations\Helpers\Model\GridContainerHelper.cs" />
     <Compile Include="Services\Implementations\Helpers\Model\SpriteHelper.cs" />
@@ -146,12 +147,12 @@
     <Compile Include="Services\Interfaces\Collision\ICollisionChecker.cs" />
     <Compile Include="Services\Interfaces\Collision\ICollisionFinder.cs" />
     <Compile Include="Services\Interfaces\Collision\ICollisionService.cs" />
+    <Compile Include="Services\Interfaces\Collision\Resolvers\Helpers\ICarrierRiderResolver.cs" />
     <Compile Include="Services\Interfaces\Collision\Resolvers\ICollisionResolver.cs" />
     <Compile Include="Services\Interfaces\Factories\ISpriteFactory.cs" />
     <Compile Include="Services\Interfaces\Helpers\Collision\IResolverHelper.cs" />
     <Compile Include="Services\Interfaces\Helpers\IStreamReader.cs" />
     <Compile Include="Services\Interfaces\Helpers\Model\IBulletHelper.cs" />
-    <Compile Include="Services\Interfaces\Helpers\Model\ICollisionResolutionHelper.cs" />
     <Compile Include="Services\Interfaces\Helpers\Model\IFaceHelper.cs" />
     <Compile Include="Services\Interfaces\Helpers\Model\IGridContainerHelper.cs" />
     <Compile Include="Services\Interfaces\Helpers\Model\ISpriteHelper.cs" />

@@ -33,6 +33,25 @@ namespace RetroWar.Services.Implementations.Helpers.Model
             throw new FaceHelperException("Illegal face specified. What the hell are you doing?");
         }
 
+        public float GetFaceAxis(Sprite sprite, float oldAxisValue, Face face)
+        {
+            var hitbox = spriteHelper.GetHitBox(sprite);
+
+            switch (face)
+            {
+                case Face.Top:
+                    return oldAxisValue + hitbox.RelativeY;
+                case Face.Bottom:
+                    return oldAxisValue + hitbox.RelativeY + hitbox.Height;
+                case Face.Left:
+                    return oldAxisValue + spriteHelper.GetHitboxXOffset(sprite, hitbox.RelativeX, hitbox.Width);
+                case Face.Right:
+                    return oldAxisValue + hitbox.Width + spriteHelper.GetHitboxXOffset(sprite, hitbox.RelativeX, hitbox.Width);
+            }
+
+            throw new FaceHelperException("Illegal face specified. What the hell are you doing?");
+        }
+
         // Gets the difference between the normal and based. In the context of collision detection,
         // the based face is always the opposite of the normal (e.g. we want to move normal such that
         // it's top face is adjcent to based's bottom face)
@@ -48,6 +67,23 @@ namespace RetroWar.Services.Implementations.Helpers.Model
                     return Math.Abs(GetFaceAxis(normal, normalFace) - GetFaceAxis(based, Face.Right));
                 case Face.Right:
                     return Math.Abs(GetFaceAxis(normal, normalFace) - GetFaceAxis(based, Face.Left));
+            }
+
+            throw new FaceHelperException("Illegal face specified. What the hell are you doing?");
+        }
+
+        public Face GetOppositeFace(Face face)
+        {
+            switch (face)
+            {
+                case Face.Top:
+                    return Face.Bottom;
+                case Face.Bottom:
+                    return Face.Top;
+                case Face.Left:
+                    return Face.Right;
+                case Face.Right:
+                    return Face.Left;
             }
 
             throw new FaceHelperException("Illegal face specified. What the hell are you doing?");
