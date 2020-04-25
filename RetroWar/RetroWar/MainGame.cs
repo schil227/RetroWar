@@ -38,11 +38,15 @@ namespace RetroWar
         private readonly IActionService actionService;
         private readonly IContentRepository contentRepository;
         private readonly ISpriteUpdater spriteUpdaterComposite;
+        private readonly IInputService inputService;
 
-        ContentDatabase contentDatabase;
-        Stage stage;
-        Screen screen;
-        Vehicle playerTank;
+        private ContentDatabase contentDatabase;
+        private Stage stage;
+        private Screen screen;
+        private Vehicle playerTank;
+
+        private bool FrameMode = false;
+        private bool AdvanceFrame = false;
 
         float imageScaleX = 1.0f;
         float imageScaleY = 1.0f;
@@ -58,7 +62,8 @@ namespace RetroWar
             IContentRepository contentRepository,
             IBulletHelper bulletHelper,
             ISpriteUpdater spriteUpdaterComposite,
-            IGridContainerHelper gridContainerHelper
+            IGridContainerHelper gridContainerHelper,
+            IInputService inputService
             )
         {
             this.contentLoader = contentLoader;
@@ -71,6 +76,7 @@ namespace RetroWar
             this.contentRepository = contentRepository;
             this.spriteUpdaterComposite = spriteUpdaterComposite;
             this.gridContainerHelper = gridContainerHelper;
+            this.inputService = inputService;
 
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -181,6 +187,27 @@ namespace RetroWar
             {
                 Exit();
             }
+
+            var keyState = Keyboard.GetState();
+            inputService.LoadKeys(keyState);
+
+            if (inputService.KeyJustPressed(Keys.P))
+            {
+                FrameMode = !FrameMode;
+            }
+
+            if (FrameMode && !AdvanceFrame)
+            {
+                if (inputService.KeyJustPressed(Keys.Enter))
+                {
+                    AdvanceFrame = true;
+                }
+
+                base.Update(gameTime);
+                return;
+            }
+
+            AdvanceFrame = false;
 
             var deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
 

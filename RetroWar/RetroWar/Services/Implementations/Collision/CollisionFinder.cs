@@ -113,5 +113,19 @@ namespace RetroWar.Services.Implementations.Collision
 
             return false;
         }
+
+        public bool IsRightOf(Sprite normal, Sprite based)
+        {
+            var normalPreviousLeft = faceHelper.GetFaceAxis(normal, normal.OldX, Face.Left);
+            var normalCurrentLeft = faceHelper.GetFaceAxis(normal, Face.Left);
+            var basedCurrentRight = faceHelper.GetFaceAxis(based, Face.Right);
+
+            if (normalPreviousLeft <= basedCurrentRight && basedCurrentRight < normalCurrentLeft)
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }

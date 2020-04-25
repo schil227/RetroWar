@@ -46,50 +46,57 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 return false;
             }
 
-            if (collisionFinder.IsOnTopOf(normal, based))
+            if (collisionFinder.IsOnTopOf(normalVehicle, basedVehicle))
             {
-                HandleVerticleCollisionResolution(normal, based);
+                HandleVerticleCollisionResolution(normalVehicle, basedVehicle);
                 return true;
             }
-            else if (collisionFinder.IsOnTopOf(based, normal))
+            else if (collisionFinder.IsOnTopOf(basedVehicle, normalVehicle))
             {
-                HandleVerticleCollisionResolution(based, normal);
+                HandleVerticleCollisionResolution(basedVehicle, normalVehicle);
                 return true;
             }
 
             // if based is moving faster than normal, get collision resolution WRT based sprite instead.
-            if (BasedFasterThanNormal(normal, based))
+            //if (BasedFasterThanNormal(normalVehicle, basedVehicle))
+            //{
+            //    // get collision face relative to based, then pick the opposite face cause everything else is WRT normal
+            //    collisionResolution = collisionFinder.FindCollisionResolutionFace(basedVehicle, normalVehicle, collisionResolution.DeltaTime);
+
+            //    if (collisionResolution.PrimaryFace == null)
+            //    {
+            //        return true;
+            //    }
+
+            //    collisionResolution.PrimaryFace = faceHelper.GetOppositeFace(collisionResolution.PrimaryFace.Value);
+            //}
+
+
+            // Rewrite this shit so it works.
+            // resolution should never be vertical past this point.
+            if (collisionFinder.IsRightOf(normal, based))
             {
-                // get collision face relative to based, then pick the opposite face cause everything else is WRT normal
-                collisionResolution = collisionFinder.FindCollisionResolutionFace(based, normal, collisionResolution.DeltaTime);
-
-                if (collisionResolution.PrimaryFace == null)
-                {
-                    return true;
-                }
-
-                collisionResolution.PrimaryFace = faceHelper.GetOppositeFace(collisionResolution.PrimaryFace.Value);
+                collisionResolution.PrimaryFace = Face.Right;
+            }
+            else
+            {
+                collisionResolution.PrimaryFace = Face.Left;
             }
 
-            if (collisionResolution.PrimaryFace == null)
-            {
-                return true;
-            }
-
-            var difference = faceHelper.GetFaceDifference(normal, faceHelper.GetOppositeFace(collisionResolution.PrimaryFace.Value), based);
+            var difference = faceHelper.GetFaceDifference(normalVehicle, faceHelper.GetOppositeFace(collisionResolution.PrimaryFace.Value), basedVehicle);
 
             float normalVelocity = 0;
             float basedVelocity = 0;
 
             if (collisionResolution.PrimaryFace == Face.Left || collisionResolution.PrimaryFace == Face.Right)
             {
-                normalVelocity = normal.X - normal.OldX;
-                basedVelocity = based.X - based.OldX;
+                normalVelocity = normalVehicle.X - normalVehicle.OldX;
+                basedVelocity = basedVehicle.X - basedVehicle.OldX;
             }
             else
             {
-                normalVelocity = normal.Y - normal.OldY;
-                basedVelocity = based.X - based.OldX;
+                normalVelocity = normalVehicle.Y - normalVehicle.OldY;
+                basedVelocity = basedVehicle.X - basedVehicle.OldX;
             }
 
             var normalResolution = new ResolutionVector
@@ -128,16 +135,16 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 basedResolution.Magnitude = difference - normalResolution.Magnitude;
             }
 
-            ResolveVehicles(normal, based, normalResolution, basedResolution);
+            ResolveVehicles(normalVehicle, basedVehicle, normalResolution, basedResolution);
 
             return true;
         }
 
-        private void HandleVerticleCollisionResolution(Sprite rider, Sprite carrier)
+        private void HandleVerticleCollisionResolution(Vehicle rider, Vehicle carrier)
         {
             var riderVerticalResolution = carrierRiderResolver.GetRiderVerticleResolutionVector(rider, carrier);
 
-            ResolveVehicles(rider, carrier, riderVerticalResolution, new ResolutionVector { Direction = Direction.Down, Magnitude = 0 });
+            ResolveVehicles(carrier, rider, new ResolutionVector { Direction = Direction.Down, Magnitude = 0 }, riderVerticalResolution);
 
             var riderHorizontalResolution = carrierRiderResolver.GetRiderHorizontalResolutionVector(rider, carrier);
 
@@ -156,13 +163,13 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 || basedYSpeed > normalXSpeed && basedYSpeed > normalYSpeed;
         }
 
-        private void ResolveVehicles(Sprite normal, Sprite based, ResolutionVector normalResolution, ResolutionVector basedResolution)
+        private void ResolveVehicles(Vehicle normal, Vehicle based, ResolutionVector normalResolution, ResolutionVector basedResolution)
         {
             normalResolution.Magnitude += ResolveVehicle(based, basedResolution);
             ResolveVehicle(normal, normalResolution);
         }
 
-        private float ResolveVehicle(Sprite sprite, ResolutionVector resolution)
+        private float ResolveVehicle(Vehicle vehicle, ResolutionVector resolution)
         {
             var remainder = 0.0f;
 
@@ -172,27 +179,35 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
             }
 
             // check for limits (e.g. tiles in the way) here
+            var distanceToTile = carrierRiderResolver.DistanceFromFaceToClosestTile(resolution.Direction, resolution.Magnitude, vehicle);
+
+            remainder = resolution.Magnitude - distanceToTile;
+
+            resolution.Magnitude = distanceToTile;
 
             switch (resolution.Direction)
             {
                 case Direction.Right:
                     {
-                        sprite.X += resolution.Magnitude;
+                        vehicle.X += resolution.Magnitude;
                         break;
                     }
                 case Direction.Left:
                     {
-                        sprite.X -= resolution.Magnitude;
+                        vehicle.X -= resolution.Magnitude;
                         break;
                     }
                 case Direction.Up:
                     {
-                        sprite.Y -= resolution.Magnitude;
+                        vehicle.Y -= resolution.Magnitude;
+                        vehicle.FallSum = 0;
+                        vehicle.IsJumping = false;
+
                         break;
                     }
                 case Direction.Down:
                     {
-                        sprite.Y += resolution.Magnitude;
+                        vehicle.Y += resolution.Magnitude;
                         break;
                     }
             }

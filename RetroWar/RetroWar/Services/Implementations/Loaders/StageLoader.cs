@@ -4,6 +4,7 @@ using RetroWar.Models.Level;
 using RetroWar.Models.Repositories.Level;
 using RetroWar.Services.Interfaces.Helpers;
 using RetroWar.Services.Interfaces.Loaders;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -31,6 +32,11 @@ namespace RetroWar.Services.Implementations.Loaders
                 var stageJson = streamReader.ReadFile(stagesFolder + stageFile);
 
                 var stage = JsonConvert.DeserializeObject<Stage>(stageJson);
+
+                foreach (var tile in stage.Tiles)
+                {
+                    stage.TileLookup.Add(new Tuple<int, int>((int)(tile.X / 16), (int)(tile.Y / 16)), tile);
+                }
 
                 stageDatabaseItems.Add(new StageDatabaseItem
                 {

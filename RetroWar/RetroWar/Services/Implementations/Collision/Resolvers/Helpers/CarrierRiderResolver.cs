@@ -1,7 +1,9 @@
-﻿using RetroWar.Models.Collisions.Resolvers;
+﻿using RetroWar.Exceptions.Implementations.Collision.Resolvers.Helpers;
+using RetroWar.Models.Collisions.Resolvers;
 using RetroWar.Models.Sprites;
 using RetroWar.Services.Interfaces.Collision.Resolvers.Helpers;
 using RetroWar.Services.Interfaces.Helpers.Model;
+using RetroWar.Services.Interfaces.Repositories;
 using System;
 
 namespace RetroWar.Services.Implementations.Collision.Resolvers.Helpers
@@ -9,10 +11,19 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers.Helpers
     public class CarrierRiderResolver : ICarrierRiderResolver
     {
         private readonly IFaceHelper faceHelper;
+        private readonly IContentRepository contentRepository;
+        private readonly ISpriteHelper spriteHelper;
 
-        public CarrierRiderResolver(IFaceHelper faceHelper)
+        public CarrierRiderResolver
+            (
+            IFaceHelper faceHelper,
+            IContentRepository contentRepository,
+            ISpriteHelper spriteHelper
+            )
         {
             this.faceHelper = faceHelper;
+            this.contentRepository = contentRepository;
+            this.spriteHelper = spriteHelper;
         }
 
         public ResolutionVector GetRiderVerticleResolutionVector(Sprite rider, Sprite carrier)
@@ -35,6 +46,120 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers.Helpers
                 Direction = deltaX > 0 ? Direction.Right : Direction.Left,
                 Magnitude = Math.Abs(deltaX)
             };
+        }
+
+        public float DistanceFromFaceToClosestTile(Direction direction, float magnitude, Sprite sprite)
+        {
+            var hitBox = spriteHelper.GetHitBox(sprite);
+
+            switch (direction)
+            {
+                case Direction.Up:
+                    {
+
+                        var xStart = sprite.X + spriteHelper.GetHitboxXOffset(sprite, hitBox.RelativeX, hitBox.Width);
+                        var xEnd = sprite.X + spriteHelper.GetHitboxXOffset(sprite, hitBox.RelativeX, hitBox.Width) + hitBox.Width;
+
+                        var axisStart = sprite.Y + (hitBox.RelativeY);
+
+                        var closestTileFaceAxis = FindClosestTileAxis(Face.Bottom, xStart, xEnd, axisStart, axisStart - magnitude);
+
+                        return Math.Abs(axisStart) - Math.Abs(closestTileFaceAxis);
+                    }
+                case Direction.Down:
+                    {
+                        var xStart = sprite.X + spriteHelper.GetHitboxXOffset(sprite, hitBox.RelativeX, hitBox.Width);
+                        var xEnd = sprite.X + spriteHelper.GetHitboxXOffset(sprite, hitBox.RelativeX, hitBox.Width) + hitBox.Width;
+
+                        var axisStart = sprite.Y + (hitBox.RelativeY) + hitBox.Height;
+
+                        var closestTileFaceAxis = FindClosestTileAxis(Face.Top, xStart, xEnd, axisStart, axisStart + magnitude);
+
+                        return Math.Abs(axisStart) - Math.Abs(closestTileFaceAxis);
+                    }
+                case Direction.Left:
+                    {
+                        var yStart = sprite.Y + hitBox.RelativeY;
+                        var yEnd = sprite.Y + hitBox.RelativeY + hitBox.Height;
+
+                        var axisStart = sprite.X + spriteHelper.GetHitboxXOffset(sprite, hitBox.RelativeX, hitBox.Width);
+
+                        var closestTileFaceAxis = FindClosestTileAxis(Face.Right, yStart, yEnd, axisStart, axisStart - magnitude);
+
+                        return Math.Abs(axisStart) - Math.Abs(closestTileFaceAxis);
+                    }
+                case Direction.Right:
+                    {
+                        var yStart = sprite.Y + hitBox.RelativeY;
+                        var yEnd = sprite.Y + hitBox.RelativeY + hitBox.Height;
+
+                        var axisStart = sprite.X + spriteHelper.GetHitboxXOffset(sprite, hitBox.RelativeX, hitBox.Width) + hitBox.Width;
+
+                        var closestTileFaceAxis = FindClosestTileAxis(Face.Left, yStart, yEnd, axisStart, axisStart + magnitude);
+
+                        return Math.Abs(Math.Abs(axisStart) - Math.Abs(closestTileFaceAxis));
+                    }
+            }
+
+            throw new CarrierRiderResolverException("Illegial direction specified.");
+
+        }
+
+        private float FindClosestTileAxis(Face tileFace, float broadStart, float broadEnd, float axisStart, float deltaAxis)
+        {
+            var stage = contentRepository.CurrentStage;
+
+            var deltaStep = deltaAxis < axisStart ? -1 : 1;
+
+            var deltaStart = (int)((axisStart + deltaStep * 16) / 16);
+
+            // if the deltaAxis is closer than axisStart +/- 16, just start at the deltaAxis and do one loop
+            if (Math.Abs(axisStart - deltaAxis) < 16)
+            {
+                deltaStart = (int)(deltaAxis / 16);
+            }
+
+            var deltaEnd = (int)(deltaAxis / 16);
+
+            // The broad side pixels are moved in a little to prevent clipping an adjsent sprite
+            // e.g. player pushing enemy tank on the ground BEFORE enemy tank is pushed up by gravity
+            //      (So the enemy tank is clipping in the ground). +/- 4 makes it so the clipped tile
+            //      Isn't picked up.
+            var adjBroadStart = Math.Min((int)((broadStart + 4) / 16), (int)(broadEnd / 16));
+            var adjBroadEnd = Math.Min((int)((broadEnd - 4) / 16), (int)(broadStart / 16));
+
+            for (var i = deltaStart; IsPastFinalStep(i, deltaEnd, deltaStep); i += deltaStep)
+            {
+                for (var j = adjBroadStart; j <= adjBroadEnd; j++)
+                {
+                    var tuple = new Tuple<int, int>(i, j);
+
+                    // when delta is y-based, flip i/j values (j = x based, i = y based)
+                    if (tileFace == Face.Bottom || tileFace == Face.Top)
+                    {
+                        tuple = new Tuple<int, int>(j, i);
+                    }
+
+                    if (stage.TileLookup.TryGetValue(tuple, out var tile))
+                    {
+                        return faceHelper.GetFaceAxis(tile, tileFace);
+                    }
+                }
+            }
+
+            return deltaAxis;
+        }
+
+        private bool IsPastFinalStep(int i, int deltaEnd, int deltaStep)
+        {
+            if (deltaStep > 0)
+            {
+                return i <= deltaEnd;
+            }
+            else
+            {
+                return i >= deltaEnd;
+            }
         }
     }
 }

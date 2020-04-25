@@ -17,6 +17,7 @@ namespace RetroWar.Models.Level
         public Point PlayerSpawnLocation { get; set; }
         public Point ScreenSpawnLocation { get; set; }
         public List<Tile> Tiles { get; set; } = new List<Tile>();
+        public IDictionary<Tuple<int, int>, Tile> TileLookup { get; set; } = new Dictionary<Tuple<int, int>, Tile>();
         public List<EnemyVehicle> EnemyVehicles { get; set; } = new List<EnemyVehicle>();
 
         [JsonIgnoreAttribute]
