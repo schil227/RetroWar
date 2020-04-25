@@ -116,11 +116,19 @@ namespace RetroWar.Services.Implementations.Collision
 
         public bool IsRightOf(Sprite normal, Sprite based)
         {
-            var normalPreviousLeft = faceHelper.GetFaceAxis(normal, normal.OldX, Face.Left);
-            var normalCurrentLeft = faceHelper.GetFaceAxis(normal, Face.Left);
-            var basedCurrentRight = faceHelper.GetFaceAxis(based, Face.Right);
+            var previousAxis = faceHelper.GetFaceAxis(normal, normal.OldX, Face.Left);
+            var currentAxis = faceHelper.GetFaceAxis(normal, Face.Left);
+            var comparableAxis = faceHelper.GetFaceAxis(based, Face.Right);
 
-            if (normalPreviousLeft <= basedCurrentRight && basedCurrentRight < normalCurrentLeft)
+            // If normal's not moving, do it wrt based
+            if (normal.X == normal.OldX)
+            {
+                previousAxis = faceHelper.GetFaceAxis(based, based.OldX, Face.Right);
+                currentAxis = faceHelper.GetFaceAxis(based, Face.Right);
+                comparableAxis = faceHelper.GetFaceAxis(normal, Face.Left);
+            }
+
+            if (previousAxis <= comparableAxis && comparableAxis < currentAxis)
             {
                 return true;
             }

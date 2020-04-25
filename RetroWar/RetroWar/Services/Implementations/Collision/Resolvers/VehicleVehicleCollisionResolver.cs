@@ -74,6 +74,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
 
             // Rewrite this shit so it works.
             // resolution should never be vertical past this point.
+            // => problem with this, if normal's not moving, it cannot compare previous/current
             if (collisionFinder.IsRightOf(normal, based))
             {
                 collisionResolution.PrimaryFace = Face.Right;
