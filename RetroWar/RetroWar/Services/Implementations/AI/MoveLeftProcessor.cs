@@ -38,6 +38,7 @@ namespace RetroWar.Services.Implementations.AI
             }
 
             enemy.FallSum += System.Math.Min(enemy.FallRate * deltaTime, 10);
+            enemy.FallSum = System.Math.Min(enemy.FallSum, 15);
             enemy.Y += enemy.FallSum;
 
             gridHandler.MoveSprite(contentRepository.CurrentStage.Grids, enemy);

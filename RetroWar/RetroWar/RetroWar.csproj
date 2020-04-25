@@ -97,6 +97,7 @@
     <Compile Include="Services\Implementations\Actions\ActionService.cs" />
     <Compile Include="Services\Implementations\Actions\SequenceService.cs" />
     <Compile Include="Services\Implementations\AI\BehaviorProcessorComposite.cs" />
+    <Compile Include="Services\Implementations\AI\RemoteControlledProcessor.cs" />
     <Compile Include="Services\Implementations\AI\MoveLeftAndRightProcessor.cs" />
     <Compile Include="Services\Implementations\AI\MoveLeftProcessor.cs" />
     <Compile Include="Services\Implementations\Collision\CollisionChecker.cs" />

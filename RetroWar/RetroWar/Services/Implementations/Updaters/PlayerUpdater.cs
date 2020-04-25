@@ -148,11 +148,10 @@ namespace RetroWar.Services.Implementations.Updaters
             playerTank.OldY = playerTank.Y;
 
             playerTank.FallSum += System.Math.Min(playerTank.FallRate * deltaTime, 10);
-            playerTank.deltaY += playerTank.FallSum;
+            playerTank.FallSum = System.Math.Min(playerTank.FallSum, 15);
 
             // Collision Handling
-            playerTank.Y += playerTank.deltaY;
-            playerTank.deltaY = 0;
+            playerTank.Y += playerTank.FallSum;
 
             playerTank.X += playerTank.deltaX;
             playerTank.deltaX = 0;

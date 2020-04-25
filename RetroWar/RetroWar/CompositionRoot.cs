@@ -120,12 +120,14 @@ namespace RetroWar
             // AI Behavior Processors
             services.AddSingleton<MoveLeftProcessor>();
             services.AddSingleton<MoveLeftAndRightProcessor>();
+            services.AddSingleton<RemoteControlledProcessor>();
 
             services.AddSingleton<IEnumerable<IBehaviorProcessor>>(
                 provider => new List<IBehaviorProcessor>
                 {
                     provider.GetService<MoveLeftProcessor>(),
-                    provider.GetService<MoveLeftAndRightProcessor>()
+                    provider.GetService<MoveLeftAndRightProcessor>(),
+                    provider.GetService<RemoteControlledProcessor>()
                 });
 
             services.AddSingleton<IBehaviorProcessor, BehaviorProcessorComposite>();

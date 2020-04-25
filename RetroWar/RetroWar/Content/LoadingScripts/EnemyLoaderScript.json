@@ -37,7 +37,7 @@
         }
       },
       "IsBoss": false,
-      "Behavior": "MoveLeftAndRight"
+      "Behavior": "RemoteControlled"
     }
   }
 ]

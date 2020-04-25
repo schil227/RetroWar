@@ -3,6 +3,7 @@
     public enum AIBehavior
     {
         MoveLeft = 0,
-        MoveLeftAndRight = 1
+        MoveLeftAndRight = 1,
+        RemoteControlled = 2
     }
 }
