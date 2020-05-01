@@ -57,24 +57,6 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 return true;
             }
 
-            // if based is moving faster than normal, get collision resolution WRT based sprite instead.
-            //if (BasedFasterThanNormal(normalVehicle, basedVehicle))
-            //{
-            //    // get collision face relative to based, then pick the opposite face cause everything else is WRT normal
-            //    collisionResolution = collisionFinder.FindCollisionResolutionFace(basedVehicle, normalVehicle, collisionResolution.DeltaTime);
-
-            //    if (collisionResolution.PrimaryFace == null)
-            //    {
-            //        return true;
-            //    }
-
-            //    collisionResolution.PrimaryFace = faceHelper.GetOppositeFace(collisionResolution.PrimaryFace.Value);
-            //}
-
-
-            // Rewrite this shit so it works.
-            // resolution should never be vertical past this point.
-            // => problem with this, if normal's not moving, it cannot compare previous/current
             if (collisionFinder.IsRightOf(normal, based))
             {
                 collisionResolution.PrimaryFace = Face.Right;
@@ -190,16 +172,19 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
             {
                 case Direction.Right:
                     {
+                        vehicle.OldX = vehicle.X;
                         vehicle.X += resolution.Magnitude;
                         break;
                     }
                 case Direction.Left:
                     {
+                        vehicle.OldX = vehicle.X;
                         vehicle.X -= resolution.Magnitude;
                         break;
                     }
                 case Direction.Up:
                     {
+                        vehicle.OldY = vehicle.Y;
                         vehicle.Y -= resolution.Magnitude;
                         vehicle.FallSum = 0;
                         vehicle.IsJumping = false;
@@ -208,6 +193,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                     }
                 case Direction.Down:
                     {
+                        vehicle.OldY = vehicle.Y;
                         vehicle.Y += resolution.Magnitude;
                         break;
                     }

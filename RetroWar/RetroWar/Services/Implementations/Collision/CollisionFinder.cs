@@ -1,5 +1,6 @@
 ﻿using RetroWar.Models.Collisions;
 using RetroWar.Models.Sprites;
+using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Helpers.Model;
 using System;
@@ -100,37 +101,59 @@ namespace RetroWar.Services.Implementations.Collision
             }
         }
 
-        public bool IsOnTopOf(Sprite normal, Sprite based)
+        public bool IsOnTopOf(Vehicle normal, Vehicle based)
         {
-            var normalPreviousBottom = faceHelper.GetFaceAxis(normal, normal.OldY, Face.Bottom);
-            var normalCurrentBottom = faceHelper.GetFaceAxis(normal, Face.Bottom);
-            var basedCurrentTop = faceHelper.GetFaceAxis(based, Face.Top);
+            var velocityDifference = Math.Abs(normal.FallSum) - Math.Abs(based.FallSum);
 
-            if (normalPreviousBottom <= basedCurrentTop && basedCurrentTop < normalCurrentBottom)
+            if (velocityDifference > 0)
             {
-                return true;
-            }
+                var previousAxis = faceHelper.GetFaceAxis(normal, normal.OldY, Face.Bottom);
+                var currentAxis = faceHelper.GetFaceAxis(normal, Face.Bottom);
+                var comparisonAxis = faceHelper.GetFaceAxis(based, Face.Top);
 
+                if (previousAxis <= comparisonAxis + 0.5f && comparisonAxis - 0.5f <= currentAxis)
+                {
+                    return true;
+                }
+            }
+            else
+            {
+                var previousAxis = faceHelper.GetFaceAxis(based, based.OldY, Face.Top);
+                var currentAxis = faceHelper.GetFaceAxis(based, Face.Top);
+                var comparisonAxis = faceHelper.GetFaceAxis(normal, Face.Bottom);
+
+                if (previousAxis >= comparisonAxis - 0.5f && comparisonAxis + 0.5f >= currentAxis)
+                {
+                    return true;
+                }
+            }
             return false;
         }
 
         public bool IsRightOf(Sprite normal, Sprite based)
         {
-            var previousAxis = faceHelper.GetFaceAxis(normal, normal.OldX, Face.Left);
-            var currentAxis = faceHelper.GetFaceAxis(normal, Face.Left);
-            var comparableAxis = faceHelper.GetFaceAxis(based, Face.Right);
-
-            // If normal's not moving, do it wrt based
-            if (normal.X == normal.OldX)
+            // If normal's moving, do it wrt to normal. otherwise, wrt based.
+            if (normal.X != normal.OldX)
             {
-                previousAxis = faceHelper.GetFaceAxis(based, based.OldX, Face.Right);
-                currentAxis = faceHelper.GetFaceAxis(based, Face.Right);
-                comparableAxis = faceHelper.GetFaceAxis(normal, Face.Left);
+                var previousAxis = faceHelper.GetFaceAxis(normal, normal.OldX, Face.Left);
+                var currentAxis = faceHelper.GetFaceAxis(normal, Face.Left);
+                var comparableAxis = faceHelper.GetFaceAxis(based, Face.Right);
+
+                if (previousAxis >= comparableAxis && comparableAxis >= currentAxis)
+                {
+                    return true;
+                }
             }
-
-            if (previousAxis <= comparableAxis && comparableAxis < currentAxis)
+            else
             {
-                return true;
+                var previousAxis = faceHelper.GetFaceAxis(based, based.OldX, Face.Right);
+                var currentAxis = faceHelper.GetFaceAxis(based, Face.Right);
+                var comparableAxis = faceHelper.GetFaceAxis(normal, Face.Left);
+
+                if (previousAxis <= comparableAxis && comparableAxis <= currentAxis)
+                {
+                    return true;
+                }
             }
 
             return false;
