@@ -61,8 +61,8 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 }
             }
 
-            // resolution was to push it up by landing on a tile; no longer falling.
-            if (illusion.Y < beforeY)
+            // resolution was to push it up/down, fall sum goes to 0
+            if (illusion.Y != beforeY)
             {
                 illusion.FallSum = 0;
             }

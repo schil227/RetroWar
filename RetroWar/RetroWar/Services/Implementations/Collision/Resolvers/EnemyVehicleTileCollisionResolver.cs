@@ -53,11 +53,16 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 }
             }
 
-            // resolution was to push it up by landing on a tile; no longer falling.
-            if (vehicle.Y < beforeY)
+            if (vehicle.Y != beforeY)
             {
+                //either pushed up/down, fall sum should go to 0.
                 vehicle.FallSum = 0;
-                vehicle.IsJumping = false;
+
+                // resolution was to push it up by landing on a tile; no longer falling.
+                if (vehicle.Y < beforeY)
+                {
+                    vehicle.IsJumping = false;
+                }
             }
 
             // TODO: introduce composite pattern here for new enemy types

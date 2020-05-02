@@ -52,11 +52,16 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 }
             }
 
-            // resolution was to push it up by landing on a tile; no longer falling.
-            if (playerVehicle.Y < beforeY)
+            if (playerVehicle.Y != beforeY)
             {
+                //either pushed up/down, fall sum should go to 0.
                 playerVehicle.FallSum = 0;
-                playerVehicle.IsJumping = false;
+
+                // resolution was to push it up by landing on a tile; no longer falling.
+                if (playerVehicle.Y < beforeY)
+                {
+                    playerVehicle.IsJumping = false;
+                }
             }
 
             return true;

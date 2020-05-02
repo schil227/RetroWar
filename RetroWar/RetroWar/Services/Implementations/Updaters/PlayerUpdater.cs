@@ -6,6 +6,7 @@ using RetroWar.Services.Interfaces.Actions;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Repositories;
 using RetroWar.Services.Interfaces.Updaters;
+using RetroWar.Services.Interfaces.UserInterface;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -16,17 +17,20 @@ namespace RetroWar.Services.Implementations.Updaters
         private readonly IActionService actionService;
         private readonly IContentRepository contentRepository;
         private readonly IGridHandler gridHandler;
+        private readonly IInputService inputService;
 
         public PlayerUpdater
             (
                 IActionService actionService,
                 IContentRepository contentRepository,
-                IGridHandler gridHandler
+                IGridHandler gridHandler,
+                IInputService inputService
             )
         {
             this.actionService = actionService;
             this.contentRepository = contentRepository;
             this.gridHandler = gridHandler;
+            this.inputService = inputService;
         }
 
         public bool UpdateSprite(Sprite sprite, float deltaTime, Dictionary<string, string> processedSprites)
@@ -42,9 +46,7 @@ namespace RetroWar.Services.Implementations.Updaters
                 return false;
             }
 
-            var keyState = Keyboard.GetState();
-
-            if (keyState.IsKeyDown(Keys.R))
+            if (inputService.IsKeyDown(Keys.R))
             {
                 playerTank.X = 16;
                 playerTank.Y = -16;
@@ -85,24 +87,24 @@ namespace RetroWar.Services.Implementations.Updaters
                 return true;
             }
 
-            if (keyState.IsKeyDown(Keys.W) && !playerTank.CurrentActions.Contains(Action.Destroyed))
+            if (inputService.IsKeyDown(Keys.W) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
                 playerTank.deltaY -= playerTank.VehicleSpeed * deltaTime;
             }
 
-            if (keyState.IsKeyDown(Keys.A) && !playerTank.CurrentActions.Contains(Action.Destroyed))
+            if (inputService.IsKeyDown(Keys.A) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
                 playerTank.deltaX -= playerTank.VehicleSpeed * deltaTime;
                 playerTank.CurrentDirection = Direction.Left;
             }
 
-            if (keyState.IsKeyDown(Keys.D) && !playerTank.CurrentActions.Contains(Action.Destroyed))
+            if (inputService.IsKeyDown(Keys.D) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
                 playerTank.deltaX += playerTank.VehicleSpeed * deltaTime;
                 playerTank.CurrentDirection = Direction.Right;
             }
 
-            if (keyState.IsKeyDown(Keys.J) && !playerTank.CurrentActions.Contains(Action.Destroyed))
+            if (inputService.KeyJustPressed(Keys.J) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
                 if (playerTank.FallSum == 0 && playerTank.IsJumping == false)
                 {
@@ -111,7 +113,7 @@ namespace RetroWar.Services.Implementations.Updaters
                 }
             }
 
-            if (keyState.IsKeyDown(Keys.K) && !playerTank.CurrentActions.Contains(Action.Destroyed) && !playerTank.CurrentActions.Contains(Action.Charging))
+            if (inputService.KeyJustPressed(Keys.K) && !playerTank.CurrentActions.Contains(Action.Destroyed) && !playerTank.CurrentActions.Contains(Action.Charging))
             {
                 if (playerTank.CurrentActions.Contains(Action.Armed))
                 {
@@ -119,17 +121,17 @@ namespace RetroWar.Services.Implementations.Updaters
                 }
             }
 
-            if (keyState.IsKeyUp(Keys.K) && playerTank.CurrentActions.Contains(Action.Charging) && !playerTank.CurrentActions.Contains(Action.Destroyed))
+            if (inputService.IsKeyUp(Keys.K) && playerTank.CurrentActions.Contains(Action.Charging) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
                 actionService.SetAction(playerTank, Action.FireStandard, Action.Charging);
             }
 
-            if (keyState.IsKeyUp(Keys.K) && playerTank.CurrentActions.Contains(Action.Charged) && !playerTank.CurrentActions.Contains(Action.Destroyed))
+            if (inputService.IsKeyUp(Keys.K) && playerTank.CurrentActions.Contains(Action.Charged) && !playerTank.CurrentActions.Contains(Action.Destroyed))
             {
                 actionService.SetAction(playerTank, Action.FireCharged, Action.Charged);
             }
 
-            if (keyState.IsKeyDown(Keys.A) || keyState.IsKeyDown(Keys.D))
+            if (inputService.IsKeyDown(Keys.A) || inputService.IsKeyDown(Keys.D))
             {
                 if (playerTank.CurrentActions.Contains(Action.Stationary))
                 {

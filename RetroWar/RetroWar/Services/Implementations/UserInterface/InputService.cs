@@ -27,9 +27,19 @@ namespace RetroWar.Services.Implementations.UserInterface
             return CurrentState.Contains(key) && !PreviousState.Contains(key);
         }
 
+        public bool IsKeyDown(Keys key)
+        {
+            return KeyPressed(key);
+        }
+
         public bool KeyPressed(Keys key)
         {
             return CurrentState.Contains(key) || (PreviousState != null && PreviousState.Contains(key));
+        }
+
+        public bool IsKeyUp(Keys key)
+        {
+            return CurrentState.Contains(key);
         }
     }
 }

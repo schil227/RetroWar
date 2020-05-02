@@ -7,5 +7,7 @@ namespace RetroWar.Services.Interfaces.UserInterface
         void LoadKeys(KeyboardState keyState);
         bool KeyJustPressed(Keys key);
         bool KeyPressed(Keys key);
+        bool IsKeyDown(Keys key);
+        bool IsKeyUp(Keys key);
     }
 }

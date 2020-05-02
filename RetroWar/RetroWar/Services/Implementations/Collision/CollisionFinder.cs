@@ -111,7 +111,15 @@ namespace RetroWar.Services.Implementations.Collision
                 var currentAxis = faceHelper.GetFaceAxis(normal, Face.Bottom);
                 var comparisonAxis = faceHelper.GetFaceAxis(based, Face.Top);
 
-                if (previousAxis <= comparisonAxis + 0.5f && comparisonAxis - 0.5f <= currentAxis)
+                var adjustedAxis = comparisonAxis;
+
+                // if based going up and normal going down, use based's old axis
+                if (based.FallSum < 0)
+                {
+                    adjustedAxis = faceHelper.GetFaceAxis(based, based.OldY, Face.Top);
+                }
+
+                if (previousAxis <= adjustedAxis + 0.75f && adjustedAxis - 0.75f <= currentAxis)
                 {
                     return true;
                 }
@@ -122,11 +130,20 @@ namespace RetroWar.Services.Implementations.Collision
                 var currentAxis = faceHelper.GetFaceAxis(based, Face.Top);
                 var comparisonAxis = faceHelper.GetFaceAxis(normal, Face.Bottom);
 
-                if (previousAxis >= comparisonAxis - 0.5f && comparisonAxis + 0.5f >= currentAxis)
+                var adjustedAxis = comparisonAxis;
+
+                // if normal going down and based going up, use normal's old axis
+                if (normal.FallSum > 0)
+                {
+                    adjustedAxis = faceHelper.GetFaceAxis(normal, normal.OldY, Face.Bottom);
+                }
+
+                if (previousAxis >= adjustedAxis - 0.75f && adjustedAxis + 0.75f >= currentAxis)
                 {
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -139,7 +156,7 @@ namespace RetroWar.Services.Implementations.Collision
                 var currentAxis = faceHelper.GetFaceAxis(normal, Face.Left);
                 var comparableAxis = faceHelper.GetFaceAxis(based, Face.Right);
 
-                if (previousAxis >= comparableAxis && comparableAxis >= currentAxis)
+                if (previousAxis >= comparableAxis - 0.75f && comparableAxis + 0.75f >= currentAxis)
                 {
                     return true;
                 }
@@ -150,7 +167,7 @@ namespace RetroWar.Services.Implementations.Collision
                 var currentAxis = faceHelper.GetFaceAxis(based, Face.Right);
                 var comparableAxis = faceHelper.GetFaceAxis(normal, Face.Left);
 
-                if (previousAxis <= comparableAxis && comparableAxis <= currentAxis)
+                if (previousAxis <= comparableAxis + 0.75f && comparableAxis - 0.75f <= currentAxis)
                 {
                     return true;
                 }

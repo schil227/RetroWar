@@ -211,7 +211,7 @@ namespace RetroWar
 
             var deltaT = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            var boxes = gridHandler.GetGridsFromPoints(stage.Grids, screen.X, screen.Y, screen.X + screen.Width, screen.Y + screen.Height);
+            var boxes = gridHandler.GetGridsFromPoints(stage.Grids, screen.X - 32, screen.Y - 32, screen.X + screen.Width + 32, screen.Y + screen.Height + 32);
 
             UpdateSprites(boxes, deltaT);
 
