@@ -97,16 +97,30 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
             if (normalVelocity == 0 && basedVelocity == 0)
             {
                 // resolve them as is
+                ResolveVehicles(normalVehicle, basedVehicle, normalResolution, basedResolution);
+                return true;
             }
-            else if (VelocitesAgainstEachother(normalVelocity, basedVelocity))
+            else if (VelocitesAgainstEachOther(normalVelocity, basedVelocity))
             {
                 normalResolution.Magnitude = AdjustDifferenceByRelatedVelocities(difference, normalVelocity, basedVelocity);
                 basedResolution.Magnitude = difference - normalResolution.Magnitude;
+
+                // based is moving more, resolve them first
+                if (normalResolution.Magnitude < basedResolution.Magnitude)
+                {
+                    ResolveVehicles(basedVehicle, normalVehicle, basedResolution, normalResolution);
+                }
+                else
+                {
+                    ResolveVehicles(normalVehicle, basedVehicle, normalResolution, basedResolution);
+                }
+
+                return true;
             }
             else
             {
                 // going the same direction
-                if (normalVelocity >= basedVelocity)
+                if (Math.Abs(normalVelocity) >= Math.Abs(basedVelocity))
                 {
                     normalResolution.Magnitude = 0;
                 }
@@ -116,18 +130,25 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 }
 
                 basedResolution.Magnitude = difference - normalResolution.Magnitude;
+
+                if (normalResolution.Magnitude < basedResolution.Magnitude)
+                {
+                    ResolveVehicles(basedVehicle, normalVehicle, basedResolution, normalResolution);
+                }
+                else
+                {
+                    ResolveVehicles(normalVehicle, basedVehicle, normalResolution, basedResolution);
+                }
+
+                return true;
             }
-
-            ResolveVehicles(normalVehicle, basedVehicle, normalResolution, basedResolution);
-
-            return true;
         }
 
         private void HandleVerticleCollisionResolution(Vehicle rider, Vehicle carrier)
         {
             var riderVerticalResolution = carrierRiderResolver.GetRiderVerticleResolutionVector(rider, carrier);
 
-            ResolveVehicles(carrier, rider, new ResolutionVector { Direction = Direction.Down, Magnitude = 0 }, riderVerticalResolution);
+            ResolveVehicles(rider, carrier, riderVerticalResolution, new ResolutionVector { Direction = Direction.Down, Magnitude = 0 });
 
             var riderHorizontalResolution = carrierRiderResolver.GetRiderHorizontalResolutionVector(rider, carrier);
 
@@ -146,10 +167,10 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 || basedYSpeed > normalXSpeed && basedYSpeed > normalYSpeed;
         }
 
-        private void ResolveVehicles(Vehicle normal, Vehicle based, ResolutionVector normalResolution, ResolutionVector basedResolution)
+        private void ResolveVehicles(Vehicle firstToResolve, Vehicle secondToResolve, ResolutionVector firstResolution, ResolutionVector secondResolution)
         {
-            normalResolution.Magnitude += ResolveVehicle(based, basedResolution);
-            ResolveVehicle(normal, normalResolution);
+            secondResolution.Magnitude += ResolveVehicle(firstToResolve, firstResolution);
+            ResolveVehicle(secondToResolve, secondResolution);
         }
 
         private float ResolveVehicle(Vehicle vehicle, ResolutionVector resolution)
@@ -195,6 +216,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                     {
                         vehicle.OldY = vehicle.Y;
                         vehicle.Y += resolution.Magnitude;
+                        vehicle.FallSum = 0;
                         break;
                     }
             }
@@ -202,10 +224,15 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
             return Math.Abs(remainder);
         }
 
-        private bool VelocitesAgainstEachother(float normalVelocity, float basedVelocity)
+        private bool VelocitesAgainstEachOther(float normalVelocity, float basedVelocity)
         {
-            return normalVelocity >= 0 && basedVelocity <= 0
-                || normalVelocity <= 0 && basedVelocity >= 0;
+            if (normalVelocity == 0 || basedVelocity == 0)
+            {
+                return false;
+            }
+
+            return normalVelocity > 0 && basedVelocity < 0
+                || normalVelocity < 0 && basedVelocity > 0;
         }
 
         // Names are hard.

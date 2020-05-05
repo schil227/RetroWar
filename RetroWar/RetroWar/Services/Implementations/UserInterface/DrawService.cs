@@ -6,6 +6,7 @@ using RetroWar.Models.Screen;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.HitBoxes;
 using RetroWar.Models.Sprites.Textures;
+using RetroWar.Models.Sprites.Tiles;
 using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Collision.Grid;
 using RetroWar.Services.Interfaces.Helpers.Model;
@@ -23,6 +24,7 @@ namespace RetroWar.Services.Implementations.UserInterface
 
         private static Dictionary<Tuple<int, int>, Texture2D> cachedHitBoxTextures;
         private static bool DebugModeEnabled;
+        private SpriteFont spriteFont;
 
         public DrawService(
             IGridHandler gridHandler,
@@ -33,7 +35,12 @@ namespace RetroWar.Services.Implementations.UserInterface
             this.spriteHelper = spriteHelper;
 
             cachedHitBoxTextures = new Dictionary<Tuple<int, int>, Texture2D>();
-            DebugModeEnabled = false;
+            DebugModeEnabled = true;
+        }
+
+        public void SetFont(SpriteFont spriteFont)
+        {
+            this.spriteFont = spriteFont;
         }
 
         public void DrawScreen(SpriteBatch spriteBatch, Stage stage, Screen screen, IEnumerable<TextureDatabaseItem> textureDatabaseItems)
@@ -117,6 +124,11 @@ namespace RetroWar.Services.Implementations.UserInterface
             if (DebugModeEnabled)
             {
                 DrawHitbox(sprite, spriteBatch, screen, screenLocked);
+
+                if (sprite is Tile tile)
+                {
+                    DrawPosition(tile, spriteBatch, screen, screenLocked);
+                }
             }
         }
 
@@ -150,6 +162,21 @@ namespace RetroWar.Services.Implementations.UserInterface
             }
 
             spriteBatch.Draw(hitboxRectangle, position, Color.Red);
+        }
+
+        private void DrawPosition(Sprite sprite, SpriteBatch spriteBatch, Screen screen, bool screenLocked)
+        {
+            Vector2 position;
+            position.X = sprite.X + 0.5f;
+            position.Y = sprite.Y + 0.5f;
+
+            if (!screenLocked)
+            {
+                position.X -= screen.X;
+                position.Y -= screen.Y;
+            }
+
+            spriteBatch.DrawString(spriteFont, $"{sprite.X / 16},{sprite.Y / 16}", position, Color.Black);
         }
 
         private Texture2D MakeHitBoxTexture(SpriteBatch spriteBatch, Sprite sprite, HitBox currentHitBox)

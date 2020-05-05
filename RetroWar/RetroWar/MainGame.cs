@@ -27,6 +27,7 @@ namespace RetroWar
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont spriteFont;
 
         private readonly ISpriteHelper spriteHelper;
         private readonly ICollisionService collisionService;
@@ -162,6 +163,9 @@ namespace RetroWar
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            spriteFont = Content.Load<SpriteFont>("Sprites\\debug2");
+
+            drawService.SetFont(spriteFont);
             // TODO: use this.Content to load your game content here
             //tankTexture = Content.Load<Texture2D>("Sprites/tankv1");
             //groundTexture = Content.Load<Texture2D>("Sprites/ground1");

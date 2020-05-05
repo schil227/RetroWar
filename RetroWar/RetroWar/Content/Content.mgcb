@@ -25,6 +25,13 @@
 /processorParam:TextureFormat=Color
 /build:Sprites/cursor.png
 
+#begin Sprites/debug2.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Sprites/debug2.spritefont
+
 #begin Sprites/enemy_tankv1.png
 /importer:TextureImporter
 /processor:TextureProcessor

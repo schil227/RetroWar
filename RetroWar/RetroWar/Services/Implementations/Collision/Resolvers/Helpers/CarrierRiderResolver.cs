@@ -64,7 +64,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers.Helpers
 
                         var closestTileFaceAxis = FindClosestTileAxis(Face.Bottom, xStart, xEnd, axisStart, axisStart - magnitude);
 
-                        return Math.Abs(axisStart) - Math.Abs(closestTileFaceAxis);
+                        return Math.Abs(Math.Abs(axisStart) - Math.Abs(closestTileFaceAxis));
                     }
                 case Direction.Down:
                     {
@@ -75,7 +75,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers.Helpers
 
                         var closestTileFaceAxis = FindClosestTileAxis(Face.Top, xStart, xEnd, axisStart, axisStart + magnitude);
 
-                        return Math.Abs(axisStart) - Math.Abs(closestTileFaceAxis);
+                        return Math.Abs(Math.Abs(axisStart) - Math.Abs(closestTileFaceAxis));
                     }
                 case Direction.Left:
                     {
@@ -86,7 +86,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers.Helpers
 
                         var closestTileFaceAxis = FindClosestTileAxis(Face.Right, yStart, yEnd, axisStart, axisStart - magnitude);
 
-                        return Math.Abs(axisStart) - Math.Abs(closestTileFaceAxis);
+                        return Math.Abs(Math.Abs(axisStart) - Math.Abs(closestTileFaceAxis));
                     }
                 case Direction.Right:
                     {
@@ -111,22 +111,22 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers.Helpers
 
             var deltaStep = deltaAxis < axisStart ? -1 : 1;
 
-            var deltaStart = (int)((axisStart + deltaStep * 16) / 16);
+            var deltaStart = GetTileCoord(axisStart + deltaStep * 16);
 
             // if the deltaAxis is closer than axisStart +/- 16, just start at the deltaAxis and do one loop
             if (Math.Abs(axisStart - deltaAxis) < 16)
             {
-                deltaStart = (int)(deltaAxis / 16);
+                deltaStart = GetTileCoord(deltaAxis);
             }
 
-            var deltaEnd = (int)(deltaAxis / 16);
+            var deltaEnd = GetTileCoord(deltaAxis);
 
             // The broad side pixels are moved in a little to prevent clipping an adjsent sprite
             // e.g. player pushing enemy tank on the ground BEFORE enemy tank is pushed up by gravity
             //      (So the enemy tank is clipping in the ground). +/- 4 makes it so the clipped tile
             //      Isn't picked up.
-            var adjBroadStart = Math.Min((int)((broadStart + 4) / 16), (int)(broadEnd / 16));
-            var adjBroadEnd = Math.Min((int)((broadEnd - 4) / 16), (int)(broadStart / 16));
+            var adjBroadStart = Math.Min(GetTileCoord(broadStart + 4), GetTileCoord(broadEnd));
+            var adjBroadEnd = Math.Min(GetTileCoord(broadEnd - 4), GetTileCoord(broadStart));
 
             for (var i = deltaStart; IsPastFinalStep(i, deltaEnd, deltaStep); i += deltaStep)
             {
@@ -160,6 +160,18 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers.Helpers
             {
                 return i >= deltaEnd;
             }
+        }
+
+        private int GetTileCoord(float position)
+        {
+            // negative values need to be pushed to the previous tile, 
+            // since a position of, say -5 would otherwise put them in the wrong tile
+            // -5/16  => tile 0
+            // subtracting 1 when the postion is negative corrects this:
+            // (-5/16) - 1 => tile -1
+            // box:... -2          -1          0        1         2  ...
+            // posn:   [-32, -16]  [-16, -0]  [0, 16]   [16, 32]  [32, 48]
+            return (int)(position > 0 ? position / 16 : (position / 16) - 1);
         }
     }
 }

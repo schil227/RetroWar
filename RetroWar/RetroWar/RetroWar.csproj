@@ -278,6 +278,9 @@
     <None Include="Content\Sprites\ASE\tankv1_moving.ase" />
     <None Include="Content\Sprites\ASE\tankv1_moving_v1.ase" />
     <None Include="Content\Sprites\ASE\tankv1_moving_v2.ase" />
+    <None Include="Content\Sprites\debug2.spritefont">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup />

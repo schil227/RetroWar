@@ -10,6 +10,7 @@ namespace RetroWar.Services.Interfaces.UserInterface
 {
     public interface IDrawService
     {
+        void SetFont(SpriteFont spriteFont);
         void DrawScreen(SpriteBatch spriteBatch, Stage stage, Screen screen, IEnumerable<TextureDatabaseItem> textureDatabaseItem);
         void DrawSprite(SpriteBatch spriteBatch, Sprite sprite, IEnumerable<TextureDatabaseItem> textureDatabaseItems, Screen screen, KeyValuePair<TextureData, RetroWar.Models.Sprites.Actions.Action> textureActionPair, bool screenLocked);
     }
