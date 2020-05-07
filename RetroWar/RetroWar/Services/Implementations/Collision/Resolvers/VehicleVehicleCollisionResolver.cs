@@ -57,12 +57,14 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 return true;
             }
 
-            if (collisionFinder.IsRightOf(normal, based))
+            if (collisionFinder.IsRightOf(normalVehicle, basedVehicle))
             {
                 collisionResolution.PrimaryFace = Face.Right;
             }
             else
             {
+                normalVehicle.StickyCollisionData.Add(based.SpriteId, Face.Left);
+                basedVehicle.StickyCollisionData.Add(normal.SpriteId, Face.Right);
                 collisionResolution.PrimaryFace = Face.Left;
             }
 

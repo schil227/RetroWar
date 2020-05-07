@@ -8,6 +8,6 @@ namespace RetroWar.Services.Interfaces.Collision
     {
         CollisionResolution FindCollisionResolutionFace(Sprite normal, Sprite based, float deltaTime);
         bool IsOnTopOf(Vehicle normal, Vehicle based);
-        bool IsRightOf(Sprite normal, Sprite based);
+        bool IsRightOf(Vehicle normal, Vehicle based);
     }
 }

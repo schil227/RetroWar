@@ -1,4 +1,5 @@
 ﻿using RetroWar.Models.Sprites;
+using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Collision;
 using RetroWar.Services.Interfaces.Collision.Resolvers;
 
@@ -26,6 +27,12 @@ namespace RetroWar.Services.Implementations.Collision
         {
             if (!collisionChecker.AreColliding(normal, based))
             {
+                if (normal is Vehicle && based is Vehicle)
+                {
+                    ((Vehicle)normal).StickyCollisionData.Remove(based.SpriteId);
+                    ((Vehicle)based).StickyCollisionData.Remove(normal.SpriteId);
+                }
+
                 return true;
             }
 

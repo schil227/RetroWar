@@ -219,23 +219,16 @@ namespace RetroWar
 
             UpdateSprites(boxes, deltaT);
 
-            var spritesToMove = CollideSprites(boxes, deltaT);
-
-            // if sprites are updated by collisions, their boxes must be updated.
-            foreach (var sprite in spritesToMove)
-            {
-                //gridHandler.MoveSprite(stage.Grids, sprite, (int)sprite.oldX, (int)sprite.oldY);
-            }
+            CollideSprites(boxes, deltaT);
 
             screenService.ScrollScreen(screen, playerTank);
 
             base.Update(gameTime);
         }
 
-        private HashSet<Sprite> CollideSprites(IEnumerable<GridContainer> boxes, float deltaT)
+        private void CollideSprites(IEnumerable<GridContainer> boxes, float deltaT)
         {
             var collidedSprites = new Dictionary<string, string>();
-            var spritesToMove = new HashSet<Sprite>();
             foreach (var box in boxes)
             {
                 var sprites = gridContainerHelper.GetActionableGridSprites(box);
@@ -255,14 +248,11 @@ namespace RetroWar
 
                         if (collisionService.HandleCollision(normal, based, deltaT))
                         {
-                            spritesToMove.Add(normal);
                             collidedSprites.Add(normal.SpriteId + based.SpriteId, "collided");
                         }
                     }
                 }
             }
-
-            return spritesToMove;
         }
 
         private void UpdateSprites(IEnumerable<GridContainer> boxes, float deltaT)

@@ -171,7 +171,7 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers.Helpers
             // (-5/16) - 1 => tile -1
             // box:... -2          -1          0        1         2  ...
             // posn:   [-32, -16]  [-16, -0]  [0, 16]   [16, 32]  [32, 48]
-            return (int)(position > 0 ? position / 16 : (position / 16) - 1);
+            return (int)(position >= 0 ? position / 16 : (position / 16) - 1);
         }
     }
 }
