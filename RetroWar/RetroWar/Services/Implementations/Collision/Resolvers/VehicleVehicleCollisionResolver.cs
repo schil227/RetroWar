@@ -63,8 +63,16 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
             }
             else
             {
-                normalVehicle.StickyCollisionData.Add(based.SpriteId, Face.Left);
-                basedVehicle.StickyCollisionData.Add(normal.SpriteId, Face.Right);
+                if (!normalVehicle.StickyCollisionData.ContainsKey(basedVehicle.SpriteId))
+                {
+                    normalVehicle.StickyCollisionData.Add(based.SpriteId, Face.Left);
+                }
+
+                if (!basedVehicle.StickyCollisionData.ContainsKey(normalVehicle.SpriteId))
+                {
+                    basedVehicle.StickyCollisionData.Add(normal.SpriteId, Face.Right);
+                }
+
                 collisionResolution.PrimaryFace = Face.Left;
             }
 

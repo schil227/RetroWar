@@ -79,8 +79,6 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers
                 }
             }
 
-
-
             return true;
         }
     }

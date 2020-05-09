@@ -128,6 +128,14 @@ namespace RetroWar.Services.Implementations.Collision.Resolvers.Helpers
             var adjBroadStart = Math.Min(GetTileCoord(broadStart + 4), GetTileCoord(broadEnd));
             var adjBroadEnd = Math.Min(GetTileCoord(broadEnd - 4), GetTileCoord(broadStart));
 
+            if (adjBroadStart > adjBroadEnd)
+            {
+                // Yeah I could do the int swap without a tmp variable but I'm not in the mood.
+                var tmp = adjBroadEnd;
+                adjBroadEnd = adjBroadStart;
+                adjBroadStart = tmp;
+            }
+
             for (var i = deltaStart; IsPastFinalStep(i, deltaEnd, deltaStep); i += deltaStep)
             {
                 for (var j = adjBroadStart; j <= adjBroadEnd; j++)

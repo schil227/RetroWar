@@ -14,5 +14,6 @@ namespace RetroWar.Services.Interfaces.Helpers.Model
         HitBox GetHitBox(Sprite sprite);
         IDictionary<TextureData, Action> GetCurrentTextureData(Sprite sprite);
         int GetHitboxXOffset(Sprite sprite, int currentXOffset, int hitBoxWidth);
+        Point GetMaximumHitboxPoints(Sprite sprite);
     }
 }

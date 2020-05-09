@@ -90,5 +90,16 @@ namespace RetroWar.Services.Implementations.Helpers.Model
 
             return point;
         }
+
+        public Point GetMaximumHitboxPoints(Sprite sprite)
+        {
+            var point = new Point();
+            var hitbox = GetHitBox(sprite);
+
+            point.X = (int)sprite.X + GetHitboxXOffset(sprite, hitbox.RelativeX, hitbox.Width) + hitbox.Width;
+            point.Y = (int)sprite.Y + hitbox.RelativeY + hitbox.Height;
+
+            return point;
+        }
     }
 }

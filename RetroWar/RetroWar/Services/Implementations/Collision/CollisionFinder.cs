@@ -1,4 +1,5 @@
-﻿using RetroWar.Models.Collisions;
+﻿using RetroWar.Exceptions.Implementations.Collision;
+using RetroWar.Models.Collisions;
 using RetroWar.Models.Sprites;
 using RetroWar.Models.Sprites.Vehicles;
 using RetroWar.Services.Interfaces.Collision;
@@ -101,6 +102,72 @@ namespace RetroWar.Services.Implementations.Collision
             }
         }
 
+        public void SetStickyFace(Vehicle normal, Vehicle based)
+        {
+            if (IsOnTopOf(normal, based))
+            {
+                normal.StickyCollisionData.Add(based.SpriteId, Face.Top);
+                based.StickyCollisionData.Add(normal.SpriteId, Face.Bottom);
+
+                return;
+            }
+            else if (IsOnTopOf(based, normal))
+            {
+                normal.StickyCollisionData.Add(based.SpriteId, Face.Bottom);
+                based.StickyCollisionData.Add(normal.SpriteId, Face.Top);
+
+                return;
+            }
+            else if (IsRightOf(normal, based))
+            {
+                normal.StickyCollisionData.Add(based.SpriteId, Face.Right);
+                based.StickyCollisionData.Add(normal.SpriteId, Face.Left);
+                return;
+            }
+            else if (IsRightOf(based, normal))
+            {
+                normal.StickyCollisionData.Add(based.SpriteId, Face.Left);
+                based.StickyCollisionData.Add(normal.SpriteId, Face.Right);
+                return;
+            }
+
+            Console.Write("Failure!");
+
+            // For good old debugging purposes
+            if (IsOnTopOf(normal, based))
+            {
+                normal.StickyCollisionData.Add(based.SpriteId, Face.Top);
+                based.StickyCollisionData.Add(normal.SpriteId, Face.Bottom);
+
+                return;
+            }
+            else if (IsOnTopOf(based, normal))
+            {
+                normal.StickyCollisionData.Add(based.SpriteId, Face.Bottom);
+                based.StickyCollisionData.Add(normal.SpriteId, Face.Top);
+
+                return;
+            }
+            else if (IsRightOf(normal, based))
+            {
+                normal.StickyCollisionData.Add(based.SpriteId, Face.Right);
+                based.StickyCollisionData.Add(normal.SpriteId, Face.Left);
+                return;
+            }
+            else if (IsRightOf(based, normal))
+            {
+                normal.StickyCollisionData.Add(based.SpriteId, Face.Left);
+                based.StickyCollisionData.Add(normal.SpriteId, Face.Right);
+                return;
+            }
+
+            throw new CollisionFinderException($"Could not find entry face between normal {normal.SpriteId} and based {based.SpriteId}. " +
+                $"This could be becase they are not colliding, or they are colliding, but one has been pushed into the other (\"Zoning problem\")." +
+                $"For the zoning problem to occur, one vehicle had to have its position changed due to a resolution, which pushed it inside of the other." +
+                $"This makes it impossible to determine which face of the sprite it entered. \r\n" +
+                $" Make sure AABB collision is checked with all other nearby vehicles/moving sprites every time the sprite is moved.");
+        }
+
         public bool IsOnTopOf(Vehicle normal, Vehicle based)
         {
             if (normal.StickyCollisionData.TryGetValue(based.SpriteId, out var basedStickyFace) && basedStickyFace == Face.Top)
@@ -117,25 +184,36 @@ namespace RetroWar.Services.Implementations.Collision
             var currentAxis = faceHelper.GetFaceAxis(normal, Face.Bottom);
             var comparisonAxis = faceHelper.GetFaceAxis(based, Face.Top);
 
-            if (previousAxis <= comparisonAxis && comparisonAxis <= currentAxis)
+            if (previousAxis <= comparisonAxis && comparisonAxis <= currentAxis ||
+                previousAxis >= comparisonAxis && comparisonAxis >= currentAxis)
             {
-                normal.StickyCollisionData.Add(based.SpriteId, Face.Top);
-                based.StickyCollisionData.Add(normal.SpriteId, Face.Bottom);
                 return true;
             }
 
-            var adjustedAxis = comparisonAxis;
+            var adjustedAxis = faceHelper.GetFaceAxis(based, based.OldY, Face.Top);
 
-            // if based going up and normal going down, use based's old axis
-            if (based.FallSum < 0)
+            if (previousAxis <= adjustedAxis && adjustedAxis <= currentAxis ||
+                previousAxis >= adjustedAxis && adjustedAxis >= currentAxis)
             {
-                adjustedAxis = faceHelper.GetFaceAxis(based, based.OldY, Face.Top);
+                return true;
             }
 
-            if (previousAxis <= adjustedAxis && adjustedAxis <= currentAxis)
+            // wrt based:
+            previousAxis = faceHelper.GetFaceAxis(based, based.OldY, Face.Top);
+            currentAxis = faceHelper.GetFaceAxis(based, Face.Top);
+            comparisonAxis = faceHelper.GetFaceAxis(normal, Face.Bottom);
+
+            if (previousAxis <= comparisonAxis && comparisonAxis <= currentAxis ||
+                previousAxis >= comparisonAxis && comparisonAxis >= currentAxis)
             {
-                normal.StickyCollisionData.Add(based.SpriteId, Face.Top);
-                based.StickyCollisionData.Add(normal.SpriteId, Face.Bottom);
+                return true;
+            }
+
+            adjustedAxis = faceHelper.GetFaceAxis(normal, normal.OldY, Face.Bottom);
+
+            if (previousAxis <= adjustedAxis && adjustedAxis <= currentAxis ||
+                previousAxis >= adjustedAxis && adjustedAxis >= currentAxis)
+            {
                 return true;
             }
 
@@ -154,34 +232,40 @@ namespace RetroWar.Services.Implementations.Collision
                 return true;
             }
 
-            // If normal's moving, do it wrt to normal. otherwise, wrt based.
-            if (normal.X != normal.OldX)
+            var previousAxis = faceHelper.GetFaceAxis(normal, normal.OldX, Face.Left);
+            var currentAxis = faceHelper.GetFaceAxis(normal, Face.Left);
+            var comparableAxis = faceHelper.GetFaceAxis(based, Face.Right);
+
+            if (previousAxis >= comparableAxis && comparableAxis >= currentAxis ||
+                previousAxis <= comparableAxis && comparableAxis <= currentAxis)
             {
-                var previousAxis = faceHelper.GetFaceAxis(normal, normal.OldX, Face.Left);
-                var currentAxis = faceHelper.GetFaceAxis(normal, Face.Left);
-                var comparableAxis = faceHelper.GetFaceAxis(based, Face.Right);
-
-                if (previousAxis >= comparableAxis && comparableAxis >= currentAxis)
-                {
-                    normal.StickyCollisionData.Add(based.SpriteId, Face.Right);
-                    based.StickyCollisionData.Add(normal.SpriteId, Face.Left);
-
-                    return true;
-                }
+                return true;
             }
-            else
+
+            var adjustedAxis = faceHelper.GetFaceAxis(based, based.OldX, Face.Right);
+
+            if (previousAxis >= adjustedAxis && adjustedAxis >= currentAxis ||
+                previousAxis <= adjustedAxis && adjustedAxis <= currentAxis)
             {
-                var previousAxis = faceHelper.GetFaceAxis(based, based.OldX, Face.Right);
-                var currentAxis = faceHelper.GetFaceAxis(based, Face.Right);
-                var comparableAxis = faceHelper.GetFaceAxis(normal, Face.Left);
+                return true;
+            }
 
-                if (previousAxis <= comparableAxis && comparableAxis <= currentAxis)
-                {
-                    normal.StickyCollisionData.Add(based.SpriteId, Face.Right);
-                    based.StickyCollisionData.Add(normal.SpriteId, Face.Left);
+            previousAxis = faceHelper.GetFaceAxis(based, based.OldX, Face.Right);
+            currentAxis = faceHelper.GetFaceAxis(based, Face.Right);
+            comparableAxis = faceHelper.GetFaceAxis(normal, Face.Left);
 
-                    return true;
-                }
+            if (previousAxis <= comparableAxis && comparableAxis <= currentAxis ||
+                previousAxis >= comparableAxis && comparableAxis >= currentAxis)
+            {
+                return true;
+            }
+
+            adjustedAxis = faceHelper.GetFaceAxis(normal, normal.OldX, Face.Left);
+
+            if (previousAxis <= adjustedAxis && adjustedAxis <= currentAxis ||
+                previousAxis >= adjustedAxis && adjustedAxis >= currentAxis)
+            {
+                return true;
             }
 
             return false;
